@@ -23,7 +23,7 @@ namespace vMenuClient
         #region Variables
         private static string _currentScenario = "";
         private static Vehicle _previousVehicle;
-
+        //test
         internal static bool DriveToWpTaskActive = false;
         internal static bool DriveWanderTaskActive = false;
         #endregion

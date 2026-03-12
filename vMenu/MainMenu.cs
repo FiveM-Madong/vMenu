@@ -48,6 +48,7 @@ namespace vMenuClient
         public static VoiceChat VoiceChatSettingsMenu { get; private set; }
         public static About AboutMenu { get; private set; }
         public static bool NoClipEnabled { get { return NoClip.IsNoclipActive(); } set { NoClip.SetNoclipActive(value); } }
+        public static IPlayerList PlayersList;
 
         public static bool DebugMode = GetResourceMetadata(GetCurrentResourceName(), "client_debug_mode", 0) == "true";
         public static bool EnableExperimentalFeatures = (GetResourceMetadata(GetCurrentResourceName(), "experimental_features_enabled", 0) ?? "0") == "1";
@@ -329,6 +330,12 @@ namespace vMenuClient
             }
         }
 
+        #region Infinity bits
+        [EventHandler("vMenu:ReceivePlayerList")]
+        public void ReceivedPlayerList(IList<object> players)
+        {
+            PlayersList?.ReceivedPlayerList(players);
+        }
 
         struct RPCData
         {

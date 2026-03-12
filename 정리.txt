@@ -1,4 +1,4 @@
-접속중인 플레이어 vMenu/OnlinePlayers.cs (Keyword: Online Players)
+접속중인 플레이어 vMenu/OnlinePlayers.cs (Keyword: Online Players) -> 이거 불가 이유: 접속중인 플레이어 관련된 function을 지울경우 플레이어의 객체를 받아들이질 못함
 밴 유저 목록 vMenu/BannedPlayers.cs (Keyword: Banned Players)
 월드 설정 vMenu/EventManager.cs (Keyword: World Related Options)
 

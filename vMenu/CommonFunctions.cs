@@ -3291,8 +3291,6 @@ namespace vMenuClient
         public static void PrivateMessage(string source, string message) => PrivateMessage(source, message, false);
         public static async void PrivateMessage(string source, string message, bool sent)
         {
-            MainMenu.PlayersList.RequestPlayerList();
-            await MainMenu.PlayersList.WaitRequested();
 
             var name = MainMenu.PlayersList.ToList()
                 .Find(plr => plr.ServerId.ToString() == source)?.Name ?? "**Invalid**";

@@ -32,6 +32,7 @@ namespace vMenuClient
         public static Menu WorldSubmenu { get; private set; }
 
         public static PlayerOptions PlayerOptionsMenu { get; private set; }
+        public static OnlinePlayers OnlinePlayersMenu { get; private set; }
         public static BannedPlayers BannedPlayersMenu { get; private set; }
         public static SavedVehicles SavedVehiclesMenu { get; private set; }
         public static PersonalVehicle PersonalVehicleMenu { get; private set; }
@@ -67,6 +68,7 @@ namespace vMenuClient
         /// </summary>
         public MainMenu()
         {
+            PlayersList = new NativePlayerList(Players);
 
             #region cleanup unused kvps
             var tmp_kvp_handle = StartFindKvp("");
@@ -629,6 +631,27 @@ namespace vMenuClient
         /// </summary>
         private static void CreateSubmenus()
         {
+            // Add the online players menu.
+            if (IsAllowed(Permission.OPMenu))
+            {
+                OnlinePlayersMenu = new OnlinePlayers();
+                var menu = OnlinePlayersMenu.GetMenu();
+                var button = new MenuItem("Online Players", "All currently connected players.")
+                {
+                    Label = "→→→"
+                };
+                AddMenu(Menu, menu, button);
+                Menu.OnItemSelect += async (sender, item, index) =>
+                {
+                    if (item == button)
+                    {
+                        PlayersList.RequestPlayerList();
+
+                        await OnlinePlayersMenu.UpdatePlayerlist();
+                        menu.RefreshIndex();
+                    }
+                };
+            }
             if (IsAllowed(Permission.OPUnban) || IsAllowed(Permission.OPViewBannedPlayers))
             {
                 BannedPlayersMenu = new BannedPlayers();

@@ -1077,6 +1077,42 @@ namespace vMenuServer
         }
         #endregion
 
+        #region Infinity bits
+        // TODO: Replace this logic and all child logic with statebags (server set, client read)
+        [EventHandler("vMenu:RequestPlayerList")]
+        internal void RequestPlayerListFromPlayer([FromSource] Player player)
+        {
+            player.TriggerEvent("vMenu:ReceivePlayerList", Players.Select(p => new
+            {
+                n = p.Name,
+                s = int.Parse(p.Handle),
+            }));
+        }
+
+        [EventHandler("vMenu:GetPlayerCoords")]
+        internal void GetPlayerCoords([FromSource] Player source, long rpcId, int playerId, NetworkCallbackDelegate callback)
+        {
+            var coords = Vector3.Zero;
+
+            if (PermissionsManager.IsAllowed(PermissionsManager.Permission.OPTeleport, source) || PermissionsManager.IsAllowed(PermissionsManager.Permission.OPAll, source))
+            {
+                Player targetPlayer = GetPlayerFromServerId(playerId);
+
+                if (targetPlayer is not null)
+                {
+                    Ped targetPed = targetPlayer.Character;
+
+                    if (targetPed is not null && DoesEntityExist(targetPed.Handle))
+                    {
+                        coords = targetPed.Position;
+                    }
+                }
+            }
+
+            source.TriggerEvent("vMenu:GetPlayerCoords:reply", rpcId, coords);
+        }
+        #endregion
+
         #region Player join/quit
         private readonly HashSet<string> joinedPlayers = new();
 

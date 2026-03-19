@@ -282,6 +282,11 @@ namespace vMenuClient
         /// <returns></returns>
         private async Task WeatherSync()
         {
+            if (MainMenu.ClientFullyDisabled)
+            {
+                await Delay(5000);
+                return;
+            }
             await UpdateWeatherParticles();
             SetArtificialLightsState(IsBlackoutEnabled);
             SetArtificialLightsStateAffectsVehicles(!IsVehicleLightsEnabled);
@@ -304,6 +309,11 @@ namespace vMenuClient
         /// <returns></returns>
         private async Task TimeSync()
         {
+            if (MainMenu.ClientFullyDisabled)
+            {
+                await Delay(5000);
+                return;
+            }
             NetworkOverrideClockTime(GetServerHours, GetServerMinutes, 0);
             if (IsServerTimeFrozen || IsServerTimeSyncedWithMachineTime)
             {

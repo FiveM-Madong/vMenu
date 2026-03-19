@@ -59,6 +59,7 @@ namespace vMenuClient
         public static bool DisableControls { get { return MenuController.DisableMenuButtons; } set { MenuController.DisableMenuButtons = value; } }
 
         public static bool MenuEnabled { get; private set; } = true;
+        public static bool ClientFullyDisabled { get; private set; } = false;
 
         private const int currentCleanupVersion = 2;
         #endregion
@@ -68,6 +69,7 @@ namespace vMenuClient
         /// </summary>
         public MainMenu()
         {
+
             PlayersList = new NativePlayerList(Players);
 
             #region cleanup unused kvps
@@ -469,6 +471,7 @@ namespace vMenuClient
                 MenuController.DisableMenuButtons = true;
                 MenuController.DontOpenAnyMenu = true;
                 MenuEnabled = false;
+                ClientFullyDisabled = true;
                 return;
             }
             // Create the main menu.
@@ -480,7 +483,7 @@ namespace vMenuClient
             // Add the main menu to the menu pool.
             MenuController.AddMenu(Menu);
             MenuController.MainMenu = Menu;
-
+            
             MenuController.AddSubmenu(Menu, PlayerSubmenu);
             MenuController.AddSubmenu(Menu, VehicleSubmenu);
             MenuController.AddSubmenu(Menu, WorldSubmenu);
@@ -534,6 +537,11 @@ namespace vMenuClient
         /// <returns></returns>
         private async Task OnTick()
         {
+            if (ClientFullyDisabled)
+            {
+                await Delay(5000);
+                return;
+            }
             // If the setup (permissions) is done, and it's not the first tick, then do this:
             if (ConfigOptionsSetupComplete)
             {

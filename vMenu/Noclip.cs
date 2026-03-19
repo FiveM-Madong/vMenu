@@ -82,6 +82,11 @@ namespace vMenuClient
         }
         private async Task NoClipHandler()
         {
+            if (MainMenu.ClientFullyDisabled)
+            {
+                await Delay(5000);
+                return;
+            }
             if (NoclipActive)
             {
                 Scale = RequestScaleformMovie("INSTRUCTIONAL_BUTTONS");

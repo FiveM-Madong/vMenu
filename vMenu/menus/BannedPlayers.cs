@@ -34,47 +34,47 @@ namespace vMenuClient.menus
 
         public List<BanRecord> banlist = new();
 
-        readonly Menu bannedPlayer = new("Banned Player", "Ban Record: ");
+        readonly Menu bannedPlayer = new("차단된 플레이어", "차단 기록: ");
 
         /// <summary>
         /// Creates the menu.
         /// </summary>
         private void CreateMenu()
         {
-            menu = new Menu(Game.Player.Name, "Banned Players Management");
+            menu = new Menu(Game.Player.Name, "차단된 플레이어 관리");
 
-            menu.InstructionalButtons.Add(Control.Jump, "Filter Options");
+            menu.InstructionalButtons.Add(Control.Jump, "필터 옵션");
             menu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>(async (a, b) =>
             {
                 if (banlist.Count > 1)
                 {
-                    var filterText = await GetUserInput("Filter username or ban id (leave this empty to reset the filter)");
+                    var filterText = await GetUserInput("플레이어 이름 또는 차단 ID로 필터링 (비워두면 필터 초기화)");
                     if (string.IsNullOrEmpty(filterText))
                     {
-                        Subtitle.Custom("Filters have been cleared.");
+                        Subtitle.Custom("필터가 초기화되었습니다.");
                         menu.ResetFilter();
                         UpdateBans();
                     }
                     else
                     {
                         menu.FilterMenuItems(item => item.ItemData is BanRecord br && (br.playerName.ToLower().Contains(filterText.ToLower()) || br.uuid.ToLower().Contains(filterText.ToLower())));
-                        Subtitle.Custom("Filter has been applied.");
+                        Subtitle.Custom("필터가 적용되었습니다.");
                     }
                 }
                 else
                 {
-                    Notify.Error("At least 2 players need to be banned in order to use the filter function.");
+                    Notify.Error("필터 기능을 사용하려면 최소 2명 이상의 차단된 플레이어가 필요합니다.");
                 }
 
                 Log($"Button pressed: {a} {b}");
             }), true));
 
-            bannedPlayer.AddMenuItem(new MenuItem("Player Name"));
-            bannedPlayer.AddMenuItem(new MenuItem("Banned By"));
-            bannedPlayer.AddMenuItem(new MenuItem("Banned Until"));
-            bannedPlayer.AddMenuItem(new MenuItem("Player Identifiers"));
-            bannedPlayer.AddMenuItem(new MenuItem("Banned For"));
-            bannedPlayer.AddMenuItem(new MenuItem("~r~Unban", "~r~Warning, unbanning the player can NOT be undone. You will NOT be able to ban them again until they re-join the server. Are you absolutely sure you want to unban this player? ~s~Tip: Tempbanned players will automatically get unbanned if they log on to the server after their ban date has expired."));
+            bannedPlayer.AddMenuItem(new MenuItem("플레이어 이름"));
+            bannedPlayer.AddMenuItem(new MenuItem("차단한 관리자"));
+            bannedPlayer.AddMenuItem(new MenuItem("차단 만료일"));
+            bannedPlayer.AddMenuItem(new MenuItem("플레이어 식별자"));
+            bannedPlayer.AddMenuItem(new MenuItem("차단 사유"));
+            bannedPlayer.AddMenuItem(new MenuItem("~r~차단 해제", "~r~경고: 차단 해제는 되돌릴 수 없습니다. 해당 플레이어가 다시 서버에 접속하기 전까지는 다시 차단할 수 없습니다. 정말로 이 플레이어의 차단을 해제하시겠습니까? ~s~참고: 기간제 차단된 플레이어는 차단 기간이 만료된 뒤 서버에 접속하면 자동으로 차단이 해제됩니다."));
 
             // should be enough for now to cover all possible identifiers.
             var colors = new List<string>() { "~r~", "~g~", "~b~", "~o~", "~y~", "~p~", "~s~", "~t~", };
@@ -95,7 +95,7 @@ namespace vMenuClient.menus
             {
                 if (index == 5 && IsAllowed(Permission.OPUnban))
                 {
-                    if (item.Label == "Are you sure?")
+                    if (item.Label == "정말 하시겠습니까?")
                     {
                         if (banlist.Contains(currentRecord))
                         {
@@ -105,12 +105,12 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            Notify.Error("Somehow you managed to click the unban button but this ban record you're apparently viewing does not even exist. Weird...");
+                            Notify.Error("차단 해제 버튼을 눌렀지만 현재 보고 있는 차단 기록이 존재하지 않습니다.");
                         }
                     }
                     else
                     {
-                        item.Label = "Are you sure?";
+                        item.Label = "정말 하시겠습니까?";
                     }
                 }
                 else
@@ -124,26 +124,26 @@ namespace vMenuClient.menus
             {
                 currentRecord = item.ItemData;
 
-                bannedPlayer.MenuSubtitle = "Ban Record: ~y~" + currentRecord.playerName;
+                bannedPlayer.MenuSubtitle = "차단 기록: ~y~" + currentRecord.playerName;
                 var nameItem = bannedPlayer.GetMenuItems()[0];
                 var bannedByItem = bannedPlayer.GetMenuItems()[1];
                 var bannedUntilItem = bannedPlayer.GetMenuItems()[2];
                 var playerIdentifiersItem = bannedPlayer.GetMenuItems()[3];
                 var banReasonItem = bannedPlayer.GetMenuItems()[4];
                 nameItem.Label = currentRecord.playerName;
-                nameItem.Description = "Player name: ~y~" + currentRecord.playerName;
+                nameItem.Description = "플레이어 이름: ~y~" + currentRecord.playerName;
                 bannedByItem.Label = currentRecord.bannedBy;
-                bannedByItem.Description = "Player banned by: ~y~" + currentRecord.bannedBy;
+                bannedByItem.Description = "차단한 관리자: ~y~" + currentRecord.bannedBy;
                 if (currentRecord.bannedUntil.Date.Year == 3000)
                 {
-                    bannedUntilItem.Label = "Forever";
+                    bannedUntilItem.Label = "영구";
                 }
                 else
                 {
                     bannedUntilItem.Label = currentRecord.bannedUntil.Date.ToString();
                 }
 
-                bannedUntilItem.Description = "This player is banned until: " + currentRecord.bannedUntil.Date.ToString();
+                bannedUntilItem.Description = "이 플레이어의 차단 만료일: " + currentRecord.bannedUntil.Date.ToString();
                 playerIdentifiersItem.Description = "";
 
                 var i = 0;
@@ -154,7 +154,7 @@ namespace vMenuClient.menus
                     // gave builtin.everyone access to view the banlist.
                     if (id.StartsWith("ip:") && !IsAllowed(Permission.OPUnban))
                     {
-                        playerIdentifiersItem.Description += $"{colors[i]}ip: (hidden) ";
+                        playerIdentifiersItem.Description += $"{colors[i]}ip: (숨김) ";
                     }
                     else
                     {
@@ -162,14 +162,14 @@ namespace vMenuClient.menus
                     }
                     i++;
                 }
-                banReasonItem.Description = "Banned for: " + currentRecord.banReason;
+                banReasonItem.Description = "차단 사유: " + currentRecord.banReason;
 
                 var unbanPlayerBtn = bannedPlayer.GetMenuItems()[5];
                 unbanPlayerBtn.Label = "";
                 if (!IsAllowed(Permission.OPUnban))
                 {
                     unbanPlayerBtn.Enabled = false;
-                    unbanPlayerBtn.Description = "You are not allowed to unban players. You are only allowed to view their ban record.";
+                    unbanPlayerBtn.Description = "플레이어 차단을 해제할 권한이 없습니다. 차단 기록만 확인할 수 있습니다.";
                     unbanPlayerBtn.LeftIcon = MenuItem.Icon.LOCK;
                 }
 
@@ -189,7 +189,7 @@ namespace vMenuClient.menus
 
             foreach (var ban in banlist)
             {
-                var recordBtn = new MenuItem(ban.playerName, $"~y~{ban.playerName}~s~ was banned by ~y~{ban.bannedBy}~s~ until ~y~{ban.bannedUntil}~s~ for ~y~{ban.banReason}~s~.")
+                var recordBtn = new MenuItem(ban.playerName, $"~y~{ban.playerName}~s~ 님은 ~y~{ban.bannedBy}~s~ 에 의해 ~y~{ban.bannedUntil}~s~ 까지 ~y~{ban.banReason}~s~ 사유로 차단되었습니다.")
                 {
                     Label = "→→→",
                     ItemData = ban

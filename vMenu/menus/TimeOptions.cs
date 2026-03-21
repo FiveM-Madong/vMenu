@@ -21,39 +21,39 @@ namespace vMenuClient.menus
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Time Options");
+            menu = new Menu(Game.Player.Name, "시간 설정");
 
             // Create all menu items.
-            freezeTimeToggle = new MenuItem("Freeze/Unfreeze Time", "Enable or disable time freezing.");
-            var earlymorning = new MenuItem("Early Morning", "Set the time to 06:00.")
+            freezeTimeToggle = new MenuItem("시간 정지/해제", "시간 고정을 켜거나 끕니다.");
+            var earlymorning = new MenuItem("이른 아침", "시간을 06:00으로 설정합니다.")
             {
                 Label = "06:00"
             };
-            var morning = new MenuItem("Morning", "Set the time to 09:00.")
+            var morning = new MenuItem("아침", "시간을 09:00으로 설정합니다.")
             {
                 Label = "09:00"
             };
-            var noon = new MenuItem("Noon", "Set the time to 12:00.")
+            var noon = new MenuItem("정오", "시간을 12:00으로 설정합니다.")
             {
                 Label = "12:00"
             };
-            var earlyafternoon = new MenuItem("Early Afternoon", "Set the time to 15:00.")
+            var earlyafternoon = new MenuItem("이른 오후", "시간을 15:00으로 설정합니다.")
             {
                 Label = "15:00"
             };
-            var afternoon = new MenuItem("Afternoon", "Set the time to 18:00.")
+            var afternoon = new MenuItem("오후", "시간을 18:00으로 설정합니다.")
             {
                 Label = "18:00"
             };
-            var evening = new MenuItem("Evening", "Set the time to 21:00.")
+            var evening = new MenuItem("저녁", "시간을 21:00으로 설정합니다.")
             {
                 Label = "21:00"
             };
-            var midnight = new MenuItem("Midnight", "Set the time to 00:00.")
+            var midnight = new MenuItem("자정", "시간을 00:00으로 설정합니다.")
             {
                 Label = "00:00"
             };
-            var night = new MenuItem("Night", "Set the time to 03:00.")
+            var night = new MenuItem("심야", "시간을 03:00으로 설정합니다.")
             {
                 Label = "03:00"
             };
@@ -68,8 +68,8 @@ namespace vMenuClient.menus
                 }
                 minutes.Add(i.ToString());
             }
-            var manualHour = new MenuListItem("Set Custom Hour", hours, 0);
-            var manualMinute = new MenuListItem("Set Custom Minute", minutes, 0);
+            var manualHour = new MenuListItem("사용자 지정 시 설정", hours, 0);
+            var manualMinute = new MenuListItem("사용자 지정 분 설정", minutes, 0);
 
             // Add all menu items to the menu.
             if (IsAllowed(Permission.TOFreezeTime))
@@ -96,7 +96,7 @@ namespace vMenuClient.menus
                 // If it's the freeze time button.
                 if (item == freezeTimeToggle)
                 {
-                    Subtitle.Info($"Time will now {(EventManager.IsServerTimeFrozen ? "~y~continue" : "~o~freeze")}~s~.", prefix: "Info:");
+                    Subtitle.Info($"시간은 이제 {(EventManager.IsServerTimeFrozen ? "~y~계속 진행됩니다" : "~o~정지됩니다")}~s~.", prefix: "알림:");
                     FreezeServerTime(!EventManager.IsServerTimeFrozen);
                 }
                 else
@@ -115,8 +115,8 @@ namespace vMenuClient.menus
                     }
 
                     var newMinute = 0;
-                    Subtitle.Info($"Time set to ~y~{(newHour < 10 ? $"0{newHour}" : newHour.ToString())}~s~:~y~" +
-                        $"{(newMinute < 10 ? $"0{newMinute}" : newMinute.ToString())}~s~.", prefix: "Info:");
+                    Subtitle.Info($"시간이 ~y~{(newHour < 10 ? $"0{newHour}" : newHour.ToString())}~s~:~y~" +
+                        $"{(newMinute < 10 ? $"0{newMinute}" : newMinute.ToString())}~s~(으)로 설정되었습니다.", prefix: "알림:");
                     UpdateServerTime(newHour, newMinute);
                 }
 
@@ -135,8 +135,8 @@ namespace vMenuClient.menus
                     newMinute = item.ListIndex;
                 }
 
-                Subtitle.Info($"Time set to ~y~{(newHour < 10 ? $"0{newHour}" : newHour.ToString())}~s~:~y~" +
-                        $"{(newMinute < 10 ? $"0{newMinute}" : newMinute.ToString())}~s~.", prefix: "Info:");
+                Subtitle.Info($"시간이 ~y~{(newHour < 10 ? $"0{newHour}" : newHour.ToString())}~s~:~y~" +
+                        $"{(newMinute < 10 ? $"0{newMinute}" : newMinute.ToString())}~s~(으)로 설정되었습니다.", prefix: "알림:");
                 UpdateServerTime(newHour, newMinute);
             };
         }

@@ -22,25 +22,25 @@ namespace vMenuClient.menus
     {
         // Variables
         private Menu menu;
-        public Menu createCharacterMenu = new("Create Character", "Create A New Character");
-        public Menu savedCharactersMenu = new("vMenu", "Manage Saved Characters");
-        public Menu savedCharactersCategoryMenu = new("Category", "I get updated at runtime!");
-        public Menu inheritanceMenu = new("vMenu", "Character Inheritance Options");
-        public Menu appearanceMenu = new("vMenu", "Character Appearance Options");
-        public Menu faceShapeMenu = new("vMenu", "Character Face Shape Options");
-        public Menu tattoosMenu = new("vMenu", "Character Tattoo Options");
-        public Menu clothesMenu = new("vMenu", "Character Clothing Options");
-        public Menu propsMenu = new("vMenu", "Character Props Options");
-        private readonly Menu manageSavedCharacterMenu = new("vMenu", "Manage MP Character");
+        public Menu createCharacterMenu = new("캐릭터 생성", "새 캐릭터 생성");
+        public Menu savedCharactersMenu = new("vMenu", "저장된 캐릭터 관리");
+        public Menu savedCharactersCategoryMenu = new("Category", "실행 중 자동으로 갱신됩니다!");
+        public Menu inheritanceMenu = new("vMenu", "캐릭터 유전 옵션");
+        public Menu appearanceMenu = new("vMenu", "캐릭터 외형 옵션");
+        public Menu faceShapeMenu = new("vMenu", "캐릭터 얼굴형 옵션");
+        public Menu tattoosMenu = new("vMenu", "캐릭터 문신 옵션");
+        public Menu clothesMenu = new("vMenu", "캐릭터 의상 옵션");
+        public Menu propsMenu = new("vMenu", "캐릭터 소품 옵션");
+        private readonly Menu manageSavedCharacterMenu = new("vMenu", "MP 캐릭터 관리");
 
         // Need to be able to disable/enable these buttons from another class.
-        internal MenuItem createMaleBtn = new("Create Male Character", "Create a new male character.") { Label = "→→→" };
-        internal MenuItem createFemaleBtn = new("Create Female Character", "Create a new female character.") { Label = "→→→" };
-        internal MenuItem editPedBtn = new("Edit Saved Character", "This allows you to edit everything about your saved character. The changes will be saved to this character's save file entry once you hit the save button.");
+        internal MenuItem createMaleBtn = new("남성 캐릭터 생성", "새 남성 캐릭터를 생성합니다.") { Label = "→→→" };
+        internal MenuItem createFemaleBtn = new("여성 캐릭터 생성", "새 여성 캐릭터를 생성합니다.") { Label = "→→→" };
+        internal MenuItem editPedBtn = new("저장된 캐릭터 수정", "저장된 캐릭터의 모든 항목을 수정할 수 있습니다. 저장 버튼을 누르면 변경 사항이 이 캐릭터의 저장 파일에 반영됩니다.");
 
         // Need to be editable from other functions
-        private readonly MenuListItem setCategoryBtn = new("Set Character Category", new List<string> { }, 0, "Sets this character's category. Select to save.");
-        private readonly MenuListItem categoryBtn = new("Character Category", new List<string> { }, 0, "Sets this character's category.");
+        private readonly MenuListItem setCategoryBtn = new("캐릭터 카테고리 설정", new List<string> { }, 0, "이 캐릭터의 카테고리를 설정합니다. 선택하면 저장됩니다.");
+        private readonly MenuListItem categoryBtn = new("캐릭터 카테고리", new List<string> { }, 0, "이 캐릭터의 카테고리를 설정합니다.");
 
         public static bool DontCloseMenus { get { return MenuController.PreventExitingMenu; } set { MenuController.PreventExitingMenu = value; } }
         public static bool DisableBackButton { get { return MenuController.DisableBackButton; } set { MenuController.DisableBackButton = value; } }
@@ -169,13 +169,13 @@ namespace vMenuClient.menus
 
                 if (_shapeMixValue > 1f)
                 {
-                    Log("Shape mix value was incorrectly saved with a value higher than the possible maximum. Resetting to max value");
+                    Log("얼굴 혼합 값이 최대값보다 크게 잘못 저장되어 최대값으로 초기화합니다.");
                     _shapeMixValue = 1f;
                 }
 
                 if (_skinMixValue > 1f)
                 {
-                    Log("Skin mix value was incorrectly saved with a value higher than the possible maximum. Resetting to max value");
+                    Log("피부 혼합 값이 최대값보다 크게 잘못 저장되어 최대값으로 초기화합니다.");
                     _skinMixValue = 1f;
                 }
             }
@@ -253,14 +253,14 @@ namespace vMenuClient.menus
             var hairStylesList = new List<string>();
             for (var i = 0; i < maxHairStyles; i++)
             {
-                hairStylesList.Add($"Style #{i + 1}");
+                hairStylesList.Add($"스타일 #{i + 1}");
             }
-            hairStylesList.Add($"Style #{maxHairStyles + 1}");
+            hairStylesList.Add($"스타일 #{maxHairStyles + 1}");
 
             var eyeColorList = new List<string>();
             for (var i = 0; i < 32; i++)
             {
-                eyeColorList.Add($"Eye Color #{i + 1}");
+                eyeColorList.Add($"눈 색상 #{i + 1}");
             }
 
             /*
@@ -362,68 +362,68 @@ namespace vMenuClient.menus
             var currentEyeColor = editPed ? currentCharacter.PedAppearance.eyeColor : 0;
             SetPedEyeColor(Game.PlayerPed.Handle, currentEyeColor);
 
-            var hairStyles = new MenuListItem("Hair Style", hairStylesList, currentHairStyle, "Select a hair style.");
-            //MenuListItem hairColors = new MenuListItem("Hair Color", overlayColorsList, currentHairColor, "Select a hair color.");
-            var hairColors = new MenuListItem("Hair Color", overlayColorsList, currentHairColor, "Select a hair color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
-            //MenuListItem hairHighlightColors = new MenuListItem("Hair Highlight Color", overlayColorsList, currentHairHighlightColor, "Select a hair highlight color.");
-            var hairHighlightColors = new MenuListItem("Hair Highlight Color", overlayColorsList, currentHairHighlightColor, "Select a hair highlight color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
+            var hairStyles = new MenuListItem("헤어 스타일", hairStylesList, currentHairStyle, "헤어 스타일을 선택하세요.");
+            //MenuListItem hairColors = new MenuListItem("머리 색상", overlayColorsList, currentHairColor, "머리 색상을 선택하세요.");
+            var hairColors = new MenuListItem("머리 색상", overlayColorsList, currentHairColor, "머리 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
+            //MenuListItem hairHighlightColors = new MenuListItem("머리 하이라이트 색상", overlayColorsList, currentHairHighlightColor, "머리 하이라이트 색상을 선택하세요.");
+            var hairHighlightColors = new MenuListItem("머리 하이라이트 색상", overlayColorsList, currentHairHighlightColor, "머리 하이라이트 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
 
-            var blemishesStyle = new MenuListItem("Blemishes Style", blemishesStyleList, currentBlemishesStyle, "Select a blemishes style.");
-            //MenuSliderItem blemishesOpacity = new MenuSliderItem("Blemishes Opacity", "Select a blemishes opacity.", 0, 10, (int)(currentBlemishesOpacity * 10f), false);
-            var blemishesOpacity = new MenuListItem("Blemishes Opacity", opacity, (int)(currentBlemishesOpacity * 10f), "Select a blemishes opacity.") { ShowOpacityPanel = true };
+            var blemishesStyle = new MenuListItem("잡티 스타일", blemishesStyleList, currentBlemishesStyle, "잡티 스타일을 선택하세요.");
+            //MenuSliderItem blemishesOpacity = new MenuSliderItem("잡티 투명도", "잡티 투명도를 선택하세요.", 0, 10, (int)(currentBlemishesOpacity * 10f), false);
+            var blemishesOpacity = new MenuListItem("잡티 투명도", opacity, (int)(currentBlemishesOpacity * 10f), "잡티 투명도를 선택하세요.") { ShowOpacityPanel = true };
 
-            var beardStyles = new MenuListItem("Beard Style", beardStylesList, currentBeardStyle, "Select a beard/facial hair style.");
-            var beardOpacity = new MenuListItem("Beard Opacity", opacity, (int)(currentBeardOpacity * 10f), "Select the opacity for your beard/facial hair.") { ShowOpacityPanel = true };
-            var beardColor = new MenuListItem("Beard Color", overlayColorsList, currentBeardColor, "Select a beard color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
-            //MenuSliderItem beardOpacity = new MenuSliderItem("Beard Opacity", "Select the opacity for your beard/facial hair.", 0, 10, (int)(currentBeardOpacity * 10f), false);
-            //MenuListItem beardColor = new MenuListItem("Beard Color", overlayColorsList, currentBeardColor, "Select a beard color");
+            var beardStyles = new MenuListItem("수염 스타일", beardStylesList, currentBeardStyle, "수염/얼굴 털 스타일을 선택하세요.");
+            var beardOpacity = new MenuListItem("수염 투명도", opacity, (int)(currentBeardOpacity * 10f), "수염/얼굴 털의 투명도를 선택하세요.") { ShowOpacityPanel = true };
+            var beardColor = new MenuListItem("수염 색상", overlayColorsList, currentBeardColor, "수염 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
+            //MenuSliderItem beardOpacity = new MenuSliderItem("수염 투명도", "수염/얼굴 털의 투명도를 선택하세요.", 0, 10, (int)(currentBeardOpacity * 10f), false);
+            //MenuListItem beardColor = new MenuListItem("수염 색상", overlayColorsList, currentBeardColor, "수염 색상을 선택하세요");
 
-            var eyebrowStyle = new MenuListItem("Eyebrows Style", eyebrowsStyleList, currentEyebrowStyle, "Select an eyebrows style.");
-            var eyebrowOpacity = new MenuListItem("Eyebrows Opacity", opacity, (int)(currentEyebrowOpacity * 10f), "Select the opacity for your eyebrows.") { ShowOpacityPanel = true };
-            var eyebrowColor = new MenuListItem("Eyebrows Color", overlayColorsList, currentEyebrowColor, "Select an eyebrows color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
-            //MenuSliderItem eyebrowOpacity = new MenuSliderItem("Eyebrows Opacity", "Select the opacity for your eyebrows.", 0, 10, (int)(currentEyebrowOpacity * 10f), false);
+            var eyebrowStyle = new MenuListItem("눈썹 스타일", eyebrowsStyleList, currentEyebrowStyle, "눈썹 스타일을 선택하세요.");
+            var eyebrowOpacity = new MenuListItem("눈썹 투명도", opacity, (int)(currentEyebrowOpacity * 10f), "눈썹의 투명도를 선택하세요.") { ShowOpacityPanel = true };
+            var eyebrowColor = new MenuListItem("눈썹 색상", overlayColorsList, currentEyebrowColor, "눈썹 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
+            //MenuSliderItem eyebrowOpacity = new MenuSliderItem("눈썹 투명도", "눈썹의 투명도를 선택하세요.", 0, 10, (int)(currentEyebrowOpacity * 10f), false);
 
-            var ageingStyle = new MenuListItem("Ageing Style", ageingStyleList, currentAgeingStyle, "Select an ageing style.");
-            var ageingOpacity = new MenuListItem("Ageing Opacity", opacity, (int)(currentAgeingOpacity * 10f), "Select an ageing opacity.") { ShowOpacityPanel = true };
-            //MenuSliderItem ageingOpacity = new MenuSliderItem("Ageing Opacity", "Select an ageing opacity.", 0, 10, (int)(currentAgeingOpacity * 10f), false);
+            var ageingStyle = new MenuListItem("노화 스타일", ageingStyleList, currentAgeingStyle, "노화 스타일을 선택하세요.");
+            var ageingOpacity = new MenuListItem("노화 투명도", opacity, (int)(currentAgeingOpacity * 10f), "노화 투명도를 선택하세요.") { ShowOpacityPanel = true };
+            //MenuSliderItem ageingOpacity = new MenuSliderItem("노화 투명도", "노화 투명도를 선택하세요.", 0, 10, (int)(currentAgeingOpacity * 10f), false);
 
-            var makeupStyle = new MenuListItem("Makeup Style", makeupStyleList, currentMakeupStyle, "Select a makeup style.");
-            var makeupOpacity = new MenuListItem("Makeup Opacity", opacity, (int)(currentMakeupOpacity * 10f), "Select a makeup opacity") { ShowOpacityPanel = true };
-            //MenuSliderItem makeupOpacity = new MenuSliderItem("Makeup Opacity", 0, 10, (int)(currentMakeupOpacity * 10f), "Select a makeup opacity.");
-            var makeupColor = new MenuListItem("Makeup Color", overlayColorsList, currentMakeupColor, "Select a makeup color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Makeup };
+            var makeupStyle = new MenuListItem("메이크업 스타일", makeupStyleList, currentMakeupStyle, "메이크업 스타일을 선택하세요.");
+            var makeupOpacity = new MenuListItem("메이크업 투명도", opacity, (int)(currentMakeupOpacity * 10f), "메이크업 투명도를 선택하세요") { ShowOpacityPanel = true };
+            //MenuSliderItem makeupOpacity = new MenuSliderItem("메이크업 투명도", 0, 10, (int)(currentMakeupOpacity * 10f), "메이크업 투명도를 선택하세요.");
+            var makeupColor = new MenuListItem("메이크업 색상", overlayColorsList, currentMakeupColor, "메이크업 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Makeup };
 
-            var blushStyle = new MenuListItem("Blush Style", blushStyleList, currentBlushStyle, "Select a blush style.");
-            var blushOpacity = new MenuListItem("Blush Opacity", opacity, (int)(currentBlushOpacity * 10f), "Select a blush opacity.") { ShowOpacityPanel = true };
-            //MenuSliderItem blushOpacity = new MenuSliderItem("Blush Opacity", 0, 10, (int)(currentBlushOpacity * 10f), "Select a blush opacity.");
-            var blushColor = new MenuListItem("Blush Color", overlayColorsList, currentBlushColor, "Select a blush color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Makeup };
+            var blushStyle = new MenuListItem("블러셔 스타일", blushStyleList, currentBlushStyle, "블러셔 스타일을 선택하세요.");
+            var blushOpacity = new MenuListItem("블러셔 투명도", opacity, (int)(currentBlushOpacity * 10f), "블러셔 투명도를 선택하세요.") { ShowOpacityPanel = true };
+            //MenuSliderItem blushOpacity = new MenuSliderItem("블러셔 투명도", 0, 10, (int)(currentBlushOpacity * 10f), "블러셔 투명도를 선택하세요.");
+            var blushColor = new MenuListItem("블러셔 색상", overlayColorsList, currentBlushColor, "블러셔 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Makeup };
 
-            var complexionStyle = new MenuListItem("Complexion Style", complexionStyleList, currentComplexionStyle, "Select a complexion style.");
-            //MenuSliderItem complexionOpacity = new MenuSliderItem("Complexion Opacity", 0, 10, (int)(currentComplexionOpacity * 10f), "Select a complexion opacity.");
-            var complexionOpacity = new MenuListItem("Complexion Opacity", opacity, (int)(currentComplexionOpacity * 10f), "Select a complexion opacity.") { ShowOpacityPanel = true };
+            var complexionStyle = new MenuListItem("피부결 스타일", complexionStyleList, currentComplexionStyle, "피부결 스타일을 선택하세요.");
+            //MenuSliderItem complexionOpacity = new MenuSliderItem("피부결 투명도", 0, 10, (int)(currentComplexionOpacity * 10f), "피부결 투명도를 선택하세요.");
+            var complexionOpacity = new MenuListItem("피부결 투명도", opacity, (int)(currentComplexionOpacity * 10f), "피부결 투명도를 선택하세요.") { ShowOpacityPanel = true };
 
-            var sunDamageStyle = new MenuListItem("Sun Damage Style", sunDamageStyleList, currentSunDamageStyle, "Select a sun damage style.");
-            //MenuSliderItem sunDamageOpacity = new MenuSliderItem("Sun Damage Opacity", 0, 10, (int)(currentSunDamageOpacity * 10f), "Select a sun damage opacity.");
-            var sunDamageOpacity = new MenuListItem("Sun Damage Opacity", opacity, (int)(currentSunDamageOpacity * 10f), "Select a sun damage opacity.") { ShowOpacityPanel = true };
+            var sunDamageStyle = new MenuListItem("햇빛 손상 스타일", sunDamageStyleList, currentSunDamageStyle, "햇빛 손상 스타일을 선택하세요.");
+            //MenuSliderItem sunDamageOpacity = new MenuSliderItem("햇빛 손상 투명도", 0, 10, (int)(currentSunDamageOpacity * 10f), "햇빛 손상 투명도를 선택하세요.");
+            var sunDamageOpacity = new MenuListItem("햇빛 손상 투명도", opacity, (int)(currentSunDamageOpacity * 10f), "햇빛 손상 투명도를 선택하세요.") { ShowOpacityPanel = true };
 
-            var lipstickStyle = new MenuListItem("Lipstick Style", lipstickStyleList, currentLipstickStyle, "Select a lipstick style.");
-            //MenuSliderItem lipstickOpacity = new MenuSliderItem("Lipstick Opacity", 0, 10, (int)(currentLipstickOpacity * 10f), "Select a lipstick opacity.");
-            var lipstickOpacity = new MenuListItem("Lipstick Opacity", opacity, (int)(currentLipstickOpacity * 10f), "Select a lipstick opacity.") { ShowOpacityPanel = true };
-            var lipstickColor = new MenuListItem("Lipstick Color", overlayColorsList, currentLipstickColor, "Select a lipstick color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Makeup };
+            var lipstickStyle = new MenuListItem("립스틱 스타일", lipstickStyleList, currentLipstickStyle, "립스틱 스타일을 선택하세요.");
+            //MenuSliderItem lipstickOpacity = new MenuSliderItem("립스틱 투명도", 0, 10, (int)(currentLipstickOpacity * 10f), "립스틱 투명도를 선택하세요.");
+            var lipstickOpacity = new MenuListItem("립스틱 투명도", opacity, (int)(currentLipstickOpacity * 10f), "립스틱 투명도를 선택하세요.") { ShowOpacityPanel = true };
+            var lipstickColor = new MenuListItem("립스틱 색상", overlayColorsList, currentLipstickColor, "립스틱 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Makeup };
 
-            var molesFrecklesStyle = new MenuListItem("Moles and Freckles Style", molesFrecklesStyleList, currentMolesFrecklesStyle, "Select a moles and freckles style.");
-            //MenuSliderItem molesFrecklesOpacity = new MenuSliderItem("Moles and Freckles Opacity", 0, 10, (int)(currentMolesFrecklesOpacity * 10f), "Select a moles and freckles opacity.");
-            var molesFrecklesOpacity = new MenuListItem("Moles and Freckles Opacity", opacity, (int)(currentMolesFrecklesOpacity * 10f), "Select a moles and freckles opacity.") { ShowOpacityPanel = true };
+            var molesFrecklesStyle = new MenuListItem("점/주근깨 스타일", molesFrecklesStyleList, currentMolesFrecklesStyle, "점/주근깨 스타일을 선택하세요.");
+            //MenuSliderItem molesFrecklesOpacity = new MenuSliderItem("점/주근깨 투명도", 0, 10, (int)(currentMolesFrecklesOpacity * 10f), "점/주근깨 투명도를 선택하세요.");
+            var molesFrecklesOpacity = new MenuListItem("점/주근깨 투명도", opacity, (int)(currentMolesFrecklesOpacity * 10f), "점/주근깨 투명도를 선택하세요.") { ShowOpacityPanel = true };
 
-            var chestHairStyle = new MenuListItem("Chest Hair Style", chestHairStyleList, currentChesthairStyle, "Select a chest hair style.");
-            //MenuSliderItem chestHairOpacity = new MenuSliderItem("Chest Hair Opacity", 0, 10, (int)(currentChesthairOpacity * 10f), "Select a chest hair opacity.");
-            var chestHairOpacity = new MenuListItem("Chest Hair Opacity", opacity, (int)(currentChesthairOpacity * 10f), "Select a chest hair opacity.") { ShowOpacityPanel = true };
-            var chestHairColor = new MenuListItem("Chest Hair Color", overlayColorsList, currentChesthairColor, "Select a chest hair color.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
+            var chestHairStyle = new MenuListItem("가슴 털 스타일", chestHairStyleList, currentChesthairStyle, "가슴 털 스타일을 선택하세요.");
+            //MenuSliderItem chestHairOpacity = new MenuSliderItem("가슴 털 투명도", 0, 10, (int)(currentChesthairOpacity * 10f), "가슴 털 투명도를 선택하세요.");
+            var chestHairOpacity = new MenuListItem("가슴 털 투명도", opacity, (int)(currentChesthairOpacity * 10f), "가슴 털 투명도를 선택하세요.") { ShowOpacityPanel = true };
+            var chestHairColor = new MenuListItem("가슴 털 색상", overlayColorsList, currentChesthairColor, "가슴 털 색상을 선택하세요.") { ShowColorPanel = true, ColorPanelColorType = MenuListItem.ColorPanelType.Hair };
 
             // Body blemishes
-            var bodyBlemishesStyle = new MenuListItem("Body Blemishes Style", bodyBlemishesList, currentBodyBlemishesStyle, "Select body blemishes style.");
-            var bodyBlemishesOpacity = new MenuListItem("Body Blemishes Opacity", opacity, (int)(currentBodyBlemishesOpacity * 10f), "Select body blemishes opacity.") { ShowOpacityPanel = true };
+            var bodyBlemishesStyle = new MenuListItem("몸 잡티 스타일", bodyBlemishesList, currentBodyBlemishesStyle, "몸 잡티 스타일을 선택하세요.");
+            var bodyBlemishesOpacity = new MenuListItem("몸 잡티 투명도", opacity, (int)(currentBodyBlemishesOpacity * 10f), "몸 잡티 투명도를 선택하세요.") { ShowOpacityPanel = true };
 
-            var eyeColor = new MenuListItem("Eye Colors", eyeColorList, currentEyeColor, "Select an eye/contact lens color.");
+            var eyeColor = new MenuListItem("눈 색상", eyeColorList, currentEyeColor, "눈/렌즈 색상을 선택하세요.");
 
             appearanceMenu.AddMenuItem(hairStyles);
             appearanceMenu.AddMenuItem(hairColors);
@@ -481,75 +481,75 @@ namespace vMenuClient.menus
                 /*
                 makeupStyle.Enabled = false;
                 makeupStyle.LeftIcon = MenuItem.Icon.LOCK;
-                makeupStyle.Description = "This is not available for male characters.";
+                makeupStyle.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
                 makeupOpacity.Enabled = false;
                 makeupOpacity.LeftIcon = MenuItem.Icon.LOCK;
-                makeupOpacity.Description = "This is not available for male characters.";
+                makeupOpacity.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
                 makeupColor.Enabled = false;
                 makeupColor.LeftIcon = MenuItem.Icon.LOCK;
-                makeupColor.Description = "This is not available for male characters.";
+                makeupColor.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
 
                 blushStyle.Enabled = false;
                 blushStyle.LeftIcon = MenuItem.Icon.LOCK;
-                blushStyle.Description = "This is not available for male characters.";
+                blushStyle.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
                 blushOpacity.Enabled = false;
                 blushOpacity.LeftIcon = MenuItem.Icon.LOCK;
-                blushOpacity.Description = "This is not available for male characters.";
+                blushOpacity.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
                 blushColor.Enabled = false;
                 blushColor.LeftIcon = MenuItem.Icon.LOCK;
-                blushColor.Description = "This is not available for male characters.";
+                blushColor.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
 
                 lipstickStyle.Enabled = false;
                 lipstickStyle.LeftIcon = MenuItem.Icon.LOCK;
-                lipstickStyle.Description = "This is not available for male characters.";
+                lipstickStyle.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
                 lipstickOpacity.Enabled = false;
                 lipstickOpacity.LeftIcon = MenuItem.Icon.LOCK;
-                lipstickOpacity.Description = "This is not available for male characters.";
+                lipstickOpacity.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
 
                 lipstickColor.Enabled = false;
                 lipstickColor.LeftIcon = MenuItem.Icon.LOCK;
-                lipstickColor.Description = "This is not available for male characters.";
+                lipstickColor.Description = "남성 캐릭터에서는 사용할 수 없습니다.";
                 */
             }
             else
             {
                 beardStyles.Enabled = false;
                 beardStyles.LeftIcon = MenuItem.Icon.LOCK;
-                beardStyles.Description = "This is not available for female characters.";
+                beardStyles.Description = "여성 캐릭터에서는 사용할 수 없습니다.";
 
                 beardOpacity.Enabled = false;
                 beardOpacity.LeftIcon = MenuItem.Icon.LOCK;
-                beardOpacity.Description = "This is not available for female characters.";
+                beardOpacity.Description = "여성 캐릭터에서는 사용할 수 없습니다.";
 
                 beardColor.Enabled = false;
                 beardColor.LeftIcon = MenuItem.Icon.LOCK;
-                beardColor.Description = "This is not available for female characters.";
+                beardColor.Description = "여성 캐릭터에서는 사용할 수 없습니다.";
 
 
                 chestHairStyle.Enabled = false;
                 chestHairStyle.LeftIcon = MenuItem.Icon.LOCK;
-                chestHairStyle.Description = "This is not available for female characters.";
+                chestHairStyle.Description = "여성 캐릭터에서는 사용할 수 없습니다.";
 
                 chestHairOpacity.Enabled = false;
                 chestHairOpacity.LeftIcon = MenuItem.Icon.LOCK;
-                chestHairOpacity.Description = "This is not available for female characters.";
+                chestHairOpacity.Description = "여성 캐릭터에서는 사용할 수 없습니다.";
 
                 chestHairColor.Enabled = false;
                 chestHairColor.LeftIcon = MenuItem.Icon.LOCK;
-                chestHairColor.Description = "This is not available for female characters.";
+                chestHairColor.Description = "여성 캐릭터에서는 사용할 수 없습니다.";
             }
 
             #endregion
 
             #region clothing options menu
-            var clothingCategoryNames = new string[12] { "Unused (head)", "Masks", "Unused (hair)", "Upper Body", "Lower Body", "Bags & Parachutes", "Shoes", "Scarfs & Chains", "Shirt & Accessory", "Body Armor & Accessory 2", "Badges & Logos", "Shirt Overlay & Jackets" };
+            var clothingCategoryNames = new string[12] { "미사용(머리)", "마스크", "미사용(머리카락)", "상체", "하체", "가방 및 낙하산", "신발", "스카프 및 체인", "셔츠 및 액세서리", "방탄복 및 액세서리 2", "배지 및 로고", "셔츠 오버레이 및 재킷" };
             for (var i = 0; i < 12; i++)
             {
                 if (i is not 0 and not 2)
@@ -562,19 +562,19 @@ namespace vMenuClient.menus
                     var items = new List<string>();
                     for (var x = 0; x < maxDrawables; x++)
                     {
-                        items.Add($"Drawable #{x} (of {maxDrawables})");
+                        items.Add($"드로어블 #{x} / 총 {maxDrawables}개");
                     }
 
                     var maxTextures = GetNumberOfPedTextureVariations(Game.PlayerPed.Handle, i, currentVariationIndex);
 
-                    var listItem = new MenuListItem(clothingCategoryNames[i], items, currentVariationIndex, $"Select a drawable using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{currentVariationTextureIndex + 1} (of {maxTextures}).");
+                    var listItem = new MenuListItem(clothingCategoryNames[i], items, currentVariationIndex, $"방향키로 드로어블을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다. 현재 선택된 텍스처: #{currentVariationTextureIndex + 1} / 총 {maxTextures}개.");
                     clothesMenu.AddMenuItem(listItem);
                 }
             }
             #endregion
 
             #region props options menu
-            var propNames = new string[5] { "Hats & Helmets", "Glasses", "Misc Props", "Watches", "Bracelets" };
+            var propNames = new string[5] { "모자 및 헬멧", "안경", "기타 소품", "시계", "팔찌" };
             for (var x = 0; x < 5; x++)
             {
                 var propId = x;
@@ -589,20 +589,20 @@ namespace vMenuClient.menus
                 var propsList = new List<string>();
                 for (var i = 0; i < GetNumberOfPedPropDrawableVariations(Game.PlayerPed.Handle, propId); i++)
                 {
-                    propsList.Add($"Prop #{i} (of {GetNumberOfPedPropDrawableVariations(Game.PlayerPed.Handle, propId)})");
+                    propsList.Add($"소품 #{i} / 총 {GetNumberOfPedPropDrawableVariations(Game.PlayerPed.Handle, propId)}개");
                 }
-                propsList.Add("No Prop");
+                propsList.Add("소품 없음");
 
 
                 if (GetPedPropIndex(Game.PlayerPed.Handle, propId) != -1)
                 {
                     var maxPropTextures = GetNumberOfPedPropTextureVariations(Game.PlayerPed.Handle, propId, currentProp);
-                    var propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{currentPropTexture + 1} (of {maxPropTextures}).");
+                    var propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, $"방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다. 현재 선택된 텍스처: #{currentPropTexture + 1} / 총 {maxPropTextures}개.");
                     propsMenu.AddMenuItem(propListItem);
                 }
                 else
                 {
-                    var propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, "Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.");
+                    var propListItem = new MenuListItem($"{propNames[x]}", propsList, currentProp, "방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다.");
                     propsMenu.AddMenuItem(propListItem);
                 }
 
@@ -656,43 +656,43 @@ namespace vMenuClient.menus
                 var counter = 1;
                 foreach (var tattoo in MaleTattoosCollection.HEAD)
                 {
-                    headTattoosList.Add($"Tattoo #{counter} (of {MaleTattoosCollection.HEAD.Count})");
+                    headTattoosList.Add($"문신 #{counter} / 총 {MaleTattoosCollection.HEAD.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in MaleTattoosCollection.TORSO)
                 {
-                    torsoTattoosList.Add($"Tattoo #{counter} (of {MaleTattoosCollection.TORSO.Count})");
+                    torsoTattoosList.Add($"문신 #{counter} / 총 {MaleTattoosCollection.TORSO.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in MaleTattoosCollection.LEFT_ARM)
                 {
-                    leftArmTattoosList.Add($"Tattoo #{counter} (of {MaleTattoosCollection.LEFT_ARM.Count})");
+                    leftArmTattoosList.Add($"문신 #{counter} / 총 {MaleTattoosCollection.LEFT_ARM.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in MaleTattoosCollection.RIGHT_ARM)
                 {
-                    rightArmTattoosList.Add($"Tattoo #{counter} (of {MaleTattoosCollection.RIGHT_ARM.Count})");
+                    rightArmTattoosList.Add($"문신 #{counter} / 총 {MaleTattoosCollection.RIGHT_ARM.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in MaleTattoosCollection.LEFT_LEG)
                 {
-                    leftLegTattoosList.Add($"Tattoo #{counter} (of {MaleTattoosCollection.LEFT_LEG.Count})");
+                    leftLegTattoosList.Add($"문신 #{counter} / 총 {MaleTattoosCollection.LEFT_LEG.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in MaleTattoosCollection.RIGHT_LEG)
                 {
-                    rightLegTattoosList.Add($"Tattoo #{counter} (of {MaleTattoosCollection.RIGHT_LEG.Count})");
+                    rightLegTattoosList.Add($"문신 #{counter} / 총 {MaleTattoosCollection.RIGHT_LEG.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in MaleTattoosCollection.BADGES)
                 {
-                    badgeTattoosList.Add($"Badge #{counter} (of {MaleTattoosCollection.BADGES.Count})");
+                    badgeTattoosList.Add($"배지 #{counter} / 총 {MaleTattoosCollection.BADGES.Count}개");
                     counter++;
                 }
             }
@@ -701,55 +701,55 @@ namespace vMenuClient.menus
                 var counter = 1;
                 foreach (var tattoo in FemaleTattoosCollection.HEAD)
                 {
-                    headTattoosList.Add($"Tattoo #{counter} (of {FemaleTattoosCollection.HEAD.Count})");
+                    headTattoosList.Add($"문신 #{counter} / 총 {FemaleTattoosCollection.HEAD.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in FemaleTattoosCollection.TORSO)
                 {
-                    torsoTattoosList.Add($"Tattoo #{counter} (of {FemaleTattoosCollection.TORSO.Count})");
+                    torsoTattoosList.Add($"문신 #{counter} / 총 {FemaleTattoosCollection.TORSO.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in FemaleTattoosCollection.LEFT_ARM)
                 {
-                    leftArmTattoosList.Add($"Tattoo #{counter} (of {FemaleTattoosCollection.LEFT_ARM.Count})");
+                    leftArmTattoosList.Add($"문신 #{counter} / 총 {FemaleTattoosCollection.LEFT_ARM.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in FemaleTattoosCollection.RIGHT_ARM)
                 {
-                    rightArmTattoosList.Add($"Tattoo #{counter} (of {FemaleTattoosCollection.RIGHT_ARM.Count})");
+                    rightArmTattoosList.Add($"문신 #{counter} / 총 {FemaleTattoosCollection.RIGHT_ARM.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in FemaleTattoosCollection.LEFT_LEG)
                 {
-                    leftLegTattoosList.Add($"Tattoo #{counter} (of {FemaleTattoosCollection.LEFT_LEG.Count})");
+                    leftLegTattoosList.Add($"문신 #{counter} / 총 {FemaleTattoosCollection.LEFT_LEG.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in FemaleTattoosCollection.RIGHT_LEG)
                 {
-                    rightLegTattoosList.Add($"Tattoo #{counter} (of {FemaleTattoosCollection.RIGHT_LEG.Count})");
+                    rightLegTattoosList.Add($"문신 #{counter} / 총 {FemaleTattoosCollection.RIGHT_LEG.Count}개");
                     counter++;
                 }
                 counter = 1;
                 foreach (var tattoo in FemaleTattoosCollection.BADGES)
                 {
-                    badgeTattoosList.Add($"Badge #{counter} (of {FemaleTattoosCollection.BADGES.Count})");
+                    badgeTattoosList.Add($"배지 #{counter} / 총 {FemaleTattoosCollection.BADGES.Count}개");
                     counter++;
                 }
             }
 
-            const string tatDesc = "Cycle through the list to preview tattoos. If you like one, press enter to select it, selecting it will add the tattoo if you don't already have it. If you already have that tattoo then the tattoo will be removed.";
-            var headTatts = new MenuListItem("Head Tattoos", headTattoosList, 0, tatDesc);
-            var torsoTatts = new MenuListItem("Torso Tattoos", torsoTattoosList, 0, tatDesc);
-            var leftArmTatts = new MenuListItem("Left Arm Tattoos", leftArmTattoosList, 0, tatDesc);
-            var rightArmTatts = new MenuListItem("Right Arm Tattoos", rightArmTattoosList, 0, tatDesc);
-            var leftLegTatts = new MenuListItem("Left Leg Tattoos", leftLegTattoosList, 0, tatDesc);
-            var rightLegTatts = new MenuListItem("Right Leg Tattoos", rightLegTattoosList, 0, tatDesc);
-            var badgeTatts = new MenuListItem("Badge Overlays", badgeTattoosList, 0, tatDesc);
+            const string tatDesc = "목록을 넘기며 문신을 미리 볼 수 있습니다. 마음에 들면 Enter를 눌러 선택하세요. 현재 없으면 추가되고, 이미 있으면 제거됩니다.";
+            var headTatts = new MenuListItem("머리 문신", headTattoosList, 0, tatDesc);
+            var torsoTatts = new MenuListItem("몸통 문신", torsoTattoosList, 0, tatDesc);
+            var leftArmTatts = new MenuListItem("왼팔 문신", leftArmTattoosList, 0, tatDesc);
+            var rightArmTatts = new MenuListItem("오른팔 문신", rightArmTattoosList, 0, tatDesc);
+            var leftLegTatts = new MenuListItem("왼다리 문신", leftLegTattoosList, 0, tatDesc);
+            var rightLegTatts = new MenuListItem("오른다리 문신", rightLegTattoosList, 0, tatDesc);
+            var badgeTatts = new MenuListItem("배지 오버레이", badgeTattoosList, 0, tatDesc);
 
             tattoosMenu.AddMenuItem(headTatts);
             tattoosMenu.AddMenuItem(torsoTatts);
@@ -758,7 +758,7 @@ namespace vMenuClient.menus
             tattoosMenu.AddMenuItem(leftLegTatts);
             tattoosMenu.AddMenuItem(rightLegTatts);
             tattoosMenu.AddMenuItem(badgeTatts);
-            tattoosMenu.AddMenuItem(new MenuItem("Remove All Tattoos", "Click this if you want to remove all tattoos and start over."));
+            tattoosMenu.AddMenuItem(new MenuItem("모든 문신 제거", "모든 문신을 지우고 처음부터 다시 시작하려면 클릭하세요."));
             #endregion
 
             List<string> categoryNames = GetAllCategoryNames();
@@ -768,7 +768,7 @@ namespace vMenuClient.menus
             List<MenuItem.Icon> categoryIcons = GetCategoryIcons(categoryNames);
 
             categoryBtn.ItemData = new Tuple<List<string>, List<MenuItem.Icon>>(categoryNames, categoryIcons);
-            categoryBtn.ListItems = categoryNames;            
+            categoryBtn.ListItems = categoryNames;
 
             if (editPed)
             {
@@ -801,18 +801,18 @@ namespace vMenuClient.menus
                 var json = JsonConvert.SerializeObject(currentCharacter);
                 if (StorageManager.SaveJsonData(currentCharacter.SaveName, json, true))
                 {
-                    Notify.Success("Your character was saved successfully.");
+                    Notify.Success("캐릭터가 성공적으로 저장되었습니다.");
                     return true;
                 }
                 else
                 {
-                    Notify.Error("Your character could not be saved. Reason unknown. :(");
+                    Notify.Error("캐릭터를 저장할 수 없습니다. 원인을 알 수 없습니다. :(");
                     return false;
                 }
             }
             else
             {
-                var name = await GetUserInput(windowTitle: "Enter a save name.", maxInputLength: 30);
+                var name = await GetUserInput(windowTitle: "저장 이름을 입력하세요.", maxInputLength: 30);
                 if (string.IsNullOrEmpty(name))
                 {
                     Notify.Error(CommonErrors.InvalidInput);
@@ -825,13 +825,13 @@ namespace vMenuClient.menus
 
                     if (StorageManager.SaveJsonData("mp_ped_" + name, json, false))
                     {
-                        Notify.Success($"Your character (~g~<C>{name}</C>~s~) has been saved.");
-                        Log($"Saved Character {name}. Data: {json}");
+                        Notify.Success($"캐릭터 (~g~<C>{name}</C>~s~)가 저장되었습니다.");
+                        Log($"캐릭터 {name} 저장됨. 데이터: {json}");
                         return true;
                     }
                     else
                     {
-                        Notify.Error($"Saving failed, most likely because this name (~y~<C>{name}</C>~s~) is already in use.");
+                        Notify.Error($"저장에 실패했습니다. 아마 이 이름(~y~<C>{name}</C>~s~)이 이미 사용 중이기 때문입니다.");
                         return false;
                     }
                 }
@@ -851,73 +851,73 @@ namespace vMenuClient.menus
 
             for (int i = 0; i < GetNumHairColors(); i++)
             {
-                overlayColorsList.Add($"Color #{i + 1}");
+                overlayColorsList.Add($"색상 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(0); i++)
             {
-                blemishesStyleList.Add($"Style #{i + 1}");
+                blemishesStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(1); i++)
             {
-                beardStylesList.Add($"Style #{i + 1}");
+                beardStylesList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(2); i++)
             {
-                eyebrowsStyleList.Add($"Style #{i + 1}");
+                eyebrowsStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(3); i++)
             {
-                ageingStyleList.Add($"Style #{i + 1}");
+                ageingStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(4); i++)
             {
-                makeupStyleList.Add($"Style #{i + 1}");
+                makeupStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(5); i++)
             {
-                blushStyleList.Add($"Style #{i + 1}");
+                blushStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(6); i++)
             {
-                complexionStyleList.Add($"Style #{i + 1}");
+                complexionStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(7); i++)
             {
-                sunDamageStyleList.Add($"Style #{i + 1}");
+                sunDamageStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(8); i++)
             {
-                lipstickStyleList.Add($"Style #{i + 1}");
+                lipstickStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(9); i++)
             {
-                molesFrecklesStyleList.Add($"Style #{i + 1}");
+                molesFrecklesStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(10); i++)
             {
-                chestHairStyleList.Add($"Style #{i + 1}");
+                chestHairStyleList.Add($"스타일 #{i + 1}");
             }
 
             for (int i = 0; i < GetNumHeadOverlayValues(11); i++)
             {
-                bodyBlemishesList.Add($"Style #{i + 1}");
+                bodyBlemishesList.Add($"스타일 #{i + 1}");
             }
 
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "MP Ped Customization");
+            menu = new Menu(Game.Player.Name, "MP 캐릭터 꾸미기");
 
-            var savedCharacters = new MenuItem("Saved Characters", "Spawn, edit or delete your existing saved multiplayer characters.")
+            var savedCharacters = new MenuItem("저장된 캐릭터", "기존에 저장한 멀티플레이어 캐릭터를 소환, 수정 또는 삭제합니다.")
             {
                 Label = "→→→"
             };
@@ -943,49 +943,49 @@ namespace vMenuClient.menus
 
             menu.RefreshIndex();
 
-            createCharacterMenu.InstructionalButtons.Add(Control.MoveLeftRight, "Turn Head");
-            inheritanceMenu.InstructionalButtons.Add(Control.MoveLeftRight, "Turn Head");
-            appearanceMenu.InstructionalButtons.Add(Control.MoveLeftRight, "Turn Head");
-            faceShapeMenu.InstructionalButtons.Add(Control.MoveLeftRight, "Turn Head");
-            tattoosMenu.InstructionalButtons.Add(Control.MoveLeftRight, "Turn Head");
-            clothesMenu.InstructionalButtons.Add(Control.MoveLeftRight, "Turn Head");
-            propsMenu.InstructionalButtons.Add(Control.MoveLeftRight, "Turn Head");
+            createCharacterMenu.InstructionalButtons.Add(Control.MoveLeftRight, "머리 돌리기");
+            inheritanceMenu.InstructionalButtons.Add(Control.MoveLeftRight, "머리 돌리기");
+            appearanceMenu.InstructionalButtons.Add(Control.MoveLeftRight, "머리 돌리기");
+            faceShapeMenu.InstructionalButtons.Add(Control.MoveLeftRight, "머리 돌리기");
+            tattoosMenu.InstructionalButtons.Add(Control.MoveLeftRight, "머리 돌리기");
+            clothesMenu.InstructionalButtons.Add(Control.MoveLeftRight, "머리 돌리기");
+            propsMenu.InstructionalButtons.Add(Control.MoveLeftRight, "머리 돌리기");
 
-            createCharacterMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "Turn Character");
-            inheritanceMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "Turn Character");
-            appearanceMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "Turn Character");
-            faceShapeMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "Turn Character");
-            tattoosMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "Turn Character");
-            clothesMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "Turn Character");
-            propsMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "Turn Character");
+            createCharacterMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "캐릭터 회전");
+            inheritanceMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "캐릭터 회전");
+            appearanceMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "캐릭터 회전");
+            faceShapeMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "캐릭터 회전");
+            tattoosMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "캐릭터 회전");
+            clothesMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "캐릭터 회전");
+            propsMenu.InstructionalButtons.Add(Control.PhoneExtraOption, "캐릭터 회전");
 
-            createCharacterMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "Turn Camera Right");
-            inheritanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "Turn Camera Right");
-            appearanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "Turn Camera Right");
-            faceShapeMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "Turn Camera Right");
-            tattoosMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "Turn Camera Right");
-            clothesMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "Turn Camera Right");
-            propsMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "Turn Camera Right");
+            createCharacterMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "카메라 오른쪽 회전");
+            inheritanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "카메라 오른쪽 회전");
+            appearanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "카메라 오른쪽 회전");
+            faceShapeMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "카메라 오른쪽 회전");
+            tattoosMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "카메라 오른쪽 회전");
+            clothesMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "카메라 오른쪽 회전");
+            propsMenu.InstructionalButtons.Add(Control.ParachuteBrakeRight, "카메라 오른쪽 회전");
 
-            createCharacterMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "Turn Camera Left");
-            inheritanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "Turn Camera Left");
-            appearanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "Turn Camera Left");
-            faceShapeMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "Turn Camera Left");
-            tattoosMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "Turn Camera Left");
-            clothesMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "Turn Camera Left");
-            propsMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "Turn Camera Left");
+            createCharacterMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "카메라 왼쪽 회전");
+            inheritanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "카메라 왼쪽 회전");
+            appearanceMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "카메라 왼쪽 회전");
+            faceShapeMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "카메라 왼쪽 회전");
+            tattoosMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "카메라 왼쪽 회전");
+            clothesMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "카메라 왼쪽 회전");
+            propsMenu.InstructionalButtons.Add(Control.ParachuteBrakeLeft, "카메라 왼쪽 회전");
 
 
-            var randomizeButton = new MenuItem("Randomize Character", "Randomize character appearance.");
-            var inheritanceButton = new MenuItem("Character Inheritance", "Character inheritance options.");
-            var appearanceButton = new MenuItem("Character Appearance", "Character appearance options.");
-            var faceButton = new MenuItem("Character Face Shape Options", "Character face shape options.");
-            var tattoosButton = new MenuItem("Character Tattoo Options", "Character tattoo options.");
-            var clothesButton = new MenuItem("Character Clothes", "Character clothes.");
-            var propsButton = new MenuItem("Character Props", "Character props.");
-            var saveButton = new MenuItem("Save Character", "Save your character.");
-            var exitNoSave = new MenuItem("Exit Without Saving", "Are you sure? All unsaved work will be lost.");
-            var faceExpressionList = new MenuListItem("Facial Expression", new List<string> { "Normal", "Happy", "Angry", "Aiming", "Injured", "Stressed", "Smug", "Sulk" }, 0, "Set a facial expression that will be used whenever your ped is idling.");
+            var randomizeButton = new MenuItem("캐릭터 랜덤 생성", "캐릭터 외형을 무작위로 설정합니다.");
+            var inheritanceButton = new MenuItem("캐릭터 유전", "캐릭터 유전 옵션입니다.");
+            var appearanceButton = new MenuItem("캐릭터 외형", "캐릭터 외형 옵션입니다.");
+            var faceButton = new MenuItem("캐릭터 얼굴형 옵션", "캐릭터 얼굴형 옵션입니다.");
+            var tattoosButton = new MenuItem("캐릭터 문신 옵션", "캐릭터 문신 옵션입니다.");
+            var clothesButton = new MenuItem("캐릭터 의상", "캐릭터 의상입니다.");
+            var propsButton = new MenuItem("캐릭터 소품", "캐릭터 소품입니다.");
+            var saveButton = new MenuItem("캐릭터 저장", "캐릭터를 저장합니다.");
+            var exitNoSave = new MenuItem("저장하지 않고 종료", "정말 종료하시겠습니까? 저장하지 않은 작업은 모두 사라집니다.");
+            var faceExpressionList = new MenuListItem("표정", new List<string> { "기본", "행복", "화남", "조준", "부상", "스트레스", "능글", "시무룩" }, 0, "캐릭터가 가만히 있을 때 사용할 표정을 설정합니다.");
 
             inheritanceButton.Label = "→→→";
             appearanceButton.Label = "→→→";
@@ -1082,10 +1082,10 @@ namespace vMenuClient.menus
                 listIdx++;
             }
 
-            var inheritanceDads = new MenuListItem("Father", dads.Keys.ToList(), 0, "Select a father.");
-            var inheritanceMoms = new MenuListItem("Mother", moms.Keys.ToList(), 0, "Select a mother.");
-            var inheritanceShapeMix = new MenuSliderItem("Head Shape Mix", "Select how much of your head shape should be inherited from your father or mother. All the way on the left is your dad, all the way on the right is your mom.", 0, 10, 5, true) { SliderLeftIcon = MenuItem.Icon.MALE, SliderRightIcon = MenuItem.Icon.FEMALE, ItemData = "shape_mix" };
-            var inheritanceSkinMix = new MenuSliderItem("Body Skin Mix", "Select how much of your body skin tone should be inherited from your father or mother. All the way on the left is your dad, all the way on the right is your mom.", 0, 10, 5, true) { SliderLeftIcon = MenuItem.Icon.MALE, SliderRightIcon = MenuItem.Icon.FEMALE, ItemData = "skin_mix" };
+            var inheritanceDads = new MenuListItem("아버지", dads.Keys.ToList(), 0, "아버지를 선택하세요.");
+            var inheritanceMoms = new MenuListItem("어머니", moms.Keys.ToList(), 0, "어머니를 선택하세요.");
+            var inheritanceShapeMix = new MenuSliderItem("얼굴형 혼합", "얼굴형이 아버지와 어머니 중 누구를 얼마나 닮을지 설정합니다. 왼쪽 끝은 아버지, 오른쪽 끝은 어머니입니다.", 0, 10, 5, true) { SliderLeftIcon = MenuItem.Icon.MALE, SliderRightIcon = MenuItem.Icon.FEMALE, ItemData = "shape_mix" };
+            var inheritanceSkinMix = new MenuSliderItem("피부톤 혼합", "피부톤이 아버지와 어머니 중 누구를 얼마나 닮을지 설정합니다. 왼쪽 끝은 아버지, 오른쪽 끝은 어머니입니다.", 0, 10, 5, true) { SliderLeftIcon = MenuItem.Icon.MALE, SliderRightIcon = MenuItem.Icon.FEMALE, ItemData = "skin_mix" };
 
             inheritanceMenu.AddMenuItem(inheritanceDads);
             inheritanceMenu.AddMenuItem(inheritanceMoms);
@@ -1396,7 +1396,7 @@ namespace vMenuClient.menus
                 var maxTextures = GetNumberOfPedTextureVariations(Game.PlayerPed.Handle, componentIndex, newSelectionIndex);
 
                 currentCharacter.DrawableVariations.clothes[componentIndex] = new KeyValuePair<int, int>(newSelectionIndex, newTextureIndex);
-                listItem.Description = $"Select a drawable using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{newTextureIndex + 1} (of {maxTextures}).";
+                listItem.Description = $"방향키로 드로어블을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다. 현재 선택된 텍스처: #{newTextureIndex + 1} / 총 {maxTextures}개.";
             };
 
             clothesMenu.OnListItemSelect += (sender, listItem, listIndex, realIndex) =>
@@ -1415,7 +1415,7 @@ namespace vMenuClient.menus
                 var maxTextures = GetNumberOfPedTextureVariations(Game.PlayerPed.Handle, componentIndex, listIndex);
 
                 currentCharacter.DrawableVariations.clothes[componentIndex] = new KeyValuePair<int, int>(listIndex, newTextureIndex);
-                listItem.Description = $"Select a drawable using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{newTextureIndex + 1} (of {maxTextures}).";
+                listItem.Description = $"방향키로 드로어블을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다. 현재 선택된 텍스처: #{newTextureIndex + 1} / 총 {maxTextures}개.";
             };
             #endregion
 
@@ -1439,7 +1439,7 @@ namespace vMenuClient.menus
                     ClearPedProp(Game.PlayerPed.Handle, propIndex);
                     currentCharacter.PropVariations.props ??= new Dictionary<int, KeyValuePair<int, int>>();
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(-1, -1);
-                    listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                    listItem.Description = $"방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다.";
                 }
                 else
                 {
@@ -1448,12 +1448,12 @@ namespace vMenuClient.menus
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(newSelectionIndex, textureIndex);
                     if (GetPedPropIndex(Game.PlayerPed.Handle, propIndex) == -1)
                     {
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                        listItem.Description = $"방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다.";
                     }
                     else
                     {
                         var maxPropTextures = GetNumberOfPedPropTextureVariations(Game.PlayerPed.Handle, propIndex, newSelectionIndex);
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{textureIndex + 1} (of {maxPropTextures}).";
+                        listItem.Description = $"방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다. 현재 선택된 텍스처: #{textureIndex + 1} / 총 {maxPropTextures}개.";
                     }
                 }
             };
@@ -1478,7 +1478,7 @@ namespace vMenuClient.menus
                     ClearPedProp(Game.PlayerPed.Handle, propIndex);
                     currentCharacter.PropVariations.props ??= new Dictionary<int, KeyValuePair<int, int>>();
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(-1, -1);
-                    listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                    listItem.Description = $"방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다.";
                 }
                 else
                 {
@@ -1487,12 +1487,12 @@ namespace vMenuClient.menus
                     currentCharacter.PropVariations.props[propIndex] = new KeyValuePair<int, int>(listIndex, newTextureIndex);
                     if (GetPedPropIndex(Game.PlayerPed.Handle, propIndex) == -1)
                     {
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures.";
+                        listItem.Description = $"방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다.";
                     }
                     else
                     {
                         var maxPropTextures = GetNumberOfPedPropTextureVariations(Game.PlayerPed.Handle, propIndex, listIndex);
-                        listItem.Description = $"Select a prop using the arrow keys and press ~o~enter~s~ to cycle through all available textures. Currently selected texture: #{newTextureIndex + 1} (of {maxPropTextures}).";
+                        listItem.Description = $"방향키로 소품을 선택하고 ~o~Enter~s~를 눌러 사용 가능한 모든 텍스처를 순환합니다. 현재 선택된 텍스처: #{newTextureIndex + 1} / 총 {maxPropTextures}개.";
                     }
                 }
                 //propsMenu.UpdateScaleform();
@@ -1525,31 +1525,31 @@ namespace vMenuClient.menus
 
             var faceFeaturesNamesList = new string[20]
             {
-                "Nose Width",               // 0
-                "Noes Peak Height",         // 1
-                "Nose Peak Length",         // 2
-                "Nose Bone Height",         // 3
-                "Nose Peak Lowering",       // 4
-                "Nose Bone Twist",          // 5
-                "Eyebrows Height",          // 6
-                "Eyebrows Depth",           // 7
-                "Cheekbones Height",        // 8
-                "Cheekbones Width",         // 9
-                "Cheeks Width",             // 10
-                "Eyes Opening",             // 11
-                "Lips Thickness",           // 12
-                "Jaw Bone Width",           // 13
-                "Jaw Bone Depth/Length",    // 14
-                "Chin Height",              // 15
-                "Chin Depth/Length",        // 16
-                "Chin Width",               // 17
-                "Chin Hole Size",           // 18
-                "Neck Thickness"            // 19
+                "코 너비",               // 0
+                "코끝 높이",         // 1
+                "코끝 길이",         // 2
+                "콧대 높이",         // 3
+                "코끝 내려감",       // 4
+                "콧대 비틀림",          // 5
+                "눈썹 높이",          // 6
+                "눈썹 깊이",           // 7
+                "광대 높이",        // 8
+                "광대 너비",         // 9
+                "볼 너비",             // 10
+                "눈 뜬 정도",             // 11
+                "입술 두께",           // 12
+                "턱뼈 너비",           // 13
+                "턱뼈 깊이/길이",    // 14
+                "턱 높이",              // 15
+                "턱 깊이/길이",        // 16
+                "턱 너비",               // 17
+                "턱 홈 크기",           // 18
+                "목 두께"            // 19
             };
 
             for (var i = 0; i < 20; i++)
             {
-                var faceFeature = new MenuSliderItem(faceFeaturesNamesList[i], $"Set the {faceFeaturesNamesList[i]} face feature value.", 0, 20, 10, true);
+                var faceFeature = new MenuSliderItem(faceFeaturesNamesList[i], $"{faceFeaturesNamesList[i]} 얼굴 특징 값을 설정합니다.", 0, 20, 10, true);
                 faceShapeMenu.AddMenuItem(faceFeature);
             }
 
@@ -1702,12 +1702,12 @@ namespace vMenuClient.menus
                     var tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.HeadTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~r~제거~s~되었습니다.");
                         currentCharacter.PedTatttoos.HeadTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~g~추가~s~되었습니다.");
                         currentCharacter.PedTatttoos.HeadTattoos.Add(tat);
                     }
                 }
@@ -1717,12 +1717,12 @@ namespace vMenuClient.menus
                     var tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.TorsoTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~r~제거~s~되었습니다.");
                         currentCharacter.PedTatttoos.TorsoTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~g~추가~s~되었습니다.");
                         currentCharacter.PedTatttoos.TorsoTattoos.Add(tat);
                     }
                 }
@@ -1732,12 +1732,12 @@ namespace vMenuClient.menus
                     var tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.LeftArmTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~r~제거~s~되었습니다.");
                         currentCharacter.PedTatttoos.LeftArmTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~g~추가~s~되었습니다.");
                         currentCharacter.PedTatttoos.LeftArmTattoos.Add(tat);
                     }
                 }
@@ -1747,12 +1747,12 @@ namespace vMenuClient.menus
                     var tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.RightArmTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~r~제거~s~되었습니다.");
                         currentCharacter.PedTatttoos.RightArmTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~g~추가~s~되었습니다.");
                         currentCharacter.PedTatttoos.RightArmTattoos.Add(tat);
                     }
                 }
@@ -1762,12 +1762,12 @@ namespace vMenuClient.menus
                     var tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.LeftLegTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~r~제거~s~되었습니다.");
                         currentCharacter.PedTatttoos.LeftLegTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~g~추가~s~되었습니다.");
                         currentCharacter.PedTatttoos.LeftLegTattoos.Add(tat);
                     }
                 }
@@ -1777,12 +1777,12 @@ namespace vMenuClient.menus
                     var tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.RightLegTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~r~제거~s~되었습니다.");
                         currentCharacter.PedTatttoos.RightLegTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Tattoo #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"문신 #{tattooIndex + 1}이(가) ~g~추가~s~되었습니다.");
                         currentCharacter.PedTatttoos.RightLegTattoos.Add(tat);
                     }
                 }
@@ -1792,12 +1792,12 @@ namespace vMenuClient.menus
                     var tat = new KeyValuePair<string, string>(Tattoo.collectionName, Tattoo.name);
                     if (currentCharacter.PedTatttoos.BadgeTattoos.Contains(tat))
                     {
-                        Subtitle.Custom($"Badge #{tattooIndex + 1} has been ~r~removed~s~.");
+                        Subtitle.Custom($"배지 #{tattooIndex + 1}이(가) ~r~제거~s~되었습니다.");
                         currentCharacter.PedTatttoos.BadgeTattoos.Remove(tat);
                     }
                     else
                     {
-                        Subtitle.Custom($"Badge #{tattooIndex + 1} has been ~g~added~s~.");
+                        Subtitle.Custom($"배지 #{tattooIndex + 1}이(가) ~g~추가~s~되었습니다.");
                         currentCharacter.PedTatttoos.BadgeTattoos.Add(tat);
                     }
                 }
@@ -1809,7 +1809,7 @@ namespace vMenuClient.menus
             // eventhandler for when a tattoo is selected.
             tattoosMenu.OnItemSelect += (sender, item, index) =>
             {
-                Notify.Success("All tattoos have been removed.");
+                Notify.Success("모든 문신이 제거되었습니다.");
                 currentCharacter.PedTatttoos.HeadTattoos.Clear();
                 currentCharacter.PedTatttoos.TorsoTattoos.Clear();
                 currentCharacter.PedTatttoos.LeftArmTattoos.Clear();
@@ -2014,8 +2014,8 @@ namespace vMenuClient.menus
                 else if (item == exitNoSave) // exit without saving
                 {
                     var confirm = false;
-                    AddTextEntry("vmenu_warning_message_first_line", "Are you sure you want to exit the character creator?");
-                    AddTextEntry("vmenu_warning_message_second_line", "You will lose all (unsaved) customization!");
+                    AddTextEntry("vmenu_warning_message_first_line", "정말 캐릭터 생성기를 종료하시겠습니까?");
+                    AddTextEntry("vmenu_warning_message_second_line", "저장하지 않은 커스터마이징 내용이 모두 사라집니다!");
                     createCharacterMenu.CloseMenu();
 
                     // wait for confirmation or cancel input.
@@ -2078,53 +2078,53 @@ namespace vMenuClient.menus
                 {
                     List<MenuListItem> menuListItems = [.. appearanceMenu.GetMenuItems().OfType<MenuListItem>()];
 
-                    menuListItems.First(i => i.Text == "Hair Style").ListIndex = _hairSelection;
-                    menuListItems.First(i => i.Text == "Hair Color").ListIndex = _hairColorSelection;
-                    menuListItems.First(i => i.Text == "Hair Highlight Color").ListIndex = _hairHighlightColorSelection;
+                    menuListItems.First(i => i.Text == "헤어 스타일").ListIndex = _hairSelection;
+                    menuListItems.First(i => i.Text == "머리 색상").ListIndex = _hairColorSelection;
+                    menuListItems.First(i => i.Text == "머리 하이라이트 색상").ListIndex = _hairHighlightColorSelection;
 
-                    menuListItems.First(i => i.Text == "Blemishes Style").ListIndex = appearanceValues[0].Item1;
-                    menuListItems.First(i => i.Text == "Blemishes Opacity").ListIndex = (int)(appearanceValues[0].Item3 * 10);
+                    menuListItems.First(i => i.Text == "잡티 스타일").ListIndex = appearanceValues[0].Item1;
+                    menuListItems.First(i => i.Text == "잡티 투명도").ListIndex = (int)(appearanceValues[0].Item3 * 10);
 
-                    menuListItems.First(i => i.Text == "Beard Style").ListIndex = appearanceValues[1].Item1;
-                    menuListItems.First(i => i.Text == "Beard Opacity").ListIndex = (int)(appearanceValues[1].Item3 * 10);
-                    menuListItems.First(i => i.Text == "Beard Color").ListIndex = appearanceValues[1].Item2;
+                    menuListItems.First(i => i.Text == "수염 스타일").ListIndex = appearanceValues[1].Item1;
+                    menuListItems.First(i => i.Text == "수염 투명도").ListIndex = (int)(appearanceValues[1].Item3 * 10);
+                    menuListItems.First(i => i.Text == "수염 색상").ListIndex = appearanceValues[1].Item2;
 
-                    menuListItems.First(i => i.Text == "Eyebrows Style").ListIndex = appearanceValues[2].Item1;
-                    menuListItems.First(i => i.Text == "Eyebrows Opacity").ListIndex = (int)(appearanceValues[2].Item3 * 10);
-                    menuListItems.First(i => i.Text == "Eyebrows Color").ListIndex = appearanceValues[2].Item2;
+                    menuListItems.First(i => i.Text == "눈썹 스타일").ListIndex = appearanceValues[2].Item1;
+                    menuListItems.First(i => i.Text == "눈썹 투명도").ListIndex = (int)(appearanceValues[2].Item3 * 10);
+                    menuListItems.First(i => i.Text == "눈썹 색상").ListIndex = appearanceValues[2].Item2;
 
-                    menuListItems.First(i => i.Text == "Ageing Style").ListIndex = appearanceValues[3].Item1;
-                    menuListItems.First(i => i.Text == "Ageing Opacity").ListIndex = (int)(appearanceValues[3].Item3 * 10);
+                    menuListItems.First(i => i.Text == "노화 스타일").ListIndex = appearanceValues[3].Item1;
+                    menuListItems.First(i => i.Text == "노화 투명도").ListIndex = (int)(appearanceValues[3].Item3 * 10);
 
-                    menuListItems.First(i => i.Text == "Makeup Style").ListIndex = appearanceValues[4].Item1;
-                    menuListItems.First(i => i.Text == "Makeup Opacity").ListIndex = (int)(appearanceValues[4].Item3 * 10);
-                    menuListItems.First(i => i.Text == "Makeup Color").ListIndex = appearanceValues[4].Item2;
+                    menuListItems.First(i => i.Text == "메이크업 스타일").ListIndex = appearanceValues[4].Item1;
+                    menuListItems.First(i => i.Text == "메이크업 투명도").ListIndex = (int)(appearanceValues[4].Item3 * 10);
+                    menuListItems.First(i => i.Text == "메이크업 색상").ListIndex = appearanceValues[4].Item2;
 
-                    menuListItems.First(i => i.Text == "Blush Style").ListIndex = appearanceValues[5].Item1;
-                    menuListItems.First(i => i.Text == "Blush Opacity").ListIndex = (int)(appearanceValues[5].Item3 * 10);
-                    menuListItems.First(i => i.Text == "Blush Color").ListIndex = appearanceValues[5].Item2;
+                    menuListItems.First(i => i.Text == "블러셔 스타일").ListIndex = appearanceValues[5].Item1;
+                    menuListItems.First(i => i.Text == "블러셔 투명도").ListIndex = (int)(appearanceValues[5].Item3 * 10);
+                    menuListItems.First(i => i.Text == "블러셔 색상").ListIndex = appearanceValues[5].Item2;
 
-                    menuListItems.First(i => i.Text == "Complexion Style").ListIndex = appearanceValues[6].Item1;
-                    menuListItems.First(i => i.Text == "Complexion Opacity").ListIndex = (int)(appearanceValues[6].Item3 * 10);
+                    menuListItems.First(i => i.Text == "피부결 스타일").ListIndex = appearanceValues[6].Item1;
+                    menuListItems.First(i => i.Text == "피부결 투명도").ListIndex = (int)(appearanceValues[6].Item3 * 10);
 
-                    menuListItems.First(i => i.Text == "Sun Damage Style").ListIndex = appearanceValues[7].Item1;
-                    menuListItems.First(i => i.Text == "Sun Damage Opacity").ListIndex = (int)(appearanceValues[7].Item3 * 10);
+                    menuListItems.First(i => i.Text == "햇빛 손상 스타일").ListIndex = appearanceValues[7].Item1;
+                    menuListItems.First(i => i.Text == "햇빛 손상 투명도").ListIndex = (int)(appearanceValues[7].Item3 * 10);
 
-                    menuListItems.First(i => i.Text == "Lipstick Style").ListIndex = appearanceValues[8].Item1;
-                    menuListItems.First(i => i.Text == "Lipstick Opacity").ListIndex = (int)(appearanceValues[8].Item3 * 10);
-                    menuListItems.First(i => i.Text == "Lipstick Color").ListIndex = appearanceValues[8].Item2;
+                    menuListItems.First(i => i.Text == "립스틱 스타일").ListIndex = appearanceValues[8].Item1;
+                    menuListItems.First(i => i.Text == "립스틱 투명도").ListIndex = (int)(appearanceValues[8].Item3 * 10);
+                    menuListItems.First(i => i.Text == "립스틱 색상").ListIndex = appearanceValues[8].Item2;
 
-                    menuListItems.First(i => i.Text == "Moles and Freckles Style").ListIndex = appearanceValues[9].Item1;
-                    menuListItems.First(i => i.Text == "Moles and Freckles Opacity").ListIndex = (int)(appearanceValues[9].Item3 * 10);
+                    menuListItems.First(i => i.Text == "점/주근깨 스타일").ListIndex = appearanceValues[9].Item1;
+                    menuListItems.First(i => i.Text == "점/주근깨 투명도").ListIndex = (int)(appearanceValues[9].Item3 * 10);
 
-                    menuListItems.First(i => i.Text == "Chest Hair Style").ListIndex = appearanceValues[10].Item1;
-                    menuListItems.First(i => i.Text == "Chest Hair Opacity").ListIndex = (int)(appearanceValues[10].Item3 * 10);
-                    menuListItems.First(i => i.Text == "Chest Hair Color").ListIndex = appearanceValues[10].Item2;
+                    menuListItems.First(i => i.Text == "가슴 털 스타일").ListIndex = appearanceValues[10].Item1;
+                    menuListItems.First(i => i.Text == "가슴 털 투명도").ListIndex = (int)(appearanceValues[10].Item3 * 10);
+                    menuListItems.First(i => i.Text == "가슴 털 색상").ListIndex = appearanceValues[10].Item2;
 
-                    menuListItems.First(i => i.Text == "Body Blemishes Style").ListIndex = appearanceValues[11].Item1;
-                    menuListItems.First(i => i.Text == "Body Blemishes Opacity").ListIndex = (int)(appearanceValues[11].Item3 * 10);
+                    menuListItems.First(i => i.Text == "몸 잡티 스타일").ListIndex = appearanceValues[11].Item1;
+                    menuListItems.First(i => i.Text == "몸 잡티 투명도").ListIndex = (int)(appearanceValues[11].Item3 * 10);
 
-                    menuListItems.First(i => i.Text == "Eye Colors").ListIndex = _eyeColorSelection;
+                    menuListItems.First(i => i.Text == "눈 색상").ListIndex = _eyeColorSelection;
 
                     appearanceMenu.RefreshIndex();
 
@@ -2280,16 +2280,16 @@ namespace vMenuClient.menus
 
             MenuController.AddMenu(manageSavedCharacterMenu);
 
-            var spawnPed = new MenuItem("Spawn Saved Character", "Spawns the selected saved character.");
-            editPedBtn = new MenuItem("Edit Saved Character", "This allows you to edit everything about your saved character. The changes will be saved to this character's save file entry once you hit the save button.");
-            var clonePed = new MenuItem("Clone Saved Character", "This will make a clone of your saved character. It will ask you to provide a name for that character. If that name is already taken the action will be canceled.");
-            var setAsDefaultPed = new MenuItem("Set As Default Character", "If you set this character as your default character, and you enable the 'Respawn As Default MP Character' option in the Misc Settings menu, then you will be set as this character whenever you (re)spawn.");
-            var renameCharacter = new MenuItem("Rename Saved Character", "You can rename this saved character. If the name is already taken then the action will be canceled.");
-            var saveCurrentPedAsCharacter = new MenuItem("Update Character Clothing", "This applies your current clothing to this saved ped. ~r~This will overwrite this saved ped's clothing.~w~ Only clothing is updated, no other appearance features.")
+            var spawnPed = new MenuItem("저장된 캐릭터 소환", "선택한 저장 캐릭터를 소환합니다.");
+            editPedBtn = new MenuItem("저장된 캐릭터 수정", "저장된 캐릭터의 모든 항목을 수정할 수 있습니다. 저장 버튼을 누르면 변경 사항이 이 캐릭터의 저장 파일에 반영됩니다.");
+            var clonePed = new MenuItem("저장된 캐릭터 복제", "저장된 캐릭터를 복제합니다. 새 캐릭터 이름을 입력해야 하며, 이미 사용 중인 이름이면 작업이 취소됩니다.");
+            var setAsDefaultPed = new MenuItem("기본 캐릭터로 설정", "이 캐릭터를 기본 캐릭터로 설정하고 기타 설정 메뉴에서 '기본 MP 캐릭터로 다시 스폰' 옵션을 켜면, (재)스폰할 때마다 이 캐릭터로 적용됩니다.");
+            var renameCharacter = new MenuItem("저장된 캐릭터 이름 변경", "이 저장된 캐릭터의 이름을 변경할 수 있습니다. 이미 사용 중인 이름이면 작업이 취소됩니다.");
+            var saveCurrentPedAsCharacter = new MenuItem("캐릭터 의상 업데이트", "현재 의상을 이 저장된 캐릭터에 적용합니다. ~r~기존 저장 의상이 덮어써집니다.~w~ 의상만 업데이트되며 다른 외형 요소는 변경되지 않습니다.")
             {
                 LeftIcon = MenuItem.Icon.WARNING
             };
-            var delPed = new MenuItem("Delete Saved Character", "Deletes the selected saved character. This can not be undone!")
+            var delPed = new MenuItem("저장된 캐릭터 삭제", "선택한 저장 캐릭터를 삭제합니다. 이 작업은 되돌릴 수 없습니다!")
             {
                 LeftIcon = MenuItem.Icon.WARNING
             };
@@ -2323,7 +2323,7 @@ namespace vMenuClient.menus
                 else if (item == clonePed)
                 {
                     var tmpCharacter = StorageManager.GetSavedMpCharacterData("mp_ped_" + selectedSavedCharacterManageName);
-                    var name = await GetUserInput(windowTitle: "Enter a name for the cloned character", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
+                    var name = await GetUserInput(windowTitle: "복제할 캐릭터 이름을 입력하세요", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidSaveName);
@@ -2339,14 +2339,14 @@ namespace vMenuClient.menus
                             tmpCharacter.SaveName = "mp_ped_" + name;
                             if (StorageManager.SaveJsonData("mp_ped_" + name, JsonConvert.SerializeObject(tmpCharacter), false))
                             {
-                                Notify.Success($"Your character has been cloned. The name of the cloned character is: ~g~<C>{name}</C>~s~.");
+                                Notify.Success($"캐릭터가 복제되었습니다. 복제된 캐릭터 이름: ~g~<C>{name}</C>~s~.");
                                 MenuController.CloseAllMenus();
                                 UpdateSavedPedsMenu();
                                 savedCharactersMenu.OpenMenu();
                             }
                             else
                             {
-                                Notify.Error("The clone could not be created, reason unknown. Does a character already exist with that name? :(");
+                                Notify.Error("복제를 생성할 수 없습니다. 원인을 알 수 없습니다. 같은 이름의 캐릭터가 이미 있나요? :(");
                             }
                         }
                     }
@@ -2354,7 +2354,7 @@ namespace vMenuClient.menus
                 else if (item == renameCharacter)
                 {
                     var tmpCharacter = StorageManager.GetSavedMpCharacterData("mp_ped_" + selectedSavedCharacterManageName);
-                    var name = await GetUserInput(windowTitle: "Enter a new character name", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
+                    var name = await GetUserInput(windowTitle: "새 캐릭터 이름을 입력하세요", defaultText: tmpCharacter.SaveName.Substring(7), maxInputLength: 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -2371,7 +2371,7 @@ namespace vMenuClient.menus
                             if (StorageManager.SaveJsonData("mp_ped_" + name, JsonConvert.SerializeObject(tmpCharacter), false))
                             {
                                 StorageManager.DeleteSavedStorageItem("mp_ped_" + selectedSavedCharacterManageName);
-                                Notify.Success($"Your character has been renamed to ~g~<C>{name}</C>~s~.");
+                                Notify.Success($"캐릭터 이름이 ~g~<C>{name}</C>~s~(으)로 변경되었습니다.");
                                 UpdateSavedPedsMenu();
                                 while (!MenuController.IsAnyMenuOpen())
                                 {
@@ -2381,14 +2381,14 @@ namespace vMenuClient.menus
                             }
                             else
                             {
-                                Notify.Error("Something went wrong while renaming your character, your old character will NOT be deleted because of this.");
+                                Notify.Error("캐릭터 이름 변경 중 문제가 발생했습니다. 기존 캐릭터는 삭제되지 않습니다.");
                             }
                         }
                     }
                 }
                 else if (item == saveCurrentPedAsCharacter)
                 {
-                    if (saveCurrentPedAsCharacter.Label == "Are you sure?")
+                    if (saveCurrentPedAsCharacter.Label == "정말 진행하시겠습니까?")
                     {
                         saveCurrentPedAsCharacter.Label = "";
                         var tmpCharacter = StorageManager.GetSavedMpCharacterData("mp_ped_" + selectedSavedCharacterManageName);
@@ -2397,44 +2397,44 @@ namespace vMenuClient.menus
 
                         if (StorageManager.SaveJsonData(tmpCharacter.SaveName, JsonConvert.SerializeObject(tmpCharacter), true))
                         {
-                            Notify.Success($"This character's clothing has been updated!");
+                            Notify.Success($"이 캐릭터의 의상이 업데이트되었습니다!");
                             UpdateSavedPedsMenu();
                         }
                         else
                         {
-                            Notify.Error("Unable to update this character's clothing. The reason is unknown.");
+                            Notify.Error("이 캐릭터의 의상을 업데이트할 수 없습니다. 원인은 알 수 없습니다.");
                         }
                     }
                     else
                     {
-                        saveCurrentPedAsCharacter.Label = "Are you sure?";
+                        saveCurrentPedAsCharacter.Label = "정말 진행하시겠습니까?";
                     }
                 }
                 else if (item == delPed)
                 {
-                    if (delPed.Label == "Are you sure?")
+                    if (delPed.Label == "정말 진행하시겠습니까?")
                     {
                         delPed.Label = "";
                         DeleteResourceKvp("mp_ped_" + selectedSavedCharacterManageName);
-                        Notify.Success("Your saved character has been deleted.");
+                        Notify.Success("저장된 캐릭터가 삭제되었습니다.");
                         manageSavedCharacterMenu.GoBack();
                         UpdateSavedPedsMenu();
                         manageSavedCharacterMenu.RefreshIndex();
                     }
                     else
                     {
-                        delPed.Label = "Are you sure?";
+                        delPed.Label = "정말 진행하시겠습니까?";
                     }
                 }
                 else if (item == setAsDefaultPed)
                 {
-                    Notify.Success($"Your character <C>{selectedSavedCharacterManageName}</C> will now be used as your default character whenever you (re)spawn.");
+                    Notify.Success($"이제 <C>{selectedSavedCharacterManageName}</C> 캐릭터가 (재)스폰 시 기본 캐릭터로 사용됩니다.");
                     SetResourceKvp("vmenu_default_character", "mp_ped_" + selectedSavedCharacterManageName);
                 }
 
                 if (item != delPed)
                 {
-                    if (delPed.Label == "Are you sure?")
+                    if (delPed.Label == "정말 진행하시겠습니까?")
                     {
                         delPed.Label = "";
                     }
@@ -2442,7 +2442,7 @@ namespace vMenuClient.menus
 
                 if (item != saveCurrentPedAsCharacter)
                 {
-                    if (saveCurrentPedAsCharacter.Label == "Are you sure?")
+                    if (saveCurrentPedAsCharacter.Label == "정말 진행하시겠습니까?")
                     {
                         saveCurrentPedAsCharacter.Label = "";
                     }
@@ -2459,17 +2459,17 @@ namespace vMenuClient.menus
 
                 string name = listItem.ListItems[listIndex];
 
-                if (name == "Create New")
+                if (name == "새로 만들기")
                 {
-                    var newName = await GetUserInput(windowTitle: "Enter a category name.", maxInputLength: 30);
-                    if (string.IsNullOrEmpty(newName) || newName.ToLower() == "uncategorized" || newName.ToLower() == "create new")
+                    var newName = await GetUserInput(windowTitle: "카테고리 이름을 입력하세요.", maxInputLength: 30);
+                    if (string.IsNullOrEmpty(newName) || newName.ToLower() == "uncategorized" || newName.ToLower() == "새로 만들기")
                     {
                         Notify.Error(CommonErrors.InvalidInput);
                         return;
                     }
                     else
                     {
-                        var description = await GetUserInput(windowTitle: "Enter a category description (optional).", maxInputLength: 120);
+                        var description = await GetUserInput(windowTitle: "카테고리 설명을 입력하세요. (선택 사항)", maxInputLength: 120);
                         var newCategory = new MpCharacterCategory
                         {
                             Name = newName,
@@ -2478,8 +2478,8 @@ namespace vMenuClient.menus
 
                         if (StorageManager.SaveJsonData("mp_character_category_" + newName, JsonConvert.SerializeObject(newCategory), false))
                         {
-                            Notify.Success($"Your category (~g~<C>{newName}</C>~s~) has been saved.");
-                            Log($"Saved Category {newName}.");
+                            Notify.Success($"카테고리 (~g~<C>{newName}</C>~s~)가 저장되었습니다.");
+                            Log($"카테고리 {newName} 저장 완료.");
                             MenuController.CloseAllMenus();
                             UpdateSavedPedsMenu();
                             savedCharactersCategoryMenu.OpenMenu();
@@ -2489,7 +2489,7 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            Notify.Error($"Saving failed, most likely because this name (~y~<C>{newName}</C>~s~) is already in use.");
+                            Notify.Error($"저장에 실패했습니다. 아마 이 이름(~y~<C>{newName}</C>~s~)이 이미 사용 중이기 때문입니다.");
                             return;
                         }
                     }
@@ -2500,11 +2500,11 @@ namespace vMenuClient.menus
                 var json = JsonConvert.SerializeObject(tmpCharacter);
                 if (StorageManager.SaveJsonData(tmpCharacter.SaveName, json, true))
                 {
-                    Notify.Success("Your character was saved successfully.");
+                    Notify.Success("캐릭터가 성공적으로 저장되었습니다.");
                 }
                 else
                 {
-                    Notify.Error("Your character could not be saved. Reason unknown. :(");
+                    Notify.Error("캐릭터를 저장할 수 없습니다. 원인을 알 수 없습니다. :(");
                 }
 
                 MenuController.CloseAllMenus();
@@ -2512,12 +2512,12 @@ namespace vMenuClient.menus
                 savedCharactersMenu.OpenMenu();
             };
 
-            // reset the "are you sure" state.
+            // reset the "정말 진행하시겠습니까" state.
             manageSavedCharacterMenu.OnMenuClose += (sender) =>
             {
                 foreach (MenuItem item in manageSavedCharacterMenu.GetMenuItems())
                 {
-                    if (item.Label == "Are you sure?")
+                    if (item.Label == "정말 진행하시겠습니까?")
                     {
                         item.Label = "";
                     }
@@ -2530,15 +2530,15 @@ namespace vMenuClient.menus
                 // Create new category
                 if (item.ItemData is not MpCharacterCategory)
                 {
-                    var name = await GetUserInput(windowTitle: "Enter a category name.", maxInputLength: 30);
-                    if (string.IsNullOrEmpty(name) || name.ToLower() == "uncategorized" || name.ToLower() == "create new")
+                    var name = await GetUserInput(windowTitle: "카테고리 이름을 입력하세요.", maxInputLength: 30);
+                    if (string.IsNullOrEmpty(name) || name.ToLower() == "uncategorized" || name.ToLower() == "새로 만들기")
                     {
                         Notify.Error(CommonErrors.InvalidInput);
                         return;
                     }
                     else
                     {
-                        var description = await GetUserInput(windowTitle: "Enter a category description (optional).", maxInputLength: 120);
+                        var description = await GetUserInput(windowTitle: "카테고리 설명을 입력하세요. (선택 사항)", maxInputLength: 120);
                         var newCategory = new MpCharacterCategory
                         {
                             Name = name,
@@ -2547,8 +2547,8 @@ namespace vMenuClient.menus
 
                         if (StorageManager.SaveJsonData("mp_character_category_" + name, JsonConvert.SerializeObject(newCategory), false))
                         {
-                            Notify.Success($"Your category (~g~<C>{name}</C>~s~) has been saved.");
-                            Log($"Saved Category {name}.");
+                            Notify.Success($"카테고리 (~g~<C>{name}</C>~s~)가 저장되었습니다.");
+                            Log($"카테고리 {name} 저장 완료.");
                             MenuController.CloseAllMenus();
                             UpdateSavedPedsMenu();
                             savedCharactersCategoryMenu.OpenMenu();
@@ -2557,7 +2557,7 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            Notify.Error($"Saving failed, most likely because this name (~y~<C>{name}</C>~s~) is already in use.");
+                            Notify.Error($"저장에 실패했습니다. 아마 이 이름(~y~<C>{name}</C>~s~)이 이미 사용 중이기 때문입니다.");
                             return;
                         }
                     }
@@ -2568,10 +2568,10 @@ namespace vMenuClient.menus
                     currentCategory = item.ItemData;
                 }
 
-                bool isUncategorized = currentCategory.Name == "Uncategorized";
+                bool isUncategorized = currentCategory.Name == "미분류";
 
                 savedCharactersCategoryMenu.MenuTitle = currentCategory.Name;
-                savedCharactersCategoryMenu.MenuSubtitle = $"~s~Category: ~y~{currentCategory.Name}";
+                savedCharactersCategoryMenu.MenuSubtitle = $"~s~카테고리: ~y~{currentCategory.Name}";
                 savedCharactersCategoryMenu.ClearMenuItems();
 
                 var iconNames = Enum.GetNames(typeof(MenuItem.Icon)).ToList();
@@ -2599,25 +2599,25 @@ namespace vMenuClient.menus
                     return iconNames[newIndex];
                 }
 
-                var renameBtn = new MenuItem("Rename Category", "Rename this category.")
+                var renameBtn = new MenuItem("카테고리 이름 변경", "이 카테고리의 이름을 변경합니다.")
                 {
                     Enabled = !isUncategorized
                 };
-                var descriptionBtn = new MenuItem("Change Category Description", "Change this category's description.")
+                var descriptionBtn = new MenuItem("카테고리 설명 변경", "이 카테고리의 설명을 변경합니다.")
                 {
                     Enabled = !isUncategorized
                 };
-                var iconBtn = new MenuDynamicListItem("Change Category Icon", iconNames[(int)currentCategory.Icon], new MenuDynamicListItem.ChangeItemCallback(ChangeCallback), "Change this category's icon. Select to save.")
+                var iconBtn = new MenuDynamicListItem("카테고리 아이콘 변경", iconNames[(int)currentCategory.Icon], new MenuDynamicListItem.ChangeItemCallback(ChangeCallback), "이 카테고리의 아이콘을 변경합니다. 선택하면 저장됩니다.")
                 {
                     Enabled = !isUncategorized,
                     RightIcon = currentCategory.Icon
                 };
-                var deleteBtn = new MenuItem("Delete Category", "Delete this category. This can not be undone!")
+                var deleteBtn = new MenuItem("카테고리 삭제", "이 카테고리를 삭제합니다. 이 작업은 되돌릴 수 없습니다!")
                 {
                     RightIcon = MenuItem.Icon.WARNING,
                     Enabled = !isUncategorized
                 };
-                var deleteCharsBtn = new MenuCheckboxItem("Delete All Characters", "If checked, when \"Delete Category\" is pressed, all the saved characters in this category will be deleted as well. If not checked, saved characters will be moved to \"Uncategorized\".")
+                var deleteCharsBtn = new MenuCheckboxItem("모든 캐릭터 삭제", "If checked, when \"Delete Category\" is pressed, all the saved characters in this category will be deleted as well. If not checked, saved characters will be moved to \"Uncategorized\".")
                 {
                     Enabled = !isUncategorized
                 };
@@ -2628,7 +2628,7 @@ namespace vMenuClient.menus
                 savedCharactersCategoryMenu.AddMenuItem(deleteBtn);
                 savedCharactersCategoryMenu.AddMenuItem(deleteCharsBtn);
 
-                var spacer = GetSpacerMenuItem("↓ Characters ↓");
+                var spacer = GetSpacerMenuItem("↓ 캐릭터 목록 ↓");
                 savedCharactersCategoryMenu.AddMenuItem(spacer);
 
                 List<string> names = GetAllMpCharacterNames();
@@ -2657,7 +2657,7 @@ namespace vMenuClient.menus
                             }
                         }
 
-                        var btn = new MenuItem(name, "Click to spawn, edit, clone, rename or delete this saved character.")
+                        var btn = new MenuItem(name, "클릭하여 이 저장된 캐릭터를 소환, 수정, 복제, 이름 변경 또는 삭제할 수 있습니다.")
                         {
                             Label = "→→→",
                             LeftIcon = tmpData.IsMale ? MenuItem.Icon.MALE : MenuItem.Icon.FEMALE,
@@ -2666,7 +2666,7 @@ namespace vMenuClient.menus
                         if (defaultChar == "mp_ped_" + name)
                         {
                             btn.LeftIcon = MenuItem.Icon.TICK;
-                            btn.Description += " ~g~This character is currently set as your default character and will be used whenever you (re)spawn.";
+                            btn.Description += " ~g~이 캐릭터는 현재 기본 캐릭터로 설정되어 있으며 (재)스폰할 때마다 사용됩니다.";
                         }
                         savedCharactersCategoryMenu.AddMenuItem(btn);
                         MenuController.BindMenuItem(savedCharactersCategoryMenu, manageSavedCharacterMenu, btn);
@@ -2752,9 +2752,9 @@ namespace vMenuClient.menus
                 {
                     // Rename Category
                     case 0:
-                        var name = await GetUserInput(windowTitle: "Enter a new category name", defaultText: currentCategory.Name, maxInputLength: 30);
+                        var name = await GetUserInput(windowTitle: "새 카테고리 이름을 입력하세요", defaultText: currentCategory.Name, maxInputLength: 30);
 
-                        if (string.IsNullOrEmpty(name) || name.ToLower() == "uncategorized" || name.ToLower() == "create new")
+                        if (string.IsNullOrEmpty(name) || name.ToLower() == "uncategorized" || name.ToLower() == "새로 만들기")
                         {
                             Notify.Error(CommonErrors.InvalidInput);
                             return;
@@ -2800,48 +2800,48 @@ namespace vMenuClient.menus
                                     if (StorageManager.SaveJsonData(tmpData.SaveName, JsonConvert.SerializeObject(tmpData), true))
                                     {
                                         updatedCount++;
-                                        Log($"Updated category for \"{tmpData.SaveName}\"");
+                                        Log($"\"{tmpData.SaveName}\"의 카테고리를 업데이트했습니다.");
                                     }
                                     else
                                     {
-                                        Log($"Something went wrong when updating category for \"{tmpData.SaveName}\"");
+                                        Log($"\"{tmpData.SaveName}\"의 카테고리 업데이트 중 문제가 발생했습니다.");
                                     }
                                 }
                             }
 
-                            Notify.Success($"Your category has been renamed to ~g~<C>{name}</C>~s~. {updatedCount}/{totalCount} characters updated.");
+                            Notify.Success($"카테고리 이름이 ~g~<C>{name}</C>~s~(으)로 변경되었습니다. {updatedCount}/{totalCount}개의 캐릭터가 업데이트되었습니다.");
                             MenuController.CloseAllMenus();
                             UpdateSavedPedsMenu();
                             savedCharactersMenu.OpenMenu();
                         }
                         else
                         {
-                            Notify.Error("Something went wrong while renaming your category, your old category will NOT be deleted because of this.");
+                            Notify.Error("카테고리 이름 변경 중 문제가 발생했습니다. 기존 카테고리는 삭제되지 않습니다.");
                         }
                         break;
 
                     // Change Category Description
                     case 1:
-                        var description = await GetUserInput(windowTitle: "Enter a new category description", defaultText: currentCategory.Description, maxInputLength: 120);
+                        var description = await GetUserInput(windowTitle: "새 카테고리 설명을 입력하세요", defaultText: currentCategory.Description, maxInputLength: 120);
 
                         currentCategory.Description = description;
 
                         if (StorageManager.SaveJsonData("mp_character_category_" + currentCategory.Name, JsonConvert.SerializeObject(currentCategory), true))
                         {
-                            Notify.Success($"Your category description has been changed.");
+                            Notify.Success($"카테고리 설명이 변경되었습니다.");
                             MenuController.CloseAllMenus();
                             UpdateSavedPedsMenu();
                             savedCharactersMenu.OpenMenu();
                         }
                         else
                         {
-                            Notify.Error("Something went wrong while changing your category description.");
+                            Notify.Error("카테고리 설명 변경 중 문제가 발생했습니다.");
                         }
                         break;
 
                     // Delete Category
                     case 3:
-                        if (item.Label == "Are you sure?")
+                        if (item.Label == "정말 진행하시겠습니까?")
                         {
                             bool deletePeds = (sender.GetMenuItems().ElementAt(4) as MenuCheckboxItem).Checked;
 
@@ -2879,29 +2879,29 @@ namespace vMenuClient.menus
                                     }
                                     else
                                     {
-                                        tmpData.Category = "Uncategorized";
+                                        tmpData.Category = "미분류";
 
                                         if (StorageManager.SaveJsonData(tmpData.SaveName, JsonConvert.SerializeObject(tmpData), true))
                                         {
                                             updatedCount++;
-                                            Log($"Updated category for \"{tmpData.SaveName}\"");
+                                            Log($"\"{tmpData.SaveName}\"의 카테고리를 업데이트했습니다.");
                                         }
                                         else
                                         {
-                                            Log($"Something went wrong when updating category for \"{tmpData.SaveName}\"");
+                                            Log($"\"{tmpData.SaveName}\"의 카테고리 업데이트 중 문제가 발생했습니다.");
                                         }
                                     }
                                 }
                             }
 
-                            Notify.Success($"Your saved category has been deleted. {updatedCount}/{totalCount} characters {(deletePeds ? "deleted" : "updated")}.");
+                            Notify.Success($"저장된 카테고리가 삭제되었습니다. {updatedCount}/{totalCount}개의 캐릭터가 {(deletePeds ? "삭제" : "업데이트")}되었습니다.");
                             MenuController.CloseAllMenus();
                             UpdateSavedPedsMenu();
                             savedCharactersMenu.OpenMenu();
                         }
                         else
                         {
-                            item.Label = "Are you sure?";
+                            item.Label = "정말 진행하시겠습니까?";
                         }
                         break;
 
@@ -2933,12 +2933,12 @@ namespace vMenuClient.menus
 
                 if (StorageManager.SaveJsonData("mp_character_category_" + currentCategory.Name, JsonConvert.SerializeObject(currentCategory), true))
                 {
-                    Notify.Success($"Your category icon been changed to ~g~<C>{iconNames[iconIndex]}</C>~s~.");
+                    Notify.Success($"카테고리 아이콘이 ~g~<C>{iconNames[iconIndex]}</C>~s~(으)로 변경되었습니다.");
                     UpdateSavedPedsMenu();
                 }
                 else
                 {
-                    Notify.Error("Something went wrong while changing your category icon.");
+                    Notify.Error("카테고리 아이콘 변경 중 문제가 발생했습니다.");
                 }
             };
 
@@ -2961,19 +2961,19 @@ namespace vMenuClient.menus
 
             savedCharactersMenu.ClearMenuItems();
 
-            var createCategoryBtn = new MenuItem("Create Category", "Create a new character category.")
+            var createCategoryBtn = new MenuItem("카테고리 생성", "새 캐릭터 카테고리를 생성합니다.")
             {
                 Label = "→→→"
             };
             savedCharactersMenu.AddMenuItem(createCategoryBtn);
 
-            var spacer = GetSpacerMenuItem("↓ Character Categories ↓");
+            var spacer = GetSpacerMenuItem("↓ 캐릭터 카테고리 ↓");
             savedCharactersMenu.AddMenuItem(spacer);
 
             var uncategorized = new MpCharacterCategory
             {
-                Name = "Uncategorized",
-                Description = "All saved MP Characters that have not been assigned to a category."
+                Name = "미분류",
+                Description = "카테고리가 지정되지 않은 모든 저장된 MP 캐릭터입니다."
             };
             var uncategorizedBtn = new MenuItem(uncategorized.Name, uncategorized.Description)
             {
@@ -2983,7 +2983,7 @@ namespace vMenuClient.menus
             savedCharactersMenu.AddMenuItem(uncategorizedBtn);
             MenuController.BindMenuItem(savedCharactersMenu, savedCharactersCategoryMenu, uncategorizedBtn);
 
-            // Remove "Create New" and "Uncategorized"
+            // Remove "새로 만들기" and "미분류"
             categories.RemoveRange(0, 2);
 
             if (categories.Count > 0)
@@ -3025,8 +3025,8 @@ namespace vMenuClient.menus
             }
             EndFindKvp(handle);
 
-            categories.Insert(0, "Create New");
-            categories.Insert(1, "Uncategorized");
+            categories.Insert(0, "새로 만들기");
+            categories.Insert(1, "미분류");
 
             return categories;
         }

@@ -68,78 +68,78 @@ namespace vMenuClient.menus
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Vehicle Options");
+            menu = new Menu(Game.Player.Name, "차량 옵션");
 
             #region menu items variables
             // vehicle god mode menu
-            var vehGodMenu = new Menu("Vehicle Godmode", "Vehicle Godmode Options");
-            var vehGodMenuBtn = new MenuItem("God Mode Options", "Enable or disable specific damage types.") { Label = "→→→" };
+            var vehGodMenu = new Menu("차량 무적 모드", "차량 무적 설정");
+            var vehGodMenuBtn = new MenuItem("무적 옵션", "특정 피해 유형을 켜거나 끕니다.") { Label = "→→→" };
             MenuController.AddSubmenu(menu, vehGodMenu);
 
             // Create Checkboxes.
-            var vehicleGod = new MenuCheckboxItem("Vehicle God Mode", "Makes your vehicle not take any damage. Note, you need to go into the god menu options below to select what kind of damage you want to disable.", VehicleGodMode);
-            var vehicleNeverDirty = new MenuCheckboxItem("Keep Vehicle Clean", "This will constantly clean your car if the vehicle dirt level goes above 0. Note that this only cleans ~o~dust~s~ or ~o~dirt~s~. This does not clean mud, snow or other ~r~damage decals~s~. Repair your vehicle to remove them.", VehicleNeverDirty);
-            var vehicleBikeSeatbelt = new MenuCheckboxItem("Bike Seatbelt", "Prevents you from being knocked off your bike, bicyle, ATV or similar.", VehicleBikeSeatbelt);
-            var vehicleEngineAO = new MenuCheckboxItem("Engine Always On", "Keeps your vehicle engine on when you exit your vehicle.", VehicleEngineAlwaysOn);
-            var vehicleNoTurbulence = new MenuCheckboxItem("Disable Plane Turbulence", "Disables the turbulence for all planes.", DisablePlaneTurbulence);
-            var vehicleNoTurbulenceHeli = new MenuCheckboxItem("Disable Helicopter Turbulence", "Disables the turbulence for all helicopters.", DisableHelicopterTurbulence);
-            var vehicleSetAnchor = new MenuCheckboxItem("Anchor Boat", "Only works if the current vehicle is a boat and its position is valid for anchoring", AnchorBoat);
-            var vehicleNoSiren = new MenuCheckboxItem("Disable Siren", "Disables your vehicle's siren. Only works if your vehicle actually has a siren.", VehicleNoSiren);
-            var vehicleNoBikeHelmet = new MenuCheckboxItem("No Bike Helmet", "No longer auto-equip a helmet when getting on a bike or quad.", VehicleNoBikeHelemet);
-            var vehicleFreeze = new MenuCheckboxItem("Freeze Vehicle", "Freeze your vehicle's position.", VehicleFrozen);
-            var torqueEnabled = new MenuCheckboxItem("Enable Torque Multiplier", "Enables the torque multiplier selected from the list below.", VehicleTorqueMultiplier);
-            var powerEnabled = new MenuCheckboxItem("Enable Power Multiplier", "Enables the power multiplier selected from the list below.", VehiclePowerMultiplier);
-            var highbeamsOnHonk = new MenuCheckboxItem("Flash Highbeams On Honk", "Turn on your highbeams on your vehicle when honking your horn. Does not work during the day when you have your lights turned off.", FlashHighbeamsOnHonk);
-            var showHealth = new MenuCheckboxItem("Show Vehicle Health", "Shows the vehicle health on the screen.", VehicleShowHealth);
-            var infiniteFuel = new MenuCheckboxItem("Infinite Fuel", "Enables or disables infinite fuel for this vehicle, only works if FRFuel is installed.", VehicleInfiniteFuel);
+            var vehicleGod = new MenuCheckboxItem("차량 무적", "차량이 피해를 받지 않게 합니다. 아래 무적 설정 메뉴에서 어떤 피해를 막을지 선택할 수 있습니다.", VehicleGodMode);
+            var vehicleNeverDirty = new MenuCheckboxItem("차량 항상 깨끗하게", "차량 오염도가 0보다 높아지면 계속 세차합니다. 단, ~o~먼지~s~나 ~o~흙먼지~s~만 제거됩니다. 진흙, 눈, 기타 ~r~손상 자국~s~은 지워지지 않으므로 제거하려면 차량을 수리하세요.", VehicleNeverDirty);
+            var vehicleBikeSeatbelt = new MenuCheckboxItem("오토바이 안전장치", "오토바이, 자전거, ATV 등에서 떨어지지 않게 합니다.", VehicleBikeSeatbelt);
+            var vehicleEngineAO = new MenuCheckboxItem("엔진 항상 켜짐", "차량에서 내려도 엔진이 꺼지지 않습니다.", VehicleEngineAlwaysOn);
+            var vehicleNoTurbulence = new MenuCheckboxItem("비행기 난기류 비활성화", "모든 비행기의 난기류를 비활성화합니다.", DisablePlaneTurbulence);
+            var vehicleNoTurbulenceHeli = new MenuCheckboxItem("헬리콥터 난기류 비활성화", "모든 헬리콥터의 난기류를 비활성화합니다.", DisableHelicopterTurbulence);
+            var vehicleSetAnchor = new MenuCheckboxItem("보트 정박", "현재 차량이 보트이고 정박 가능한 위치일 때만 작동합니다.", AnchorBoat);
+            var vehicleNoSiren = new MenuCheckboxItem("사이렌 비활성화", "차량의 사이렌을 끕니다. 사이렌이 있는 차량에서만 작동합니다.", VehicleNoSiren);
+            var vehicleNoBikeHelmet = new MenuCheckboxItem("헬멧 자동 착용 끄기", "오토바이 또는 ATV 탑승 시 헬멧을 자동으로 착용하지 않습니다.", VehicleNoBikeHelemet);
+            var vehicleFreeze = new MenuCheckboxItem("차량 고정", "차량 위치를 고정합니다.", VehicleFrozen);
+            var torqueEnabled = new MenuCheckboxItem("토크 배율 활성화", "아래 목록에서 선택한 토크 배율을 활성화합니다.", VehicleTorqueMultiplier);
+            var powerEnabled = new MenuCheckboxItem("출력 배율 활성화", "아래 목록에서 선택한 출력 배율을 활성화합니다.", VehiclePowerMultiplier);
+            var highbeamsOnHonk = new MenuCheckboxItem("경적 시 상향등 점멸", "경적을 울릴 때 상향등이 점멸합니다. 낮에 라이트가 꺼져 있으면 작동하지 않습니다.", FlashHighbeamsOnHonk);
+            var showHealth = new MenuCheckboxItem("차량 내구도 표시", "화면에 차량 내구도를 표시합니다.", VehicleShowHealth);
+            var infiniteFuel = new MenuCheckboxItem("무한 연료", "이 차량의 무한 연료를 켜거나 끕니다. FRFuel이 설치되어 있을 때만 작동합니다.", VehicleInfiniteFuel);
 
             // Create buttons.
-            var fixVehicle = new MenuItem("Repair Vehicle", "Repair any visual and physical damage present on your vehicle.");
-            var cleanVehicle = new MenuItem("Wash Vehicle", "Clean your vehicle.");
-            var toggleEngine = new MenuItem("Toggle Engine On/Off", "Turn your engine on/off.");
-            var setLicensePlateText = new MenuItem("Set License Plate Text", "Enter a custom license plate for your vehicle.");
-            var modMenuBtn = new MenuItem("Mod Menu", "Tune and customize your vehicle here.")
+            var fixVehicle = new MenuItem("차량 수리", "차량의 외형 및 물리적 손상을 모두 수리합니다.");
+            var cleanVehicle = new MenuItem("차량 세차", "차량을 세차합니다.");
+            var toggleEngine = new MenuItem("엔진 켜기/끄기", "엔진을 켜거나 끕니다.");
+            var setLicensePlateText = new MenuItem("번호판 문자 설정", "차량 번호판 문구를 직접 입력합니다.");
+            var modMenuBtn = new MenuItem("튜닝 메뉴", "여기서 차량을 튜닝하고 꾸밀 수 있습니다.")
             {
                 Label = "→→→"
             };
-            var doorsMenuBtn = new MenuItem("Vehicle Doors", "Open, close, remove and restore vehicle doors here.")
+            var doorsMenuBtn = new MenuItem("차량 문", "차량 문을 열고, 닫고, 제거하고, 복구할 수 있습니다.")
             {
                 Label = "→→→"
             };
-            var windowsMenuBtn = new MenuItem("Vehicle Windows", "Roll your windows up/down or remove/restore your vehicle windows here.")
+            var windowsMenuBtn = new MenuItem("차량 창문", "창문을 올리거나 내리고, 제거하거나 복구할 수 있습니다.")
             {
                 Label = "→→→"
             };
-            var componentsMenuBtn = new MenuItem("Vehicle Extras", "Add/remove vehicle components/extras.")
+            var componentsMenuBtn = new MenuItem("차량 추가옵션", "차량 부품 및 추가옵션을 추가/제거합니다.")
             {
                 Label = "→→→"
             };
-            var liveriesMenuBtn = new MenuItem("Vehicle Liveries", "Style your vehicle with fancy liveries!")
+            var liveriesMenuBtn = new MenuItem("차량 리버리", "차량에 다양한 리버리를 적용합니다!")
             {
                 Label = "→→→"
             };
-            var colorsMenuBtn = new MenuItem("Vehicle Colors", "Style your vehicle even further by giving it some ~g~Snailsome ~s~colors!")
+            var colorsMenuBtn = new MenuItem("차량 색상", "멋진 색상을 적용해 차량을 더 꾸며보세요!")
             {
                 Label = "→→→"
             };
-            var underglowMenuBtn = new MenuItem("Vehicle Neon Kits", "Make your vehicle shine with some fancy neon underglow!")
+            var underglowMenuBtn = new MenuItem("차량 네온 키트", "화려한 네온 언더글로우로 차량을 빛나게 해보세요!")
             {
                 Label = "→→→"
             };
-            var vehicleInvisible = new MenuItem("Toggle Vehicle Visibility", "Makes your vehicle visible/invisible. ~r~Your vehicle will be made visible again as soon as you leave the vehicle. Otherwise you would not be able to get back in.");
-            var flipVehicle = new MenuItem("Flip Vehicle", "Sets your current vehicle on all 4 wheels.");
-            var vehicleAlarm = new MenuItem("Toggle Vehicle Alarm", "Starts/stops your vehicle's alarm.");
-            var cycleSeats = new MenuItem("Cycle Through Vehicle Seats", "Cycle through the available vehicle seats.");
+            var vehicleInvisible = new MenuItem("차량 표시/숨김 전환", "차량을 보이게/숨기게 전환합니다. ~r~차량에서 내리면 다시 보이게 됩니다. 그렇지 않으면 다시 탑승할 수 없습니다.");
+            var flipVehicle = new MenuItem("차량 바로 세우기", "현재 차량을 네 바퀴로 바로 세웁니다.");
+            var vehicleAlarm = new MenuItem("차량 경보 전환", "차량 경보를 켜거나 끕니다.");
+            var cycleSeats = new MenuItem("좌석 순환 이동", "탑승 가능한 좌석을 순서대로 이동합니다.");
             var lights = new List<string>()
             {
-                "Hazard Lights",
-                "Left Indicator",
-                "Right Indicator",
-                "Interior Lights",
+                "비상등",
+                "좌측 방향지시등",
+                "우측 방향지시등",
+                "실내등",
                 //"Taxi Light", // this doesn't seem to work no matter what.
-                "Helicopter Spotlight",
+                "헬기 탐조등",
             };
-            var vehicleLights = new MenuListItem("Vehicle Lights", lights, 0, "Turn vehicle lights on/off.");
+            var vehicleLights = new MenuListItem("차량 라이트", lights, 0, "차량 라이트를 켜거나 끕니다.");
 
             var stationNames = new List<string>();
 
@@ -157,27 +157,27 @@ namespace vMenuClient.menus
                 radioIndex = index;
             }
 
-            var radioStations = new MenuListItem("Default radio station", stationNames, radioIndex, "Select a defalut radio station to be set when spawning new car");
+            var radioStations = new MenuListItem("기본 라디오 채널", stationNames, radioIndex, "새 차량 생성 시 적용할 기본 라디오 채널을 선택합니다.");
 
-            var tiresList = new List<string>() { "All Tires", "Tire #1", "Tire #2", "Tire #3", "Tire #4", "Tire #5", "Tire #6", "Tire #7", "Tire #8" };
-            var vehicleTiresList = new MenuListItem("Fix / Destroy Tires", tiresList, 0, "Fix or destroy a specific vehicle tire, or all of them at once. Note, not all indexes are valid for all vehicles, some might not do anything on certain vehicles.");
+            var tiresList = new List<string>() { "모든 타이어", "타이어 #1", "타이어 #2", "타이어 #3", "타이어 #4", "타이어 #5", "타이어 #6", "타이어 #7", "타이어 #8" };
+            var vehicleTiresList = new MenuListItem("타이어 수리 / 파괴", tiresList, 0, "특정 타이어 하나 또는 전체 타이어를 한 번에 수리하거나 파괴합니다. 모든 차량에서 모든 인덱스가 유효한 것은 아니며, 일부 차량에서는 동작하지 않을 수 있습니다.");
 
-            var destroyEngine = new MenuItem("Destroy Engine", "Destroys your vehicle's engine.");
+            var destroyEngine = new MenuItem("엔진 파괴", "차량 엔진을 파괴합니다.");
 
-            var deleteBtn = new MenuItem("~r~Delete Vehicle", "Delete your vehicle, this ~r~can NOT be undone~s~!")
+            var deleteBtn = new MenuItem("~r~차량 삭제", "차량을 삭제합니다. 이 작업은 ~r~되돌릴 수 없습니다~s~!")
             {
                 LeftIcon = MenuItem.Icon.WARNING,
                 Label = "→→→"
             };
-            var deleteNoBtn = new MenuItem("NO, CANCEL", "NO, do NOT delete my vehicle and go back!");
-            var deleteYesBtn = new MenuItem("~r~YES, DELETE", "Yes I'm sure, delete my vehicle please, I understand that this cannot be undone.")
+            var deleteNoBtn = new MenuItem("아니오, 취소", "아니오, 차량을 삭제하지 않고 돌아갑니다!");
+            var deleteYesBtn = new MenuItem("~r~예, 삭제", "예, 차량을 삭제합니다. 이 작업이 되돌릴 수 없다는 점을 이해했습니다.")
             {
                 LeftIcon = MenuItem.Icon.WARNING
             };
 
             // Create lists.
-            var dirtlevel = new List<string> { "No Dirt", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
-            var setDirtLevel = new MenuListItem("Set Dirt Level", dirtlevel, 0, "Select how much dirt should be visible on your vehicle, press ~r~enter~s~ " +
+            var dirtlevel = new List<string> { "오염 없음", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
+            var setDirtLevel = new MenuListItem("오염도 설정", dirtlevel, 0, "Select how much dirt should be visible on your vehicle, press ~r~enter~s~ " +
                 "to apply the selected level.");
             var licensePlates = new List<string> {
                 GetLabelText("CMOD_PLA_0"), // Plate Index 0 // BlueOnWhite1
@@ -194,20 +194,20 @@ namespace vMenuClient.menus
                 GetLabelText("CMOD_PLA_11"), // Plate Index 11 // LSPounders
                 GetLabelText("CMOD_PLA_12"), // Plate Index 12 // Sprunk
             };
-            var setLicensePlateType = new MenuListItem("License Plate Type", licensePlates, 0, "Choose a license plate type and press ~r~enter ~s~to apply " +
+            var setLicensePlateType = new MenuListItem("번호판 종류", licensePlates, 0, "Choose a license plate type and press ~r~enter ~s~to apply " +
                 "it to your vehicle.");
             var torqueMultiplierList = new List<string> { "x2", "x4", "x8", "x16", "x32", "x64", "x128", "x256", "x512", "x1024" };
-            var torqueMultiplier = new MenuListItem("Set Engine Torque Multiplier", torqueMultiplierList, 0, "Set the engine torque multiplier.");
+            var torqueMultiplier = new MenuListItem("엔진 토크 배율 설정", torqueMultiplierList, 0, "엔진 토크 배율을 설정합니다.");
             var powerMultiplierList = new List<string> { "x2", "x4", "x8", "x16", "x32", "x64", "x128", "x256", "x512", "x1024" };
-            var powerMultiplier = new MenuListItem("Set Engine Power Multiplier", powerMultiplierList, 0, "Set the engine power multiplier.");
-            var speedLimiterOptions = new List<string>() { "Set", "Reset", "Custom Speed Limit" };
-            var speedLimiter = new MenuListItem("Speed Limiter", speedLimiterOptions, 0, "Set your vehicles max speed to your ~y~current speed~s~. Resetting your vehicles max speed will set the max speed of your current vehicle back to default. Only your current vehicle is affected by this option.");
+            var powerMultiplier = new MenuListItem("엔진 출력 배율 설정", powerMultiplierList, 0, "엔진 출력 배율을 설정합니다.");
+            var speedLimiterOptions = new List<string>() { "설정", "초기화", "사용자 지정 속도 제한" };
+            var speedLimiter = new MenuListItem("속도 제한기", speedLimiterOptions, 0, "현재 ~y~주행 속도~s~를 차량의 최고 속도로 제한합니다. 초기화하면 현재 차량의 최고 속도가 기본값으로 돌아갑니다. 이 옵션은 현재 차량에만 적용됩니다.");
             #endregion
 
             #region Submenus
             // Submenu's
-            VehicleModMenu = new Menu("Mod Menu", "Vehicle Mods");
-            VehicleModMenu.InstructionalButtons.Add(Control.Jump, "Toggle Vehicle Doors");
+            VehicleModMenu = new Menu("튜닝 메뉴", "차량 튜닝");
+            VehicleModMenu.InstructionalButtons.Add(Control.Jump, "차량 문 열기/닫기");
             VehicleModMenu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_PRESSED, new Action<Menu, Control>((m, c) =>
             {
                 var veh = GetVehicle();
@@ -227,13 +227,13 @@ namespace vMenuClient.menus
                     }
                 }
             }), false));
-            VehicleDoorsMenu = new Menu("Vehicle Doors", "Vehicle Doors Management");
-            VehicleWindowsMenu = new Menu("Vehicle Windows", "Vehicle Windows Management");
-            VehicleComponentsMenu = new Menu("Vehicle Extras", "Vehicle Extras/Components");
-            VehicleLiveriesMenu = new Menu("Vehicle Liveries", "Vehicle Liveries");
-            VehicleColorsMenu = new Menu("Vehicle Colors", "Vehicle Colors");
-            DeleteConfirmMenu = new Menu("Confirm Action", "Delete Vehicle, Are You Sure?");
-            VehicleUnderglowMenu = new Menu("Vehicle Neon Kits", "Vehicle Neon Underglow Options");
+            VehicleDoorsMenu = new Menu("차량 문", "차량 문 관리");
+            VehicleWindowsMenu = new Menu("차량 창문", "차량 창문 관리");
+            VehicleComponentsMenu = new Menu("차량 추가옵션", "차량 추가옵션/부품");
+            VehicleLiveriesMenu = new Menu("차량 리버리", "차량 리버리");
+            VehicleColorsMenu = new Menu("차량 색상", "차량 색상");
+            DeleteConfirmMenu = new Menu("작업 확인", "차량을 삭제하시겠습니까?");
+            VehicleUnderglowMenu = new Menu("차량 네온 키트", "차량 네온 언더글로우 설정");
 
             MenuController.AddSubmenu(menu, VehicleModMenu);
             MenuController.AddSubmenu(menu, VehicleDoorsMenu);
@@ -253,12 +253,12 @@ namespace vMenuClient.menus
                 menu.AddMenuItem(vehGodMenuBtn);
                 MenuController.BindMenuItem(menu, vehGodMenu, vehGodMenuBtn);
 
-                var godInvincible = new MenuCheckboxItem("Invincible", "Makes the car invincible. Includes fire damage, explosion damage, collision damage and more.", VehicleGodInvincible);
-                var godEngine = new MenuCheckboxItem("Engine Damage", "Disables your engine from taking any damage.", VehicleGodEngine);
-                var godVisual = new MenuCheckboxItem("Visual Damage", "This prevents scratches and other damage decals from being applied to your vehicle. It does not prevent (body) deformation damage.", VehicleGodVisual);
-                var godStrongWheels = new MenuCheckboxItem("Strong Wheels", "Disables your wheels from being deformed and causing reduced handling. This does not make tires bulletproof.", VehicleGodStrongWheels);
-                var godRamp = new MenuCheckboxItem("Ramp Damage", "Disables vehicles such as the Ramp Buggy from taking damage when using the ramp.", VehicleGodRamp);
-                var godAutoRepair = new MenuCheckboxItem("~r~Auto Repair", "Automatically repairs your vehicle when it has ANY type of damage. It's recommended to keep this turned off to prevent glitchyness.", VehicleGodAutoRepair);
+                var godInvincible = new MenuCheckboxItem("완전 무적", "차량을 완전 무적으로 만듭니다. 화재, 폭발, 충돌 등 대부분의 피해가 포함됩니다.", VehicleGodInvincible);
+                var godEngine = new MenuCheckboxItem("엔진 손상 방지", "엔진이 피해를 받지 않게 합니다.", VehicleGodEngine);
+                var godVisual = new MenuCheckboxItem("외형 손상 방지", "차량에 흠집 및 기타 손상 자국이 생기지 않게 합니다. 단, 차체 변형까지 막지는 않습니다.", VehicleGodVisual);
+                var godStrongWheels = new MenuCheckboxItem("강화 휠", "휠 변형으로 인해 조작성이 낮아지는 것을 막습니다. 타이어가 방탄이 되지는 않습니다.", VehicleGodStrongWheels);
+                var godRamp = new MenuCheckboxItem("램프 손상 방지", "Ramp Buggy 같은 차량이 램프 사용 시 피해를 받지 않게 합니다.", VehicleGodRamp);
+                var godAutoRepair = new MenuCheckboxItem("~r~자동 수리", "어떤 종류의 손상이든 발생하면 차량을 자동 수리합니다. 버그성 동작을 막기 위해 보통은 꺼두는 것이 좋습니다.", VehicleGodAutoRepair);
 
                 vehGodMenu.AddMenuItem(godInvincible);
                 vehGodMenu.AddMenuItem(godEngine);
@@ -465,7 +465,7 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            Notify.Alert("You need to be in the driver's seat if you want to delete a vehicle.");
+                            Notify.Alert("차량을 삭제하려면 운전석에 앉아 있어야 합니다.");
                         }
 
                     }
@@ -569,7 +569,7 @@ namespace vMenuClient.menus
                     // If the player is not the driver seat and a button other than the option below (cycle seats) was pressed, notify them.
                     else if (item != cycleSeats)
                     {
-                        Notify.Error("You have to be the driver of a vehicle to access this menu!", true, false);
+                        Notify.Error("이 메뉴를 사용하려면 차량 운전석에 있어야 합니다!", true, false);
                     }
 
                     // Cycle vehicle seats
@@ -910,11 +910,11 @@ namespace vMenuClient.menus
                             else if (listIndex == 1) // Reset
                             {
                                 SetEntityMaxSpeed(vehicle.Handle, 500.01f); // Default max speed seemingly for all vehicles.
-                                Notify.Info("Vehicle speed is now no longer limited.");
+                                Notify.Info("차량 속도 제한이 해제되었습니다.");
                             }
                             else if (listIndex == 2) // custom speed
                             {
-                                var inputSpeed = await GetUserInput("Enter a speed (in meters/sec)", "20.0", 5);
+                                var inputSpeed = await GetUserInput("속도를 입력하세요 (m/s)", "20.0", 5);
                                 if (!string.IsNullOrEmpty(inputSpeed))
                                 {
                                     if (float.TryParse(inputSpeed, out var outFloat))
@@ -948,7 +948,7 @@ namespace vMenuClient.menus
                                     }
                                     else
                                     {
-                                        Notify.Error("This is not a valid number. Please enter a valid speed in meters per second.");
+                                        Notify.Error("올바른 숫자가 아닙니다. m/s 단위의 유효한 속도를 입력하세요.");
                                     }
                                 }
                                 else
@@ -976,7 +976,7 @@ namespace vMenuClient.menus
                                     {
                                         SetVehicleTyreFixed(veh.Handle, i);
                                     }
-                                    Notify.Success("All vehicle tyres have been fixed.");
+                                    Notify.Success("모든 차량 타이어가 수리되었습니다.");
                                 }
                                 else
                                 {
@@ -984,7 +984,7 @@ namespace vMenuClient.menus
                                     {
                                         SetVehicleTyreBurst(veh.Handle, i, false, 1f);
                                     }
-                                    Notify.Success("All vehicle tyres have been destroyed.");
+                                    Notify.Success("모든 차량 타이어가 파괴되었습니다.");
                                 }
                             }
                             else
@@ -1029,33 +1029,33 @@ namespace vMenuClient.menus
 
             #region Vehicle Colors Submenu Stuff
             // color customization menu
-            var customizeColorMenu = new Menu("Vehicle Colors", "Customize Colors");
+            var customizeColorMenu = new Menu("차량 색상", "색상 사용자 설정");
             MenuController.AddSubmenu(VehicleColorsMenu, customizeColorMenu);
 
-            var colorsCustomizationBtn = new MenuItem("Customize Colors") { Label = "→→→" };
+            var colorsCustomizationBtn = new MenuItem("색상 사용자 설정") { Label = "→→→" };
             VehicleColorsMenu.AddMenuItem(colorsCustomizationBtn);
             MenuController.BindMenuItem(VehicleColorsMenu, customizeColorMenu, colorsCustomizationBtn);
 
             // primary menu
-            var primaryColorsMenu = new Menu("Vehicle Colors", "Primary Colors");
+            var primaryColorsMenu = new Menu("차량 색상", "기본 색상");
             MenuController.AddSubmenu(customizeColorMenu, primaryColorsMenu);
 
-            var primaryColorsBtn = new MenuItem("Primary Color") { Label = "→→→" };
+            var primaryColorsBtn = new MenuItem("기본 색상") { Label = "→→→" };
             customizeColorMenu.AddMenuItem(primaryColorsBtn);
             MenuController.BindMenuItem(customizeColorMenu, primaryColorsMenu, primaryColorsBtn);
 
             // secondary menu
-            var secondaryColorsMenu = new Menu("Vehicle Colors", "Secondary Colors");
+            var secondaryColorsMenu = new Menu("차량 색상", "보조 색상");
             MenuController.AddSubmenu(customizeColorMenu, secondaryColorsMenu);
 
-            var secondaryColorsBtn = new MenuItem("Secondary Color") { Label = "→→→" };
+            var secondaryColorsBtn = new MenuItem("보조 색상") { Label = "→→→" };
             customizeColorMenu.AddMenuItem(secondaryColorsBtn);
             MenuController.BindMenuItem(customizeColorMenu, secondaryColorsMenu, secondaryColorsBtn);
 
-            var presetColorsBtn = new MenuListItem("Preset Colors", [], 0);
+            var presetColorsBtn = new MenuListItem("프리셋 색상", [], 0);
             customizeColorMenu.AddMenuItem(presetColorsBtn);
 
-            var chrome = new MenuItem("Chrome");
+            var chrome = new MenuItem("크롬");
             customizeColorMenu.AddMenuItem(chrome);
 
             // color lists
@@ -1065,7 +1065,7 @@ namespace vMenuClient.menus
             var util = new List<string>();
             var worn = new List<string>();
             var chameleon = new List<string>();
-            var wheelColors = new List<string>() { "Default Alloy" };
+            var wheelColors = new List<string>() { "기본 휠 색상" };
 
             // Just quick and dirty solution to put this in a new enclosed section so that we can still use 'i' as a counter in the other code parts.
             {
@@ -1117,10 +1117,10 @@ namespace vMenuClient.menus
                 wheelColors.AddRange(classic);
             }
 
-            var wheelColorsList = new MenuListItem("Wheel Color", wheelColors, 0);
-            var dashColorList = new MenuListItem("Dashboard Color", classic, 0);
-            var intColorList = new MenuListItem("Interior / Trim Color", classic, 0);
-            var vehicleEnveffScale = new MenuSliderItem("Vehicle Enveff Scale", "This works on certain vehicles only, like the besra for example. It 'fades' certain paint layers.", 0, 20, 10, true);
+            var wheelColorsList = new MenuListItem("휠 색상", wheelColors, 0);
+            var dashColorList = new MenuListItem("대시보드 색상", classic, 0);
+            var intColorList = new MenuListItem("실내 / 트림 색상", classic, 0);
+            var vehicleEnveffScale = new MenuSliderItem("차량 Enveff 강도", "이 기능은 Besra 같은 일부 차량에서만 작동하며, 특정 도색 레이어를 흐리게 만듭니다.", 0, 20, 10, true);
 
             VehicleColorsMenu.AddMenuItem(vehicleEnveffScale);
 
@@ -1136,7 +1136,7 @@ namespace vMenuClient.menus
                 }
                 else
                 {
-                    Notify.Error("You need to be the driver of a driveable vehicle to change this slider.");
+                    Notify.Error("이 슬라이더를 변경하려면 운전 가능한 차량의 운전석에 있어야 합니다.");
                 }
             };
 
@@ -1271,7 +1271,7 @@ namespace vMenuClient.menus
                 }
                 else
                 {
-                    Notify.Error("You need to be the driver of a vehicle in order to change the vehicle colors.");
+                    Notify.Error("차량 색상을 변경하려면 차량 운전석에 있어야 합니다.");
                 }
             }
 
@@ -1280,16 +1280,16 @@ namespace vMenuClient.menus
                 Vehicle veh = GetVehicle();
                 if (veh != null && veh.Exists() && !veh.IsDead && veh.Driver == Game.PlayerPed)
                 {
-                    string rawRValue = await GetUserInput("Custom RGB - R Value (number from 0-255)", "0", 3);
-                    string rawGValue = await GetUserInput("Custom RGB - G Value (number from 0-255)", "0", 3);
-                    string rawBValue = await GetUserInput("Custom RGB - B Value (number from 0-255)", "0", 3);
+                    string rawRValue = await GetUserInput("사용자 지정 RGB - R 값 (0~255)", "0", 3);
+                    string rawGValue = await GetUserInput("사용자 지정 RGB - G 값 (0~255)", "0", 3);
+                    string rawBValue = await GetUserInput("사용자 지정 RGB - B 값 (0~255)", "0", 3);
                     int rValue;
                     int gValue;
                     int bValue;
 
                     if (!int.TryParse(rawRValue, out rValue) || !int.TryParse(rawGValue, out gValue) || !int.TryParse(rawBValue, out bValue))
                     {
-                        Notify.Error("An invalid RGB value was entered, ensure you enter numbers between 0 and 255");
+                        Notify.Error("잘못된 RGB 값이 입력되었습니다. 0~255 사이의 숫자를 입력하세요.");
                         return;
                     }
 
@@ -1306,14 +1306,14 @@ namespace vMenuClient.menus
 
             for (var i = 0; i < 2; i++)
             {
-                var customColour = new MenuItem("Custom RGB") { Label = "→→→" };
-                var pearlescentList = new MenuListItem("Pearlescent", classic, 0);
-                var classicList = new MenuListItem("Classic", classic, 0);
-                var metallicList = new MenuListItem("Metallic", classic, 0);
-                var matteList = new MenuListItem("Matte", matte, 0);
-                var metalList = new MenuListItem("Metals", metals, 0);
-                var utilList = new MenuListItem("Util", util, 0);
-                var wornList = new MenuListItem("Worn", worn, 0);
+                var customColour = new MenuItem("사용자 지정 RGB") { Label = "→→→" };
+                var pearlescentList = new MenuListItem("펄레슨트", classic, 0);
+                var classicList = new MenuListItem("클래식", classic, 0);
+                var metallicList = new MenuListItem("메탈릭", classic, 0);
+                var matteList = new MenuListItem("무광", matte, 0);
+                var metalList = new MenuListItem("메탈", metals, 0);
+                var utilList = new MenuListItem("유틸", util, 0);
+                var wornList = new MenuListItem("낡은 색상", worn, 0);
 
                 if (i == 0)
                 {
@@ -1327,7 +1327,7 @@ namespace vMenuClient.menus
 
                     if (GetSettingsBool(Setting.vmenu_using_chameleon_colours))
                     {
-                        var chameleonList = new MenuListItem("Chameleon", chameleon, 0);
+                        var chameleonList = new MenuListItem("카멜레온", chameleon, 0);
 
                         primaryColorsMenu.AddMenuItem(chameleonList);
                     }
@@ -1358,7 +1358,7 @@ namespace vMenuClient.menus
                 if (numVehColors == 0)
                 {
                     presetColorsBtn.Enabled = false;
-                    presetColorsBtn.ListItems = ["No Preset Colors"];
+                    presetColorsBtn.ListItems = ["프리셋 색상 없음"];
                     presetColorsBtn.ListIndex = 0;
                     return;
                 }
@@ -1390,7 +1390,7 @@ namespace vMenuClient.menus
                 }
                 else
                 {
-                    Notify.Error("You need to be the driver of a driveable vehicle to change this.");
+                    Notify.Error("이 항목을 변경하려면 운전 가능한 차량의 운전석에 있어야 합니다.");
                 }
             };
 
@@ -1407,26 +1407,26 @@ namespace vMenuClient.menus
                 }
                 else
                 {
-                    Notify.Error("You need to be the driver of a driveable vehicle to change this.");
+                    Notify.Error("이 항목을 변경하려면 운전 가능한 차량의 운전석에 있어야 합니다.");
                 }
             }
             #endregion
 
             #region Vehicle Doors Submenu Stuff
-            var openAll = new MenuItem("Open All Doors", "Open all vehicle doors.");
-            var closeAll = new MenuItem("Close All Doors", "Close all vehicle doors.");
-            var LF = new MenuItem("Left Front Door", "Open/close the left front door.");
-            var RF = new MenuItem("Right Front Door", "Open/close the right front door.");
-            var LR = new MenuItem("Left Rear Door", "Open/close the left rear door.");
-            var RR = new MenuItem("Right Rear Door", "Open/close the right rear door.");
-            var HD = new MenuItem("Hood", "Open/close the hood.");
-            var TR = new MenuItem("Trunk", "Open/close the trunk.");
-            var E1 = new MenuItem("Extra 1", "Open/close the extra door (#1). Note this door is not present on most vehicles.");
-            var E2 = new MenuItem("Extra 2", "Open/close the extra door (#2). Note this door is not present on most vehicles.");
-            var BB = new MenuItem("Bomb Bay", "Open/close the bomb bay. Only available on some planes.");
-            var doors = new List<string>() { "Front Left", "Front Right", "Rear Left", "Rear Right", "Hood", "Trunk", "Extra 1", "Extra 2" };
-            var removeDoorList = new MenuListItem("Remove Door", doors, 0, "Remove a specific vehicle door completely.");
-            var deleteDoors = new MenuCheckboxItem("Delete Removed Doors", "When enabled, doors that you remove using the list above will be deleted from the world. If disabled, then the doors will just fall on the ground.", false);
+            var openAll = new MenuItem("모든 문 열기", "차량의 모든 문을 엽니다.");
+            var closeAll = new MenuItem("모든 문 닫기", "차량의 모든 문을 닫습니다.");
+            var LF = new MenuItem("왼쪽 앞문", "왼쪽 앞문을 엽니다/닫습니다.");
+            var RF = new MenuItem("오른쪽 앞문", "오른쪽 앞문을 엽니다/닫습니다.");
+            var LR = new MenuItem("왼쪽 뒷문", "왼쪽 뒷문을 엽니다/닫습니다.");
+            var RR = new MenuItem("오른쪽 뒷문", "오른쪽 뒷문을 엽니다/닫습니다.");
+            var HD = new MenuItem("보닛", "보닛을 엽니다/닫습니다.");
+            var TR = new MenuItem("트렁크", "트렁크를 엽니다/닫습니다.");
+            var E1 = new MenuItem("추가 문 1", "추가 문(#1)을 엽니다/닫습니다. 대부분의 차량에는 없는 문일 수 있습니다.");
+            var E2 = new MenuItem("추가 문 2", "추가 문(#2)을 엽니다/닫습니다. 대부분의 차량에는 없는 문일 수 있습니다.");
+            var BB = new MenuItem("폭탄창", "폭탄창을 엽니다/닫습니다. 일부 비행기에서만 사용할 수 있습니다.");
+            var doors = new List<string>() { "앞 왼쪽", "앞 오른쪽", "뒤 왼쪽", "뒤 오른쪽", "보닛", "트렁크", "추가 문 1", "추가 문 2" };
+            var removeDoorList = new MenuListItem("문 제거", doors, 0, "특정 차량 문을 완전히 제거합니다.");
+            var deleteDoors = new MenuCheckboxItem("제거한 문 삭제", "활성화하면 위 목록으로 제거한 문이 월드에서 완전히 삭제됩니다. 비활성화하면 문이 바닥에 떨어집니다.", false);
 
             VehicleDoorsMenu.AddMenuItem(LF);
             VehicleDoorsMenu.AddMenuItem(RF);
@@ -1538,10 +1538,10 @@ namespace vMenuClient.menus
             #endregion
 
             #region Vehicle Windows Submenu Stuff
-            var fwu = new MenuItem("~y~↑~s~ Roll Front Windows Up", "Roll both front windows up.");
-            var fwd = new MenuItem("~o~↓~s~ Roll Front Windows Down", "Roll both front windows down.");
-            var rwu = new MenuItem("~y~↑~s~ Roll Rear Windows Up", "Roll both rear windows up.");
-            var rwd = new MenuItem("~o~↓~s~ Roll Rear Windows Down", "Roll both rear windows down.");
+            var fwu = new MenuItem("~y~↑~s~ 앞창문 올리기", "앞창문 두 개를 모두 올립니다.");
+            var fwd = new MenuItem("~o~↓~s~ 앞창문 내리기", "앞창문 두 개를 모두 내립니다.");
+            var rwu = new MenuItem("~y~↑~s~ 뒷창문 올리기", "뒷창문 두 개를 모두 올립니다.");
+            var rwd = new MenuItem("~o~↓~s~ 뒷창문 내리기", "뒷창문 두 개를 모두 내립니다.");
             VehicleWindowsMenu.AddMenuItem(fwu);
             VehicleWindowsMenu.AddMenuItem(fwd);
             VehicleWindowsMenu.AddMenuItem(rwu);
@@ -1601,7 +1601,7 @@ namespace vMenuClient.menus
                                     livery = GetLabelText(livery) != "NULL" ? GetLabelText(livery) : $"Livery #{i}";
                                     liveryList.Add(livery);
                                 }
-                                var liveryListItem = new MenuListItem("Set Livery", liveryList, GetVehicleLivery(veh.Handle), "Choose a livery for this vehicle.");
+                                var liveryListItem = new MenuListItem("리버리 설정", liveryList, GetVehicleLivery(veh.Handle), "이 차량에 적용할 리버리를 선택합니다.");
                                 VehicleLiveriesMenu.AddMenuItem(liveryListItem);
                                 VehicleLiveriesMenu.OnListIndexChange += (_menu, listItem, oldIndex, newIndex, itemIndex) =>
                                 {
@@ -1616,12 +1616,12 @@ namespace vMenuClient.menus
                             }
                             else
                             {
-                                Notify.Error("This vehicle does not have any liveries.");
+                                Notify.Error("이 차량에는 리버리가 없습니다.");
                                 VehicleLiveriesMenu.CloseMenu();
                                 menu.OpenMenu();
-                                var backBtn = new MenuItem("No Liveries Available :(", "Click me to go back.")
+                                var backBtn = new MenuItem("사용 가능한 리버리 없음 :(", "눌러서 돌아가기")
                                 {
-                                    Label = "Go Back"
+                                    Label = "뒤로가기"
                                 };
                                 VehicleLiveriesMenu.AddMenuItem(backBtn);
                                 VehicleLiveriesMenu.OnItemSelect += (sender2, item2, index2) =>
@@ -1696,7 +1696,7 @@ namespace vMenuClient.menus
                         {
                             extraLabels = new Dictionary<int, string>();
                         }
-                      
+
                         //List<int> extraIds = new List<int>();
                         // Loop through all possible extra ID's (AFAIK: 0-14).
                         for (var extra = 0; extra < 14; extra++)
@@ -1725,7 +1725,7 @@ namespace vMenuClient.menus
 
                         if (vehicleExtras.Count > 0)
                         {
-                            var backBtn = new MenuItem("Go Back", "Go back to the Vehicle Options menu.");
+                            var backBtn = new MenuItem("뒤로가기", "차량 옵션 메뉴로 돌아갑니다.");
                             VehicleComponentsMenu.AddMenuItem(backBtn);
                             VehicleComponentsMenu.OnItemSelect += (sender3, item3, index3) =>
                             {
@@ -1734,9 +1734,9 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            var backBtn = new MenuItem("No Extras Available :(", "Go back to the Vehicle Options menu.")
+                            var backBtn = new MenuItem("사용 가능한 추가옵션 없음 :(", "차량 옵션 메뉴로 돌아갑니다.")
                             {
-                                Label = "Go Back"
+                                Label = "뒤로가기"
                             };
                             VehicleComponentsMenu.AddMenuItem(backBtn);
                             VehicleComponentsMenu.OnItemSelect += (sender3, item3, index3) =>
@@ -1770,7 +1770,7 @@ namespace vMenuClient.menus
 
                 if (isTooDamaged && !menuItems.Exists(i => i.Text.Contains("too damaged")))
                 {
-                    MenuItem spacer = GetSpacerMenuItem("Vehicle too damaged!", "Vehicle is too damaged to change extras, repair it first!");
+                    MenuItem spacer = GetSpacerMenuItem("차량이 너무 손상됨!", "차량 손상이 너무 심해 추가옵션을 변경할 수 없습니다. 먼저 수리하세요!");
 
                     // Place at the start of the menu
                     menuItems.Insert(0, spacer);
@@ -1786,7 +1786,7 @@ namespace vMenuClient.menus
                             continue;
                         }
                     }
-                    else if (item.Text != "Go Back")
+                    else if (item.Text != "뒤로가기")
                     {
                         item.Enabled = !isTooDamaged;
                     }
@@ -1821,7 +1821,7 @@ namespace vMenuClient.menus
                         if (isTooDamaged)
                         {
                             // Send message to player when extra change is denied
-                            Notify.Alert("Vehicle is too damaged to change extra, repair it first!", true, false);
+                            Notify.Alert("차량 손상이 너무 심해 추가옵션을 변경할 수 없습니다. 먼저 수리하세요!", true, false);
 
                             // Send to previous menu
                             VehicleComponentsMenu.GoBack();
@@ -1835,16 +1835,16 @@ namespace vMenuClient.menus
             #endregion
 
             #region Underglow Submenu
-            var underglowFront = new MenuCheckboxItem("Enable Front Light", "Enable or disable the underglow on the front side of the vehicle. Note not all vehicles have lights.", false);
-            var underglowBack = new MenuCheckboxItem("Enable Rear Light", "Enable or disable the underglow on the left side of the vehicle. Note not all vehicles have lights.", false);
-            var underglowLeft = new MenuCheckboxItem("Enable Left Light", "Enable or disable the underglow on the right side of the vehicle. Note not all vehicles have lights.", false);
-            var underglowRight = new MenuCheckboxItem("Enable Right Light", "Enable or disable the underglow on the back side of the vehicle. Note not all vehicles have lights.", false);
+            var underglowFront = new MenuCheckboxItem("앞쪽 라이트 활성화", "차량 앞쪽 언더글로우를 켜거나 끕니다. 일부 차량에는 라이트가 없을 수 있습니다.", false);
+            var underglowBack = new MenuCheckboxItem("뒤쪽 라이트 활성화", "차량 왼쪽 언더글로우를 켜거나 끕니다. 일부 차량에는 라이트가 없을 수 있습니다.", false);
+            var underglowLeft = new MenuCheckboxItem("왼쪽 라이트 활성화", "차량 오른쪽 언더글로우를 켜거나 끕니다. 일부 차량에는 라이트가 없을 수 있습니다.", false);
+            var underglowRight = new MenuCheckboxItem("오른쪽 라이트 활성화", "차량 뒤쪽 언더글로우를 켜거나 끕니다. 일부 차량에는 라이트가 없을 수 있습니다.", false);
             var underglowColorsList = new List<string>();
             for (var i = 0; i < 13; i++)
             {
                 underglowColorsList.Add(GetLabelText($"CMOD_NEONCOL_{i}"));
             }
-            var underglowColor = new MenuListItem(GetLabelText("CMOD_NEON_1"), underglowColorsList, 0, "Select the color of the neon underglow.");
+            var underglowColor = new MenuListItem(GetLabelText("CMOD_NEON_1"), underglowColorsList, 0, "네온 언더글로우 색상을 선택합니다.");
 
             VehicleUnderglowMenu.AddMenuItem(underglowFront);
             VehicleUnderglowMenu.AddMenuItem(underglowBack);
@@ -2126,31 +2126,31 @@ namespace vMenuClient.menus
                 // Create the wheel types list & listitem and add it to the menu.
                 var wheelTypes = new List<string>()
                 {
-                    "Sports",       // 0
-                    "Muscle",       // 1
-                    "Lowrider",     // 2
+                    "스포츠",       // 0
+                    "머슬",       // 1
+                    "로우라이더",     // 2
                     "SUV",          // 3
-                    "Offroad",      // 4
-                    "Tuner",        // 5
-                    "Bike Wheels",  // 6
-                    "High End",     // 7
-                    "Benny's (1)",  // 8
-                    "Benny's (2)",  // 9
-                    "Open Wheel",   // 10
-                    "Street",       // 11
-                    "Track"         // 12    
+                    "오프로드",      // 4
+                    "튜너",        // 5
+                    "바이크 휠",  // 6
+                    "하이엔드",     // 7
+                    "베니스 (1)",  // 8
+                    "베니스 (2)",  // 9
+                    "오픈휠",   // 10
+                    "스트리트",       // 11
+                    "트랙"         // 12    
                 };
-                var vehicleWheelType = new MenuListItem("Wheel Type", wheelTypes, MathUtil.Clamp(GetVehicleWheelType(veh.Handle), 0, 12), $"Choose a ~y~wheel type~s~ for your vehicle.");
+                var vehicleWheelType = new MenuListItem("휠 타입", wheelTypes, MathUtil.Clamp(GetVehicleWheelType(veh.Handle), 0, 12), $"차량에 적용할 ~y~휠 타입~s~을 선택하세요.");
                 if (!veh.Model.IsBoat && !veh.Model.IsHelicopter && !veh.Model.IsPlane && !veh.Model.IsBicycle && !veh.Model.IsTrain)
                 {
                     VehicleModMenu.AddMenuItem(vehicleWheelType);
                 }
 
                 // Create the checkboxes for some options.
-                var toggleCustomWheels = new MenuCheckboxItem("Toggle Custom Wheels", "Press this to add or remove ~y~custom~s~ wheels.", GetVehicleModVariation(veh.Handle, 23));
-                var xenonHeadlights = new MenuCheckboxItem("Xenon Headlights", "Enable or disable ~b~xenon ~s~headlights.", IsToggleModOn(veh.Handle, 22));
-                var turbo = new MenuCheckboxItem("Turbo", "Enable or disable the ~y~turbo~s~ for this vehicle.", IsToggleModOn(veh.Handle, 18));
-                var bulletProofTires = new MenuCheckboxItem("Bullet Proof Tires", "Enable or disable ~y~bullet proof tires~s~ for this vehicle.", !GetVehicleTyresCanBurst(veh.Handle));
+                var toggleCustomWheels = new MenuCheckboxItem("커스텀 휠 전환", "눌러서 ~y~커스텀~s~ 휠을 추가하거나 제거합니다.", GetVehicleModVariation(veh.Handle, 23));
+                var xenonHeadlights = new MenuCheckboxItem("제논 헤드라이트", "~b~제논~s~ 헤드라이트를 켜거나 끕니다.", IsToggleModOn(veh.Handle, 22));
+                var turbo = new MenuCheckboxItem("터보", "이 차량의 ~y~터보~s~를 켜거나 끕니다.", IsToggleModOn(veh.Handle, 18));
+                var bulletProofTires = new MenuCheckboxItem("방탄 타이어", "이 차량의 ~y~방탄 타이어~s~를 켜거나 끕니다.", !GetVehicleTyresCanBurst(veh.Handle));
 
                 // Add the checkboxes to the menu.
                 VehicleModMenu.AddMenuItem(toggleCustomWheels);
@@ -2160,33 +2160,33 @@ namespace vMenuClient.menus
                 {
                     currentHeadlightColor = 13;
                 }
-                var headlightColor = new MenuListItem("Headlight Color", new List<string>() { "White", "Blue", "Electric Blue", "Mint Green", "Lime Green", "Yellow", "Golden Shower", "Orange", "Red", "Pony Pink", "Hot Pink", "Purple", "Blacklight", "Default Xenon" }, currentHeadlightColor, "New in the Arena Wars GTA V update: Colored headlights. Note you must enable Xenon Headlights first.");
+                var headlightColor = new MenuListItem("헤드라이트 색상", new List<string>() { "흰색", "파란색", "전기 파란색", "민트 그린", "라임 그린", "노란색", "골드", "주황색", "빨간색", "포니 핑크", "핫핑크", "보라색", "블랙라이트", "기본 제논" }, currentHeadlightColor, "Arena Wars 업데이트로 추가된 유색 헤드라이트입니다. 먼저 제논 헤드라이트를 활성화해야 합니다.");
                 VehicleModMenu.AddMenuItem(headlightColor);
                 VehicleModMenu.AddMenuItem(turbo);
                 VehicleModMenu.AddMenuItem(bulletProofTires);
 
                 bool isLowGripAvailable = GetGameBuildNumber() >= 2372;
-                var lowGripTires = new MenuCheckboxItem("Low Grip Tires", "Enable or disable ~y~low grip tires~s~ for this vehicle.", isLowGripAvailable ? GetDriftTyresEnabled(veh.Handle) : false);
+                var lowGripTires = new MenuCheckboxItem("저그립 타이어", "이 차량의 ~y~저그립 타이어~s~를 켜거나 끕니다.", isLowGripAvailable ? GetDriftTyresEnabled(veh.Handle) : false);
                 if (isLowGripAvailable)
                 {
                     VehicleModMenu.AddMenuItem(lowGripTires);
                 }
 
                 // Create a list of tire smoke options.
-                var tireSmokes = new List<string>() { "Red", "Orange", "Yellow", "Gold", "Light Green", "Dark Green", "Light Blue", "Dark Blue", "Purple", "Pink", "Black" };
+                var tireSmokes = new List<string>() { "빨간색", "주황색", "노란색", "Gold", "연두색", "진한 초록", "하늘색", "진한 파랑", "보라색", "핑크", "검정색" };
                 var tireSmokeColors = new Dictionary<string, int[]>()
                 {
-                    ["Red"] = new int[] { 244, 65, 65 },
-                    ["Orange"] = new int[] { 244, 167, 66 },
-                    ["Yellow"] = new int[] { 244, 217, 65 },
+                    ["빨간색"] = new int[] { 244, 65, 65 },
+                    ["주황색"] = new int[] { 244, 167, 66 },
+                    ["노란색"] = new int[] { 244, 217, 65 },
                     ["Gold"] = new int[] { 181, 120, 0 },
-                    ["Light Green"] = new int[] { 158, 255, 84 },
-                    ["Dark Green"] = new int[] { 44, 94, 5 },
-                    ["Light Blue"] = new int[] { 65, 211, 244 },
-                    ["Dark Blue"] = new int[] { 24, 54, 163 },
-                    ["Purple"] = new int[] { 108, 24, 192 },
-                    ["Pink"] = new int[] { 192, 24, 172 },
-                    ["Black"] = new int[] { 1, 1, 1 }
+                    ["연두색"] = new int[] { 158, 255, 84 },
+                    ["진한 초록"] = new int[] { 44, 94, 5 },
+                    ["하늘색"] = new int[] { 65, 211, 244 },
+                    ["진한 파랑"] = new int[] { 24, 54, 163 },
+                    ["보라색"] = new int[] { 108, 24, 192 },
+                    ["핑크"] = new int[] { 192, 24, 172 },
+                    ["검정색"] = new int[] { 1, 1, 1 }
                 };
                 int smoker = 0, smokeg = 0, smokeb = 0;
                 GetVehicleTyreSmokeColor(veh.Handle, ref smoker, ref smokeg, ref smokeb);
@@ -2197,15 +2197,15 @@ namespace vMenuClient.menus
                     index = 0;
                 }
 
-                var tireSmoke = new MenuListItem("Tire Smoke Color", tireSmokes, index, $"Choose a ~y~tire smoke color~s~ for your vehicle.");
+                var tireSmoke = new MenuListItem("타이어 연기 색상", tireSmokes, index, $"차량에 적용할 ~y~타이어 연기 색상~s~을 선택하세요.");
                 VehicleModMenu.AddMenuItem(tireSmoke);
 
                 // Create the checkbox to enable/disable the tiresmoke.
-                var tireSmokeEnabled = new MenuCheckboxItem("Tire Smoke", "Enable or disable ~y~tire smoke~s~ for your vehicle. ~h~~r~Important:~s~ When disabling tire smoke, you'll need to drive around before it takes affect.", IsToggleModOn(veh.Handle, 20));
+                var tireSmokeEnabled = new MenuCheckboxItem("타이어 연기", "차량의 ~y~타이어 연기~s~를 켜거나 끕니다. ~h~~r~중요:~s~ 비활성화 후 효과가 적용되려면 잠시 주행해야 합니다.", IsToggleModOn(veh.Handle, 20));
                 VehicleModMenu.AddMenuItem(tireSmokeEnabled);
 
                 // Create list for window tint
-                var windowTints = new List<string>() { "Stock [1/7]", "None [2/7]", "Limo [3/7]", "Light Smoke [4/7]", "Dark Smoke [5/7]", "Pure Black [6/7]", "Green [7/7]" };
+                var windowTints = new List<string>() { "기본 [1/7]", "없음 [2/7]", "리무진 [3/7]", "연한 스모크 [4/7]", "진한 스모크 [5/7]", "순검정 [6/7]", "초록 [7/7]" };
                 var currentTint = GetVehicleWindowTint(veh.Handle);
                 if (currentTint == -1)
                 {
@@ -2240,7 +2240,7 @@ namespace vMenuClient.menus
                         break;
                 }
 
-                var windowTint = new MenuListItem("Window Tint", windowTints, currentTint, "Apply tint to your windows.");
+                var windowTint = new MenuListItem("창문 선팅", windowTints, currentTint, "창문 선팅을 적용합니다.");
                 VehicleModMenu.AddMenuItem(windowTint);
 
                 #endregion

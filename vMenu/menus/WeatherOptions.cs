@@ -37,34 +37,34 @@ namespace vMenuClient.menus
             "XMAS",
             "HALLOWEEN"
         };
-        
+
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Weather Options");
+            menu = new Menu(Game.Player.Name, "날씨 옵션");
 
-            dynamicWeatherEnabled = new MenuCheckboxItem("Toggle Dynamic Weather", "Enable or disable dynamic weather changes.", EventManager.DynamicWeatherEnabled);
-            blackout = new MenuCheckboxItem("Toggle Blackout", "This disables or enables all lights across the map.", EventManager.IsBlackoutEnabled);
-            vehicleBlackout = new MenuCheckboxItem("Toggle Vehicle Lights Blackout", "This disables or enables all vehicle lights across the map.", !EventManager.IsVehicleLightsEnabled);
-            snowEnabled = new MenuCheckboxItem("Enable Snow Effects", "This will force snow to appear on the ground and enable snow particle effects for peds and vehicles. Combine with X-MAS or Light Snow weather for best results.", ConfigManager.GetSettingsBool(ConfigManager.Setting.vmenu_enable_snow));
-            
-            var extrasunny = new MenuItem("Extra Sunny", "Set the weather to ~y~extra sunny~s~!") { ItemData = "EXTRASUNNY" };
-            var clear = new MenuItem("Clear", "Set the weather to ~y~clear~s~!") { ItemData = "CLEAR" };
-            var neutral = new MenuItem("Neutral", "Set the weather to ~y~neutral~s~!") { ItemData = "NEUTRAL" };
-            var smog = new MenuItem("Smog", "Set the weather to ~y~smog~s~!") { ItemData = "SMOG" };
-            var foggy = new MenuItem("Foggy", "Set the weather to ~y~foggy~s~!") { ItemData = "FOGGY" };
-            var clouds = new MenuItem("Cloudy", "Set the weather to ~y~clouds~s~!") { ItemData = "CLOUDS" };
-            var overcast = new MenuItem("Overcast", "Set the weather to ~y~overcast~s~!") { ItemData = "OVERCAST" };
-            var clearing = new MenuItem("Clearing", "Set the weather to ~y~clearing~s~!") { ItemData = "CLEARING" };
-            var rain = new MenuItem("Rainy", "Set the weather to ~y~rain~s~!") { ItemData = "RAIN" };
-            var thunder = new MenuItem("Thunder", "Set the weather to ~y~thunder~s~!") { ItemData = "THUNDER" };
-            var blizzard = new MenuItem("Blizzard", "Set the weather to ~y~blizzard~s~!") { ItemData = "BLIZZARD" };
-            var snow = new MenuItem("Snow", "Set the weather to ~y~snow~s~!") { ItemData = "SNOW" };
-            var snowlight = new MenuItem("Light Snow", "Set the weather to ~y~light snow~s~!") { ItemData = "SNOWLIGHT" };
-            var xmas = new MenuItem("X-MAS Snow", "Set the weather to ~y~x-mas~s~!") { ItemData = "XMAS" };
-            var halloween = new MenuItem("Halloween", "Set the weather to ~y~halloween~s~!") { ItemData = "HALLOWEEN" };
-            var removeclouds = new MenuItem("Remove All Clouds", "Remove all clouds from the sky!");
-            var randomizeclouds = new MenuItem("Randomize Clouds", "Add random clouds to the sky!");
+            dynamicWeatherEnabled = new MenuCheckboxItem("동적 날씨 전환", "동적 날씨 변화를 활성화하거나 비활성화합니다.", EventManager.DynamicWeatherEnabled);
+            blackout = new MenuCheckboxItem("정전 모드 전환", "맵 전체의 모든 조명을 비활성화하거나 활성화합니다.", EventManager.IsBlackoutEnabled);
+            vehicleBlackout = new MenuCheckboxItem("차량 라이트 정전 모드 전환", "맵 전체의 모든 차량 라이트를 비활성화하거나 활성화합니다.", !EventManager.IsVehicleLightsEnabled);
+            snowEnabled = new MenuCheckboxItem("눈 효과 활성화", "지면에 눈이 강제로 표시되며, 보행자와 차량에 눈 파티클 효과를 활성화합니다. 최상의 효과를 위해 X-MAS 또는 약한 눈 날씨와 함께 사용하세요.", ConfigManager.GetSettingsBool(ConfigManager.Setting.vmenu_enable_snow));
+
+            var extrasunny = new MenuItem("매우 맑음", "날씨를 ~y~매우 맑음~s~으로 설정합니다!") { ItemData = "EXTRASUNNY" };
+            var clear = new MenuItem("맑음", "날씨를 ~y~맑음~s~으로 설정합니다!") { ItemData = "CLEAR" };
+            var neutral = new MenuItem("중립", "날씨를 ~y~중립~s~으로 설정합니다!") { ItemData = "NEUTRAL" };
+            var smog = new MenuItem("스모그", "날씨를 ~y~스모그~s~로 설정합니다!") { ItemData = "SMOG" };
+            var foggy = new MenuItem("안개", "날씨를 ~y~안개~s~로 설정합니다!") { ItemData = "FOGGY" };
+            var clouds = new MenuItem("흐림", "날씨를 ~y~흐림~s~으로 설정합니다!") { ItemData = "CLOUDS" };
+            var overcast = new MenuItem("매우 흐림", "날씨를 ~y~매우 흐림~s~으로 설정합니다!") { ItemData = "OVERCAST" };
+            var clearing = new MenuItem("개임", "날씨를 ~y~개임~s~으로 설정합니다!") { ItemData = "CLEARING" };
+            var rain = new MenuItem("비", "날씨를 ~y~비~s~로 설정합니다!") { ItemData = "RAIN" };
+            var thunder = new MenuItem("천둥번개", "날씨를 ~y~천둥번개~s~로 설정합니다!") { ItemData = "THUNDER" };
+            var blizzard = new MenuItem("폭설", "날씨를 ~y~폭설~s~로 설정합니다!") { ItemData = "BLIZZARD" };
+            var snow = new MenuItem("눈", "날씨를 ~y~눈~s~으로 설정합니다!") { ItemData = "SNOW" };
+            var snowlight = new MenuItem("약한 눈", "날씨를 ~y~약한 눈~s~으로 설정합니다!") { ItemData = "SNOWLIGHT" };
+            var xmas = new MenuItem("크리스마스 눈", "날씨를 ~y~크리스마스 눈~s~으로 설정합니다!") { ItemData = "XMAS" };
+            var halloween = new MenuItem("할로윈", "날씨를 ~y~할로윈~s~으로 설정합니다!") { ItemData = "HALLOWEEN" };
+            var removeclouds = new MenuItem("모든 구름 제거", "하늘의 모든 구름을 제거합니다!");
+            var randomizeclouds = new MenuItem("구름 무작위 변경", "하늘에 무작위 구름을 추가합니다!");
 
             if (IsAllowed(Permission.WODynamic))
             {
@@ -119,7 +119,7 @@ namespace vMenuClient.menus
                 }
                 else if (item.ItemData is string weatherType)
                 {
-                    Notify.Custom($"The weather will be changed to ~y~{item.Text}~s~. This will take {EventManager.WeatherChangeTime} seconds.");
+                    Notify.Custom($"날씨가 ~y~{item.Text}~s~(으)로 변경됩니다. 적용까지 {EventManager.WeatherChangeTime}초가 걸립니다.");
                     UpdateServerWeather(weatherType, EventManager.DynamicWeatherEnabled, EventManager.IsSnowEnabled);
                 }
             };
@@ -128,28 +128,28 @@ namespace vMenuClient.menus
             {
                 if (item == dynamicWeatherEnabled)
                 {
-                    Notify.Custom($"Dynamic weather changes are now {(_checked ? "~g~enabled" : "~r~disabled")}~s~.");
+                    Notify.Custom($"동적 날씨 변화가 이제 {(_checked ? "~g~활성화" : "~r~비활성화")}~s~되었습니다.");
                     UpdateServerWeather(EventManager.GetServerWeather, _checked, EventManager.IsSnowEnabled);
                 }
                 else if (item == blackout)
                 {
-                    Notify.Custom($"Blackout mode is now {(_checked ? "~g~enabled" : "~r~disabled")}~s~.");
+                    Notify.Custom($"정전 모드가 이제 {(_checked ? "~g~활성화" : "~r~비활성화")}~s~되었습니다.");
                     UpdateServerBlackout(_checked);
                 }
                 else if (item == vehicleBlackout)
                 {
-                    Notify.Custom($"Vehicle light blackout mode is now {(_checked ? "~g~enabled" : "~r~disabled")}~s~.");
+                    Notify.Custom($"차량 라이트 정전 모드가 이제 {(_checked ? "~g~활성화" : "~r~비활성화")}~s~되었습니다.");
                     UpdateServerVehicleBlackout(!_checked);
                 }
                 else if (item == snowEnabled)
                 {
                     if (EventManager.GetServerWeather is "XMAS" or "SNOWLIGHT" or "SNOW" or "BLIZZARD")
                     {
-                        Notify.Custom($"Snow effects cannot be disabled when weather is ~y~{EventManager.GetServerWeather}~s~.");
+                        Notify.Custom($"날씨가 ~y~{EventManager.GetServerWeather}~s~일 때는 눈 효과를 비활성화할 수 없습니다.");
                         return;
                     }
 
-                    Notify.Custom($"Snow effects will now be forced {(_checked ? "~g~enabled" : "~r~disabled")}~s~.");
+                    Notify.Custom($"눈 효과가 이제 강제로 {(_checked ? "~g~활성화" : "~r~비활성화")}~s~됩니다.");
                     UpdateServerWeather(EventManager.GetServerWeather, EventManager.DynamicWeatherEnabled, _checked);
                 }
             };

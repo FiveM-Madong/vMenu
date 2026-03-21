@@ -84,7 +84,7 @@ namespace vMenuClient
         {
             if (MainMenu.ClientFullyDisabled)
             {
-                await Delay(5000);
+                await Delay(100000);
                 return;
             }
             if (NoclipActive)

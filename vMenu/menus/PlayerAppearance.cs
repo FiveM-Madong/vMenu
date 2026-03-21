@@ -22,11 +22,11 @@ namespace vMenuClient.menus
         private Menu savedPedsMenu;
         private Menu spawnPedsMenu;
         private Menu addonPedsMenu;
-        private readonly Menu mainPedsMenu = new("Main Peds", "Spawn A Ped");
-        private readonly Menu animalsPedsMenu = new("Animals", "Spawn A Ped");
-        private readonly Menu malePedsMenu = new("Male Peds", "Spawn A Ped");
-        private readonly Menu femalePedsMenu = new("Female Peds", "Spawn A Ped");
-        private readonly Menu otherPedsMenu = new("Other Peds", "Spawn A Ped");
+        private readonly Menu mainPedsMenu = new("주요 PED", "PED 스폰");
+        private readonly Menu animalsPedsMenu = new("동물", "PED 스폰");
+        private readonly Menu malePedsMenu = new("남성 PED", "PED 스폰");
+        private readonly Menu femalePedsMenu = new("여성 PED", "PED 스폰");
+        private readonly Menu otherPedsMenu = new("기타 PED", "PED 스폰");
 
         public static Dictionary<string, uint> AddonPeds;
 
@@ -42,13 +42,13 @@ namespace vMenuClient.menus
         private void CreateMenu()
         {
             // Create the menu.
-            menu = new Menu(Game.Player.Name, "Player Appearance");
-            savedPedsMenu = new Menu(Game.Player.Name, "Saved Peds");
-            pedCustomizationMenu = new Menu(Game.Player.Name, "Customize Saved Ped");
-            pedCollectionsMenu = new Menu(Game.Player.Name, "Ped Collections");
-            pedCollectionsCustomizationMenu = new Menu(Game.Player.Name, "I get updated at runtime!");
-            spawnPedsMenu = new Menu(Game.Player.Name, "Spawn Ped");
-            addonPedsMenu = new Menu(Game.Player.Name, "Addon Peds");
+            menu = new Menu(Game.Player.Name, "플레이어 외형");
+            savedPedsMenu = new Menu(Game.Player.Name, "저장된 PED");
+            pedCustomizationMenu = new Menu(Game.Player.Name, "저장된 PED 커스터마이징");
+            pedCollectionsMenu = new Menu(Game.Player.Name, "PED 컬렉션");
+            pedCollectionsCustomizationMenu = new Menu(Game.Player.Name, "실행 중 자동 갱신됩니다!");
+            spawnPedsMenu = new Menu(Game.Player.Name, "PED 스폰");
+            addonPedsMenu = new Menu(Game.Player.Name, "애드온 PED");
 
 
             // Add the (submenus) to the menu pool.
@@ -65,27 +65,27 @@ namespace vMenuClient.menus
             MenuController.AddSubmenu(spawnPedsMenu, otherPedsMenu);
 
             // Create the menu items.
-            var pedCustomization = new MenuItem("Ped Customization", "Modify your ped's appearance.") { Label = "→→→" };
-            var pedCollections = new MenuItem("Ped Collections", "Modify your ped's appearance using collections, such as from the Base Game, Offical DLCs, and Custom Collections.") { Label = "→→→" };
-            var saveCurrentPed = new MenuItem("Save Ped", "Save your current ped. Note for the MP Male/Female peds this won't save most of their customization, just because that's impossible. Create those characters in the MP Character creator instead.");
-            var savedPedsBtn = new MenuItem("Saved Peds", "Edit, rename, clone, spawn or delete saved peds.") { Label = "→→→" };
-            var spawnPedsBtn = new MenuItem("Spawn Peds", "Change ped model by selecting one from the list or by selecting an addon ped from the list.") { Label = "→→→" };
+            var pedCustomization = new MenuItem("PED 커스터마이징", "PED의 외형을 수정합니다.") { Label = "→→→" };
+            var pedCollections = new MenuItem("PED 컬렉션", "기본 게임, 공식 DLC, 커스텀 컬렉션 등을 사용해 PED 외형을 수정합니다.") { Label = "→→→" };
+            var saveCurrentPed = new MenuItem("PED 저장", "현재 PED를 저장합니다. 단, MP 남성/여성 PED는 구조상 대부분의 커스터마이징이 저장되지 않습니다. 해당 캐릭터는 MP 캐릭터 생성기에서 따로 만들어 주세요.");
+            var savedPedsBtn = new MenuItem("저장된 PED", "저장된 PED를 편집, 이름 변경, 복제, 스폰 또는 삭제합니다.") { Label = "→→→" };
+            var spawnPedsBtn = new MenuItem("PED 스폰", "목록에서 PED를 선택하거나 애드온 PED를 선택해 모델을 변경합니다.") { Label = "→→→" };
 
 
-            var spawnByNameBtn = new MenuItem("Spawn By Name", "Spawn a ped by entering it's name manually.");
-            var addonPedsBtn = new MenuItem("Addon Peds", "Spawn a ped from the addon peds list.") { Label = "→→→" };
-            var mainPedsBtn = new MenuItem("Main Peds", "Select a new ped from the main player-peds list.") { Label = "→→→" };
-            var animalPedsBtn = new MenuItem("Animals", "Become an animal. ~r~Note this may crash your own or other players' game if you die as an animal, godmode can NOT prevent this.") { Label = "→→→" };
-            var malePedsBtn = new MenuItem("Male Peds", "Select a male ped.") { Label = "→→→" };
-            var femalePedsBtn = new MenuItem("Female Peds", "Select a female ped.") { Label = "→→→" };
-            var otherPedsBtn = new MenuItem("Other Peds", "Select a ped.") { Label = "→→→" };
+            var spawnByNameBtn = new MenuItem("이름으로 스폰", "PED 이름을 직접 입력해서 스폰합니다.");
+            var addonPedsBtn = new MenuItem("애드온 PED", "애드온 PED 목록에서 PED를 스폰합니다.") { Label = "→→→" };
+            var mainPedsBtn = new MenuItem("주요 PED", "기본 플레이어 PED 목록에서 새 PED를 선택합니다.") { Label = "→→→" };
+            var animalPedsBtn = new MenuItem("동물", "동물로 변신합니다. ~r~주의: 동물 상태에서 사망하면 본인 또는 다른 플레이어의 게임이 튕길 수 있으며, 무적 모드로도 이를 막을 수 없습니다.") { Label = "→→→" };
+            var malePedsBtn = new MenuItem("남성 PED", "남성 PED를 선택합니다.") { Label = "→→→" };
+            var femalePedsBtn = new MenuItem("여성 PED", "여성 PED를 선택합니다.") { Label = "→→→" };
+            var otherPedsBtn = new MenuItem("기타 PED", "PED를 선택합니다.") { Label = "→→→" };
 
-            var walkstyles = new List<string>() { "Normal", "Injured", "Tough Guy", "Femme", "Gangster", "Posh", "Sexy", "Business", "Drunk", "Hipster" };
-            var walkingStyle = new MenuListItem("Walking Style", walkstyles, 0, "Change the walking style of your current ped. " +
-                "You need to re-apply this each time you change player model or load a saved ped.");
+            var walkstyles = new List<string>() { "기본", "부상", "터프가이", "여성적", "갱스터", "고급스러움", "섹시", "비즈니스", "취함", "힙스터" };
+            var walkingStyle = new MenuListItem("걷기 스타일", walkstyles, 0, "현재 PED의 걷기 스타일을 변경합니다. " +
+                "플레이어 모델을 바꾸거나 저장된 PED를 불러올 때마다 다시 적용해야 합니다.");
 
-            var clothingGlowAnimations = new List<string>() { "On", "Off", "Fade", "Flash" };
-            var clothingGlowType = new MenuListItem("Illuminated Clothing Style", clothingGlowAnimations, ClothingAnimationType, "Set the style of the animation used on your player's illuminated clothing items.");
+            var clothingGlowAnimations = new List<string>() { "켜짐", "꺼짐", "서서히", "점멸" };
+            var clothingGlowType = new MenuListItem("발광 의상 스타일", clothingGlowAnimations, ClothingAnimationType, "플레이어의 발광 의상 아이템에 적용되는 애니메이션 스타일을 설정합니다.");
 
             // Add items to the menu.
             menu.AddMenuItem(pedCustomization);
@@ -112,19 +112,19 @@ namespace vMenuClient.menus
             MenuController.BindMenuItem(menu, savedPedsMenu, savedPedsBtn);
             MenuController.BindMenuItem(menu, spawnPedsMenu, spawnPedsBtn);
 
-            var selectedSavedPedMenu = new Menu("Saved Ped", "renameme");
+            var selectedSavedPedMenu = new Menu("저장된 PED", "이름변경");
             MenuController.AddSubmenu(savedPedsMenu, selectedSavedPedMenu);
-            var spawnSavedPed = new MenuItem("Spawn Saved Ped", "Spawn this saved ped.");
-            var cloneSavedPed = new MenuItem("Clone Saved Ped", "Clone this saved ped.");
-            var renameSavedPed = new MenuItem("Rename Saved Ped", "Rename this saved ped.") { LeftIcon = MenuItem.Icon.WARNING };
-            var replaceSavedPed = new MenuItem("~r~Replace Saved Ped", "Replace this saved ped with your current ped. Note this can not be undone!") { LeftIcon = MenuItem.Icon.WARNING };
-            var deleteSavedPed = new MenuItem("~r~Delete Saved Ped", "Delete this saved ped. Note this can not be undone!") { LeftIcon = MenuItem.Icon.WARNING };
+            var spawnSavedPed = new MenuItem("저장된 PED 스폰", "이 저장된 PED를 스폰합니다.");
+            var cloneSavedPed = new MenuItem("저장된 PED 복제", "이 저장된 PED를 복제합니다.");
+            var renameSavedPed = new MenuItem("저장된 PED 이름 변경", "이 저장된 PED의 이름을 변경합니다.") { LeftIcon = MenuItem.Icon.WARNING };
+            var replaceSavedPed = new MenuItem("~r~저장된 PED 덮어쓰기", "현재 PED로 이 저장된 PED를 덮어씁니다. 이 작업은 되돌릴 수 없습니다!") { LeftIcon = MenuItem.Icon.WARNING };
+            var deleteSavedPed = new MenuItem("~r~저장된 PED 삭제", "이 저장된 PED를 삭제합니다. 이 작업은 되돌릴 수 없습니다!") { LeftIcon = MenuItem.Icon.WARNING };
 
             if (!IsAllowed(Permission.PASpawnSaved))
             {
                 spawnSavedPed.Enabled = false;
                 spawnSavedPed.RightIcon = MenuItem.Icon.LOCK;
-                spawnSavedPed.Description = "You are not allowed to spawn saved peds.";
+                spawnSavedPed.Description = "저장된 PED를 스폰할 권한이 없습니다.";
             }
 
             selectedSavedPedMenu.AddMenuItem(spawnSavedPed);
@@ -143,7 +143,7 @@ namespace vMenuClient.menus
                 }
                 else if (item == cloneSavedPed)
                 {
-                    var name = await GetUserInput($"Enter a clone name ({savedPed.Key.Substring(4)})", savedPed.Key.Substring(4), 30);
+                    var name = await GetUserInput($"복제 이름 입력 ({savedPed.Key.Substring(4)})", savedPed.Key.Substring(4), 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidSaveName);
@@ -158,18 +158,18 @@ namespace vMenuClient.menus
                         {
                             if (StorageManager.SavePedInfo("ped_" + name, savedPed.Value, false))
                             {
-                                Notify.Success($"Saved Ped has successfully been cloned. Clone name: ~g~<C>{name}</C>~s~.");
+                                Notify.Success($"저장된 PED가 성공적으로 복제되었습니다. 복제 이름: ~g~<C>{name}</C>~s~.");
                             }
                             else
                             {
-                                Notify.Error(CommonErrors.UnknownError, placeholderValue: " Could not save your cloned ped. Don't worry, your original ped is unharmed.");
+                                Notify.Error(CommonErrors.UnknownError, placeholderValue: " 복제한 PED를 저장하지 못했습니다. 기존 PED는 그대로 유지됩니다.");
                             }
                         }
                     }
                 }
                 else if (item == renameSavedPed)
                 {
-                    var name = await GetUserInput($"Enter a new name for: {savedPed.Key.Substring(4)}", savedPed.Key.Substring(4), 30);
+                    var name = await GetUserInput($"새 이름 입력: {savedPed.Key.Substring(4)}", savedPed.Key.Substring(4), 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidSaveName);
@@ -178,12 +178,12 @@ namespace vMenuClient.menus
                     {
                         if ("ped_" + name == savedPed.Key)
                         {
-                            Notify.Error("You need to choose a different name, you can't use the same name as your existing ped.");
+                            Notify.Error("다른 이름을 선택해야 합니다. 기존 PED와 같은 이름은 사용할 수 없습니다.");
                             return;
                         }
                         if (StorageManager.SavePedInfo("ped_" + name, savedPed.Value, false))
                         {
-                            Notify.Success($"Saved Ped has successfully been renamed. New ped name: ~g~<C>{name}</C>~s~.");
+                            Notify.Success($"저장된 PED의 이름이 성공적으로 변경되었습니다. 새 PED 이름: ~g~<C>{name}</C>~s~.");
                             DeleteResourceKvp(savedPed.Key);
                             selectedSavedPedMenu.MenuSubtitle = name;
                             savedPed = new KeyValuePair<string, PedInfo>("ped_" + name, savedPed.Value);
@@ -196,36 +196,36 @@ namespace vMenuClient.menus
                 }
                 else if (item == replaceSavedPed)
                 {
-                    if (item.Label == "Are you sure?")
+                    if (item.Label == "정말로 진행하시겠습니까?")
                     {
                         item.Label = "";
                         var success = await SavePed(savedPed.Key.Substring(4), overrideExistingPed: true);
                         if (!success)
                         {
-                            Notify.Error(CommonErrors.UnknownError, placeholderValue: " Could not save your replaced ped. Don't worry, your original ped is unharmed.");
+                            Notify.Error(CommonErrors.UnknownError, placeholderValue: " 덮어쓴 PED를 저장하지 못했습니다. 기존 PED는 그대로 유지됩니다.");
                         }
                         else
                         {
-                            Notify.Success("Your saved ped has successfully been replaced.");
+                            Notify.Success("저장된 PED가 성공적으로 덮어쓰기되었습니다.");
                             savedPed = new KeyValuePair<string, PedInfo>(savedPed.Key, StorageManager.GetSavedPedInfo(savedPed.Key));
                         }
                     }
                     else
                     {
-                        item.Label = "Are you sure?";
+                        item.Label = "정말로 진행하시겠습니까?";
                     }
                 }
                 else if (item == deleteSavedPed)
                 {
-                    if (item.Label == "Are you sure?")
+                    if (item.Label == "정말로 진행하시겠습니까?")
                     {
                         DeleteResourceKvp(savedPed.Key);
-                        Notify.Success("Your saved ped has been deleted.");
+                        Notify.Success("저장된 PED가 삭제되었습니다.");
                         selectedSavedPedMenu.GoBack();
                     }
                     else
                     {
-                        item.Label = "Are you sure?";
+                        item.Label = "정말로 진행하시겠습니까?";
                     }
                 }
             };
@@ -256,7 +256,7 @@ namespace vMenuClient.menus
                 {
                     if (size < 1 || !savedPedsMenu.GetMenuItems().Any(e => ped.Key == e.ItemData.Key))
                     {
-                        var btn = new MenuItem(ped.Key.Substring(4), "Click to manage this saved ped.") { Label = "→→→", ItemData = ped };
+                        var btn = new MenuItem(ped.Key.Substring(4), "이 저장된 PED를 관리하려면 클릭하세요.") { Label = "→→→", ItemData = ped };
                         savedPedsMenu.AddMenuItem(btn);
                         MenuController.BindMenuItem(savedPedsMenu, selectedSavedPedMenu, btn);
                     }
@@ -322,13 +322,13 @@ namespace vMenuClient.menus
                         name = ped.Key;
                     }
 
-                    var pedBtn = new MenuItem(ped.Key, "Click to spawn this model.") { Label = $"({name})" };
+                    var pedBtn = new MenuItem(ped.Key, "이 모델을 스폰하려면 클릭하세요.") { Label = $"({name})" };
 
                     if (!IsModelInCdimage(ped.Value) || !IsModelAPed(ped.Value))
                     {
                         pedBtn.Enabled = false;
                         pedBtn.LeftIcon = MenuItem.Icon.LOCK;
-                        pedBtn.Description = "This ped is not (correctly) streamed. If you are the server owner, please ensure that the ped name and model are valid!";
+                        pedBtn.Description = "이 PED는 올바르게 스트리밍되지 않았습니다. 서버 소유자라면 PED 이름과 모델이 유효한지 확인하세요!";
                     }
 
                     addonPedsMenu.AddMenuItem(pedBtn);
@@ -357,7 +357,7 @@ namespace vMenuClient.menus
                 else
                 {
                     animalPedsBtn.Enabled = false;
-                    animalPedsBtn.Description = "This is disabled by the server owner, probably for a good reason because animals quite often crash the game.";
+                    animalPedsBtn.Description = "이 기능은 서버 소유자가 비활성화했습니다. 동물 PED는 게임을 자주 튕기게 할 수 있기 때문일 수 있습니다.";
                     animalPedsBtn.LeftIcon = MenuItem.Icon.LOCK;
                 }
 
@@ -367,46 +367,46 @@ namespace vMenuClient.menus
 
                 foreach (var animal in animalModels)
                 {
-                    var animalBtn = new MenuItem(animal.Key, "Click to spawn this animal.") { Label = $"({animal.Value})" };
+                    var animalBtn = new MenuItem(animal.Key, "이 동물을 스폰하려면 클릭하세요.") { Label = $"({animal.Value})" };
                     animalsPedsMenu.AddMenuItem(animalBtn);
                 }
 
                 foreach (var ped in mainModels)
                 {
-                    var pedBtn = new MenuItem(ped.Key, "Click to spawn this ped.") { Label = $"({ped.Value})" };
+                    var pedBtn = new MenuItem(ped.Key, "이 PED를 스폰하려면 클릭하세요.") { Label = $"({ped.Value})" };
                     mainPedsMenu.AddMenuItem(pedBtn);
                 }
 
                 foreach (var ped in maleModels)
                 {
-                    var pedBtn = new MenuItem(ped.Key, "Click to spawn this ped.") { Label = $"({ped.Value})" };
+                    var pedBtn = new MenuItem(ped.Key, "이 PED를 스폰하려면 클릭하세요.") { Label = $"({ped.Value})" };
                     malePedsMenu.AddMenuItem(pedBtn);
                 }
 
                 foreach (var ped in femaleModels)
                 {
-                    var pedBtn = new MenuItem(ped.Key, "Click to spawn this ped.") { Label = $"({ped.Value})" };
+                    var pedBtn = new MenuItem(ped.Key, "이 PED를 스폰하려면 클릭하세요.") { Label = $"({ped.Value})" };
                     femalePedsMenu.AddMenuItem(pedBtn);
                 }
 
                 foreach (var ped in otherPeds)
                 {
-                    var pedBtn = new MenuItem(ped.Key, "Click to spawn this ped.") { Label = $"({ped.Value})" };
+                    var pedBtn = new MenuItem(ped.Key, "이 PED를 스폰하려면 클릭하세요.") { Label = $"({ped.Value})" };
                     otherPedsMenu.AddMenuItem(pedBtn);
                 }
 
                 async void FilterMenu(Menu m, Control c)
                 {
-                    var input = await GetUserInput("Filter by ped model name, leave this empty to reset the filter");
+                    var input = await GetUserInput("PED 모델 이름으로 필터링, 비워두면 필터가 초기화됩니다");
                     if (!string.IsNullOrEmpty(input))
                     {
                         m.FilterMenuItems((mb) => mb.Label.ToLower().Contains(input.ToLower()) || mb.Text.ToLower().Contains(input.ToLower()));
-                        Subtitle.Custom("Filter applied.");
+                        Subtitle.Custom("필터가 적용되었습니다.");
                     }
                     else
                     {
                         m.ResetFilter();
-                        Subtitle.Custom("Filter cleared.");
+                        Subtitle.Custom("필터가 해제되었습니다.");
                     }
                 }
 
@@ -419,13 +419,13 @@ namespace vMenuClient.menus
                 malePedsMenu.OnMenuClose += ResetMenuFilter;
                 femalePedsMenu.OnMenuClose += ResetMenuFilter;
 
-                otherPedsMenu.InstructionalButtons.Add(Control.Jump, "Filter List");
+                otherPedsMenu.InstructionalButtons.Add(Control.Jump, "목록 필터");
                 otherPedsMenu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>(FilterMenu), true));
 
-                malePedsMenu.InstructionalButtons.Add(Control.Jump, "Filter List");
+                malePedsMenu.InstructionalButtons.Add(Control.Jump, "목록 필터");
                 malePedsMenu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>(FilterMenu), true));
 
-                femalePedsMenu.InstructionalButtons.Add(Control.Jump, "Filter List");
+                femalePedsMenu.InstructionalButtons.Add(Control.Jump, "목록 필터");
                 femalePedsMenu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.Jump, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>(FilterMenu), true));
 
 
@@ -443,7 +443,7 @@ namespace vMenuClient.menus
                             case "a_c_killerwhale":
                             case "a_c_sharkhammer":
                             case "a_c_sharktiger":
-                                Notify.Error("This animal can only be spawned when you are in water, otherwise you will die immediately.");
+                                Notify.Error("이 동물은 물속에 있을 때만 스폰할 수 있습니다. 그렇지 않으면 즉시 사망합니다.");
                                 return;
                             default: break;
                         }
@@ -485,7 +485,7 @@ namespace vMenuClient.menus
                 {
                     if (item == spawnByNameBtn)
                     {
-                        var model = await GetUserInput("Ped Model Name", 30);
+                        var model = await GetUserInput("PED 모델 이름", 30);
                         if (!string.IsNullOrEmpty(model))
                         {
                             await SetPlayerSkin(model, new PedInfo() { version = -1 }, true);
@@ -528,11 +528,11 @@ namespace vMenuClient.menus
                 {
                     if (await SavePed())
                     {
-                        Notify.Success("Successfully saved your new ped.");
+                        Notify.Success("새 PED가 성공적으로 저장되었습니다.");
                     }
                     else
                     {
-                        Notify.Error("Could not save your current ped, does that save name already exist?");
+                        Notify.Error("현재 PED를 저장하지 못했습니다. 같은 저장 이름이 이미 존재하나요?");
                     }
                 }
             };
@@ -614,11 +614,11 @@ namespace vMenuClient.menus
 
                         SetPedCollectionComponentVariation(pedHandle, currentDrawableID, collectionName, newListIndex, 0, 0);
 
-                        item.Description = $"← & → to select, ~r~enter~s~ to cycle textures. Selected texture: #{GetPedTextureVariation(pedHandle, currentDrawableID) + 1} (of {maxDrawableTextures}).";
+                        item.Description = $"← & →로 선택, ~r~Enter~s~로 텍스처 순환. 선택된 텍스처: #{GetPedTextureVariation(pedHandle, currentDrawableID) + 1} / {maxDrawableTextures}.";
                     }
                     else
                     {
-                        item.Description = $"← & → to select, ~r~enter~s~ to cycle textures. Selection is invalid (broken, Gen9, etc.)";
+                        item.Description = $"← & →로 선택, ~r~Enter~s~로 텍스처 순환. 선택 항목이 유효하지 않습니다(손상됨, Gen9 전용 등).";
                     }
 
                     if (item.ListItems[oldListIndex].StartsWith("None"))
@@ -635,7 +635,7 @@ namespace vMenuClient.menus
                         SetPedPropIndex(pedHandle, propID, -1, 0, false);
                         ClearPedProp(pedHandle, propID);
 
-                        item.Description = $"← & → to select, ~r~enter~s~ to cycle textures.";
+                        item.Description = $"← & →로 선택, ~r~Enter~s~로 텍스처를 순환합니다.";
                     }
                     else
                     {
@@ -643,7 +643,7 @@ namespace vMenuClient.menus
 
                         SetPedCollectionPropIndex(pedHandle, propID, collectionName, newListIndex - 1, 0, true);
 
-                        item.Description = $"← & → to select, ~r~enter~s~ to cycle textures. Selected texture: #{GetPedPropTextureIndex(pedHandle, propID) + 1} (of {maxDrawableTextures}).";
+                        item.Description = $"← & →로 선택, ~r~Enter~s~로 텍스처 순환. 선택된 텍스처: #{GetPedPropTextureIndex(pedHandle, propID) + 1} / {maxDrawableTextures}.";
                     }
 
                     if (propID == 0)
@@ -659,7 +659,7 @@ namespace vMenuClient.menus
                 string collectionName = item.ItemData;
 
                 if (drawablesMenuListItems.ContainsKey(item))
-                {                    
+                {
                     int currentDrawableID = drawablesMenuListItems[item];
                     bool isValid = IsPedCollectionComponentVariationValid(pedHandle, currentDrawableID, collectionName, listIndex, 0) && !IsPedCollectionComponentVariationGen9Exclusive(pedHandle, currentDrawableID, collectionName, listIndex);
 
@@ -680,7 +680,7 @@ namespace vMenuClient.menus
 
                     SetPedCollectionComponentVariation(pedHandle, currentDrawableID, collectionName, listIndex, newTexture, 0);
 
-                    item.Description = $"← & → to select, ~r~enter~s~ to cycle textures. Selected texture: #{newTexture + 1} (of {maxDrawableTextures + 1}).";
+                    item.Description = $"← & →로 선택, ~r~Enter~s~로 텍스처 순환. 선택된 텍스처: #{newTexture + 1} / {maxDrawableTextures + 1}.";
                 }
                 else if (propsMenuListItems.ContainsKey(item))
                 {
@@ -691,7 +691,7 @@ namespace vMenuClient.menus
 
                     SetPedCollectionPropIndex(pedHandle, currentPropID, collectionName, listIndex - 1, newPropTextureVariationIndex, true);
 
-                    item.Description = $"← & → to select, ~r~enter~s~ to cycle textures. Selected texture: #{newPropTextureVariationIndex + 1} (of {maxPropTextureVariations}).";
+                    item.Description = $"← & →로 선택, ~r~Enter~s~로 텍스처 순환. 선택된 텍스처: #{newPropTextureVariationIndex + 1} / {maxPropTextureVariations}.";
                 }
             };
 
@@ -742,10 +742,10 @@ namespace vMenuClient.menus
 
                     for (var i = 0; i < maxVariations; i++)
                     {
-                        drawableTexturesList.Add($"Drawable #{i + 1} (of {maxVariations})");
+                        drawableTexturesList.Add($"드로어블 #{i + 1} / {maxVariations}");
                     }
 
-                    var drawableTextures = new MenuListItem($"{textureNames[drawable]}", drawableTexturesList, currentDrawable, $"Use ← & → to select a ~o~{textureNames[drawable]} Variation~s~, press ~r~enter~s~ to cycle through the available textures.");
+                    var drawableTextures = new MenuListItem($"{textureNames[drawable]}", drawableTexturesList, currentDrawable, $"← & →로 ~o~{textureNames[drawable]} 변경형~s~을 선택하고, ~r~Enter~s~로 사용 가능한 텍스처를 순환합니다.");
                     drawablesMenuListItems.Add(drawableTextures, drawable);
                     pedCustomizationMenu.AddMenuItem(drawableTextures);
                 }
@@ -764,15 +764,15 @@ namespace vMenuClient.menus
                 {
                     var propTexturesList = new List<string>
                     {
-                        $"Prop #1 (of {maxPropVariations + 1})"
+                        $"소품 #1 / {maxPropVariations + 1}"
                     };
                     for (var i = 0; i < maxPropVariations; i++)
                     {
-                        propTexturesList.Add($"Prop #{i + 2} (of {maxPropVariations + 1})");
+                        propTexturesList.Add($"소품 #{i + 2} / {maxPropVariations + 1}");
                     }
 
 
-                    var propTextures = new MenuListItem($"{propNames[tmpProp]}", propTexturesList, currentProp + 1, $"Use ← & → to select a ~o~{propNames[tmpProp]} Variation~s~, press ~r~enter~s~ to cycle through the available textures.");
+                    var propTextures = new MenuListItem($"{propNames[tmpProp]}", propTexturesList, currentProp + 1, $"← & →로 ~o~{propNames[tmpProp]} 변경형~s~을 선택하고, ~r~Enter~s~로 사용 가능한 텍스처를 순환합니다.");
                     propsMenuListItems.Add(propTextures, realProp);
                     pedCustomizationMenu.AddMenuItem(propTextures);
 
@@ -797,7 +797,7 @@ namespace vMenuClient.menus
             // In reverse so newest are at the top
             for (int i = collectionsCount - 1; i > -1; i--)
             {
-                string collectionName = i == 0 ? "Base Collection" : GetPedCollectionName(pedHandle, i);
+                string collectionName = i == 0 ? "기본 컬렉션" : GetPedCollectionName(pedHandle, i);
                 MenuItem collectionItem = new(collectionName, $"Customize your ped using the \"{collectionName}\" collection.")
                 {
                     ItemData = collectionName,
@@ -819,13 +819,13 @@ namespace vMenuClient.menus
 
             int pedHandle = Game.PlayerPed.Handle;
 
-            if (collectionName == "Base Collection")
+            if (collectionName == "기본 컬렉션")
             {
                 collectionName = "";
             }
 
             for (int drawable = 0; drawable < 12; drawable++)
-            {               
+            {
                 int totalVariations = GetNumberOfPedCollectionDrawableVariations(pedHandle, drawable, collectionName);
 
                 if (totalVariations == 0)
@@ -843,22 +843,22 @@ namespace vMenuClient.menus
                 {
                     bool isValid = IsPedCollectionComponentVariationValid(pedHandle, drawable, collectionName, i, 0) && !IsPedCollectionComponentVariationGen9Exclusive(pedHandle, drawable, collectionName, i);
 
-                    drawableTexturesList.Add($"Drawable #{i + 1}{(!isValid ? " (Invalid)" : "")} (of {totalVariations})");
+                    drawableTexturesList.Add($"드로어블 #{i + 1}{(!isValid ? " (유효하지 않음)" : "")} / {totalVariations}");
                 }
 
                 if (currentCollection == collectionName)
                 {
                     currentLocalIndex = GetPedCollectionLocalIndexFromDrawable(pedHandle, drawable, currentDrawableGlobalId);
-                    suffixText = $"Selected texture: #{GetPedTextureVariation(pedHandle, drawable) + 1} (of {GetNumberOfPedCollectionTextureVariations(pedHandle, drawable, collectionName, currentLocalIndex)}).";
+                    suffixText = $"선택된 텍스처: #{GetPedTextureVariation(pedHandle, drawable) + 1} / {GetNumberOfPedCollectionTextureVariations(pedHandle, drawable, collectionName, currentLocalIndex)}.";
                 }
                 else
                 {
-                    drawableTexturesList.Add($"None Selected (of {totalVariations})");
+                    drawableTexturesList.Add($"선택 안 함 / {totalVariations}");
                     currentLocalIndex = drawableTexturesList.Count - 1;
-                    suffixText = "Current selection not part collection.";
+                    suffixText = "현재 선택 항목은 이 컬렉션에 속하지 않습니다.";
                 }
 
-                MenuListItem item = new MenuListItem($"{textureNames[drawable]}", drawableTexturesList, currentLocalIndex, $"← & → to select, ~r~enter~s~ to cycle textures. {suffixText}")
+                MenuListItem item = new MenuListItem($"{textureNames[drawable]}", drawableTexturesList, currentLocalIndex, $"← & →로 선택, ~r~Enter~s~로 텍스처를 순환합니다. {suffixText}")
                 {
                     ItemData = collectionName
                 };
@@ -880,26 +880,26 @@ namespace vMenuClient.menus
                 string suffixText;
                 int currentLocalIndex;
                 int currentPropGlobalId = GetPedPropIndex(pedHandle, realProp);
-                List<string> propTexturesList = [$"None Selected (of {totalVariations})"];
+                List<string> propTexturesList = [$"선택 안 함 / {totalVariations}"];
                 string currentCollection = GetPedCollectionNameFromProp(pedHandle, realProp, currentPropGlobalId);
 
                 for (int i = 0; i < totalVariations; i++)
                 {
-                    propTexturesList.Add($"Prop #{i + 1} (of {totalVariations})");
+                    propTexturesList.Add($"소품 #{i + 1} / {totalVariations}");
                 }
 
                 if (currentCollection == collectionName)
                 {
                     currentLocalIndex = GetPedCollectionLocalIndexFromProp(pedHandle, realProp, currentPropGlobalId);
-                    suffixText = $"Selected texture: #{GetPedPropTextureIndex(pedHandle, realProp) + 1} (of {GetNumberOfPedCollectionPropTextureVariations(pedHandle, realProp, collectionName, currentLocalIndex)}).";
+                    suffixText = $"선택된 텍스처: #{GetPedPropTextureIndex(pedHandle, realProp) + 1} / {GetNumberOfPedCollectionPropTextureVariations(pedHandle, realProp, collectionName, currentLocalIndex)}.";
                 }
                 else
                 {
                     currentLocalIndex = -1;
-                    suffixText = "Current selection not part collection.";
+                    suffixText = "현재 선택 항목은 이 컬렉션에 속하지 않습니다.";
                 }
 
-                MenuListItem propTextures = new MenuListItem($"{propNames[tmpProp]}", propTexturesList, currentLocalIndex + 1, $"← & → to select, ~r~enter~s~ to cycle textures. {suffixText}")
+                MenuListItem propTextures = new MenuListItem($"{propNames[tmpProp]}", propTexturesList, currentLocalIndex + 1, $"← & →로 선택, ~r~Enter~s~로 텍스처를 순환합니다. {suffixText}")
                 {
                     ItemData = collectionName
                 };
@@ -914,27 +914,27 @@ namespace vMenuClient.menus
         #region Textures & Props
         private readonly List<string> textureNames = new()
         {
-            "Head",
-            "Mask / Facial Hair",
-            "Hair Style / Color",
-            "Hands / Upper Body",
-            "Legs / Pants",
-            "Bags / Parachutes",
-            "Shoes",
-            "Neck / Scarfs",
-            "Shirt / Accessory",
-            "Body Armor / Accessory 2",
-            "Badges / Logos",
-            "Shirt Overlay / Jackets",
+            "머리",
+            "마스크 / 수염",
+            "헤어스타일 / 색상",
+            "손 / 상체",
+            "다리 / 바지",
+            "가방 / 낙하산",
+            "신발",
+            "목 / 스카프",
+            "셔츠 / 액세서리",
+            "방탄복 / 액세서리 2",
+            "배지 / 로고",
+            "셔츠 오버레이 / 재킷",
         };
 
         private readonly List<string> propNames = new()
         {
-            "Hats / Helmets", // id 0
-            "Glasses", // id 1
-            "Misc", // id 2
-            "Watches", // id 6
-            "Bracelets", // id 7
+            "모자 / 헬멧", // id 0
+            "안경", // id 1
+            "기타", // id 2
+            "시계", // id 6
+            "팔찌", // id 7
         };
         #endregion
         #endregion

@@ -18,8 +18,8 @@ namespace vMenuClient.menus
     {
         // Variables
         private Menu menu = null;
-        private readonly Menu SavedLoadoutsMenu = new("Saved Loadouts", "saved weapon loadouts list");
-        private readonly Menu ManageLoadoutMenu = new("Mange Loadout", "Manage saved weapon loadout");
+        private readonly Menu SavedLoadoutsMenu = new("저장된 로드아웃", "저장된 무기 로드아웃 목록");
+        private readonly Menu ManageLoadoutMenu = new("로드아웃 관리", "저장된 무기 로드아웃 관리");
         public bool WeaponLoadoutsSetLoadoutOnRespawn { get; private set; } = UserDefaults.WeaponLoadoutsSetLoadoutOnRespawn;
 
         private readonly Dictionary<string, List<ValidWeapon>> SavedWeapons = new();
@@ -82,14 +82,14 @@ namespace vMenuClient.menus
         /// </summary>
         public void CreateMenu()
         {
-            menu = new Menu(Game.Player.Name, "weapon loadouts management");
+            menu = new Menu(Game.Player.Name, "무기 로드아웃 관리");
 
             MenuController.AddSubmenu(menu, SavedLoadoutsMenu);
             MenuController.AddSubmenu(SavedLoadoutsMenu, ManageLoadoutMenu);
 
-            var saveLoadout = new MenuItem("Save Loadout", "Save your current weapons into a new loadout slot.");
-            var savedLoadoutsMenuBtn = new MenuItem("Manage Loadouts", "Manage saved weapon loadouts.") { Label = "→→→" };
-            var enableDefaultLoadouts = new MenuCheckboxItem("Restore Default Loadout On Respawn", "If you've set a loadout as default loadout, then your loadout will be equipped automatically whenever you (re)spawn.", WeaponLoadoutsSetLoadoutOnRespawn);
+            var saveLoadout = new MenuItem("로드아웃 저장", "현재 무기를 새 로드아웃 슬롯에 저장합니다.");
+            var savedLoadoutsMenuBtn = new MenuItem("로드아웃 관리", "저장된 무기 로드아웃을 관리합니다.") { Label = "→→→" };
+            var enableDefaultLoadouts = new MenuCheckboxItem("리스폰 시 기본 로드아웃 복원", "기본 로드아웃을 설정해두었다면, (재)리스폰할 때마다 해당 로드아웃이 자동으로 장착됩니다.", WeaponLoadoutsSetLoadoutOnRespawn);
 
             menu.AddMenuItem(saveLoadout);
             menu.AddMenuItem(savedLoadoutsMenuBtn);
@@ -114,7 +114,7 @@ namespace vMenuClient.menus
 
                 foreach (var sw in SavedWeapons)
                 {
-                    var btn = new MenuItem(sw.Key.Replace("vmenu_string_saved_weapon_loadout_", ""), "Click to manage this loadout.") { Label = "→→→" };
+                    var btn = new MenuItem(sw.Key.Replace("vmenu_string_saved_weapon_loadout_", ""), "눌러서 이 로드아웃을 관리합니다.") { Label = "→→→" };
                     SavedLoadoutsMenu.AddMenuItem(btn);
                     MenuController.BindMenuItem(SavedLoadoutsMenu, ManageLoadoutMenu, btn);
                 }
@@ -126,12 +126,12 @@ namespace vMenuClient.menus
             }
 
 
-            var spawnLoadout = new MenuItem("Equip Loadout", "Spawn this saved weapons loadout. This will remove all your current weapons and replace them with this saved slot.");
-            var renameLoadout = new MenuItem("Rename Loadout", "Rename this saved loadout.");
-            var cloneLoadout = new MenuItem("Clone Loadout", "Clones this saved loadout to a new slot.");
-            var setDefaultLoadout = new MenuItem("Set As Default Loadout", "Set this loadout to be your default loadout for whenever you (re)spawn. This will override the 'Restore Weapons' option inside the Misc Settings menu. You can toggle this option in the main Weapon Loadouts menu.");
-            var replaceLoadout = new MenuItem("~r~Replace Loadout", "~r~This replaces this saved slot with the weapons that you currently have in your inventory. This action can not be undone!");
-            var deleteLoadout = new MenuItem("~r~Delete Loadout", "~r~This will delete this saved loadout. This action can not be undone!");
+            var spawnLoadout = new MenuItem("로드아웃 장착", "이 저장된 무기 로드아웃을 장착합니다. 현재 보유 중인 모든 무기는 제거되고 이 저장 슬롯의 무기로 대체됩니다.");
+            var renameLoadout = new MenuItem("로드아웃 이름 변경", "이 저장된 로드아웃의 이름을 변경합니다.");
+            var cloneLoadout = new MenuItem("로드아웃 복제", "이 저장된 로드아웃을 새 슬롯으로 복제합니다.");
+            var setDefaultLoadout = new MenuItem("기본 로드아웃으로 설정", "이 로드아웃을 (재)리스폰 시 사용할 기본 로드아웃으로 설정합니다. 이 설정은 기타 설정 메뉴의 '무기 복원' 옵션보다 우선합니다. 이 옵션은 무기 로드아웃 메인 메뉴에서 켜거나 끌 수 있습니다.");
+            var replaceLoadout = new MenuItem("~r~로드아웃 덮어쓰기", "~r~현재 인벤토리에 있는 무기로 이 저장 슬롯을 덮어씁니다. 이 작업은 되돌릴 수 없습니다!");
+            var deleteLoadout = new MenuItem("~r~로드아웃 삭제", "~r~이 저장된 로드아웃을 삭제합니다. 이 작업은 되돌릴 수 없습니다!");
 
             if (IsAllowed(Permission.WLEquip))
             {
@@ -149,7 +149,7 @@ namespace vMenuClient.menus
             {
                 if (item == saveLoadout)
                 {
-                    var name = await GetUserInput("Enter a save name", 30);
+                    var name = await GetUserInput("저장 이름을 입력하세요", 30);
                     if (string.IsNullOrEmpty(name))
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -165,7 +165,7 @@ namespace vMenuClient.menus
                             if (SaveWeaponLoadout("vmenu_string_saved_weapon_loadout_" + name))
                             {
                                 Log("saveweapons called from menu select (save loadout button)");
-                                Notify.Success($"Your weapons have been saved as ~g~<C>{name}</C>~s~.");
+                                Notify.Success($"무기가 ~g~<C>{name}</C>~s~(으)로 저장되었습니다.");
                             }
                             else
                             {
@@ -189,7 +189,7 @@ namespace vMenuClient.menus
                     }
                     else if (item == renameLoadout || item == cloneLoadout) // rename or clone
                     {
-                        var newName = await GetUserInput("Enter a save name", SelectedSavedLoadoutName.Replace("vmenu_string_saved_weapon_loadout_", ""), 30);
+                        var newName = await GetUserInput("저장 이름을 입력하세요", SelectedSavedLoadoutName.Replace("vmenu_string_saved_weapon_loadout_", ""), 30);
                         if (string.IsNullOrEmpty(newName))
                         {
                             Notify.Error(CommonErrors.InvalidInput);
@@ -203,7 +203,7 @@ namespace vMenuClient.menus
                             else
                             {
                                 SetResourceKvp("vmenu_string_saved_weapon_loadout_" + newName, JsonConvert.SerializeObject(weapons));
-                                Notify.Success($"Your weapons loadout has been {(item == renameLoadout ? "renamed" : "cloned")} to ~g~<C>{newName}</C>~s~.");
+                                Notify.Success($"무기 로드아웃이 ~g~<C>{newName}</C>~s~(으)로 {(item == renameLoadout ? "이름 변경" : "복제")}되었습니다.");
 
                                 if (item == renameLoadout)
                                 {
@@ -217,35 +217,35 @@ namespace vMenuClient.menus
                     else if (item == setDefaultLoadout) // set as default
                     {
                         SetResourceKvp("vmenu_string_default_loadout", SelectedSavedLoadoutName);
-                        Notify.Success("This is now your default loadout.");
+                        Notify.Success("이제 이 로드아웃이 기본 로드아웃으로 설정되었습니다.");
                         item.LeftIcon = MenuItem.Icon.TICK;
                     }
                     else if (item == replaceLoadout) // replace
                     {
-                        if (replaceLoadout.Label == "Are you sure?")
+                        if (replaceLoadout.Label == "정말 진행하시겠습니까?")
                         {
                             replaceLoadout.Label = "";
                             SaveWeaponLoadout(SelectedSavedLoadoutName);
                             Log("save weapons called from replace loadout");
-                            Notify.Success("Your saved loadout has been replaced with your current weapons.");
+                            Notify.Success("저장된 로드아웃이 현재 무기로 덮어쓰기되었습니다.");
                         }
                         else
                         {
-                            replaceLoadout.Label = "Are you sure?";
+                            replaceLoadout.Label = "정말 진행하시겠습니까?";
                         }
                     }
                     else if (item == deleteLoadout) // delete
                     {
-                        if (deleteLoadout.Label == "Are you sure?")
+                        if (deleteLoadout.Label == "정말 진행하시겠습니까?")
                         {
                             deleteLoadout.Label = "";
                             DeleteResourceKvp(SelectedSavedLoadoutName);
                             ManageLoadoutMenu.GoBack();
-                            Notify.Success("Your saved loadout has been deleted.");
+                            Notify.Success("저장된 로드아웃이 삭제되었습니다.");
                         }
                         else
                         {
-                            deleteLoadout.Label = "Are you sure?";
+                            deleteLoadout.Label = "정말 진행하시겠습니까?";
                         }
                     }
                 }

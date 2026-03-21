@@ -31,27 +31,27 @@ namespace vMenuClient.menus
         private void CreateMenu()
         {
             // Menu
-            menu = new Menu(GetSafePlayerName(Game.Player.Name), "Personal Vehicle Options");
+            menu = new Menu(GetSafePlayerName(Game.Player.Name), "개인 차량 옵션");
 
             // menu items
-            var setVehice = new MenuItem("Set Vehicle", "Sets your current vehicle as your personal vehicle. If you already have a personal vehicle set then this will override your selection.") { Label = "Current Vehicle: None" };
-            var toggleEngine = new MenuItem("Toggle Engine", "Toggles the engine on or off, even when you're not inside of the vehicle. This does not work if someone else is currently using your vehicle.");
-            var toggleLights = new MenuListItem("Set Vehicle Lights", new List<string>() { "Force On", "Force Off", "Reset" }, 0, "This will enable or disable your vehicle headlights, the engine of your vehicle needs to be running for this to work.");
-            var toggleStance = new MenuListItem("Vehicle Stance", new List<string>() { "Default", "Lowered" }, 0, "Select stance for your Personal Vehicle.");
-            var kickAllPassengers = new MenuItem("Kick Passengers", "This will remove all passengers from your personal vehicle.");
+            var setVehice = new MenuItem("차량 지정", "현재 타고 있는 차량을 개인 차량으로 지정합니다. 이미 개인 차량이 설정되어 있다면 기존 선택이 덮어써집니다.") { Label = "현재 차량: 없음" };
+            var toggleEngine = new MenuItem("엔진 켜기/끄기", "차량에 탑승하고 있지 않아도 엔진을 켜거나 끕니다. 다른 사람이 현재 차량을 사용 중이면 작동하지 않습니다.");
+            var toggleLights = new MenuListItem("차량 라이트 설정", new List<string>() { "강제 켜기", "강제 끄기", "초기화" }, 0, "차량 전조등을 켜거나 끕니다. 이 기능을 사용하려면 차량 엔진이 켜져 있어야 합니다.");
+            var toggleStance = new MenuListItem("차량 높이", new List<string>() { "기본", "낮춤" }, 0, "개인 차량의 높이를 선택합니다.");
+            var kickAllPassengers = new MenuItem("탑승자 내리기", "개인 차량에 탑승한 모든 승객을 내리게 합니다.");
             //MenuItem
-            var lockDoors = new MenuItem("Lock Vehicle Doors", "This will lock all your vehicle doors for all players. Anyone already inside will always be able to leave the vehicle, even if the doors are locked.");
-            var unlockDoors = new MenuItem("Unlock Vehicle Doors", "This will unlock all your vehicle doors for all players.");
-            var doorsMenuBtn = new MenuItem("Vehicle Doors", "Open, close, remove and restore vehicle doors here.")
+            var lockDoors = new MenuItem("차량 문 잠금", "모든 플레이어에 대해 차량 문을 잠급니다. 이미 차량 안에 있는 사람은 문이 잠겨 있어도 언제든지 내릴 수 있습니다.");
+            var unlockDoors = new MenuItem("차량 문 잠금 해제", "모든 플레이어에 대해 차량 문 잠금을 해제합니다.");
+            var doorsMenuBtn = new MenuItem("차량 문", "여기서 차량 문을 열고, 닫고, 제거하고, 복구할 수 있습니다.")
             {
                 Label = "→→→"
             };
-            var soundHorn = new MenuItem("Sound Horn", "Sounds the horn of the vehicle.");
-            var toggleAlarm = new MenuItem("Toggle Alarm Sound", "Toggles the vehicle alarm sound on or off. This does not set an alarm. It only toggles the current sounding status of the alarm.");
-            var enableBlip = new MenuCheckboxItem("Add Blip For Personal Vehicle", "Enables or disables the blip that gets added when you mark a vehicle as your personal vehicle.", EnableVehicleBlip) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
-            var exclusiveDriver = new MenuCheckboxItem("Exclusive Driver", "If enabled, then you will be the only one that can enter the drivers seat. Other players will not be able to drive the car. They can still be passengers.", false) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
+            var soundHorn = new MenuItem("경적 울리기", "차량 경적을 울립니다.");
+            var toggleAlarm = new MenuItem("경보음 켜기/끄기", "차량 경보음을 켜거나 끕니다. 경보를 설정하는 기능은 아니며, 현재 울리고 있는 경보음 상태만 전환합니다.");
+            var enableBlip = new MenuCheckboxItem("개인 차량 블립 추가", "차량을 개인 차량으로 지정했을 때 표시되는 블립을 켜거나 끕니다.", EnableVehicleBlip) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
+            var exclusiveDriver = new MenuCheckboxItem("운전자 전용", "활성화하면 운전석에는 본인만 탑승할 수 있습니다. 다른 플레이어는 운전할 수 없지만 동승자는 될 수 있습니다.", false) { Style = MenuCheckboxItem.CheckboxStyle.Cross };
             //submenu
-            VehicleDoorsMenu = new Menu("Vehicle Doors", "Vehicle Doors Management");
+            VehicleDoorsMenu = new Menu("차량 문", "차량 문 관리");
             MenuController.AddSubmenu(menu, VehicleDoorsMenu);
             MenuController.BindMenuItem(menu, VehicleDoorsMenu, doorsMenuBtn);
 
@@ -130,7 +130,7 @@ namespace vMenuClient.menus
                     {
                         if (!NetworkRequestControlOfEntity(CurrentPersonalVehicle.Handle))
                         {
-                            Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                            Notify.Error("현재 이 차량을 제어할 수 없습니다. 다른 사람이 차량을 운전 중인가요? 다른 플레이어가 차량을 제어하고 있지 않은지 확인한 뒤 다시 시도하세요.");
                             return;
                         }
                     }
@@ -167,7 +167,7 @@ namespace vMenuClient.menus
                 }
                 else
                 {
-                    Notify.Error("You have not yet selected a personal vehicle, or your vehicle has been deleted. Set a personal vehicle before you can use these options.");
+                    Notify.Error("아직 개인 차량을 선택하지 않았거나, 차량이 삭제되었습니다. 이 옵션을 사용하려면 먼저 개인 차량을 설정하세요.");
                 }
             };
 
@@ -186,11 +186,11 @@ namespace vMenuClient.menus
                                 CurrentPersonalVehicle.AttachBlip();
                             }
                             CurrentPersonalVehicle.AttachedBlip.Sprite = BlipSprite.PersonalVehicleCar;
-                            CurrentPersonalVehicle.AttachedBlip.Name = "Personal Vehicle";
+                            CurrentPersonalVehicle.AttachedBlip.Name = "개인 차량";
                         }
                         else
                         {
-                            Notify.Error("You have not yet selected a personal vehicle, or your vehicle has been deleted. Set a personal vehicle before you can use these options.");
+                            Notify.Error("아직 개인 차량을 선택하지 않았거나, 차량이 삭제되었습니다. 이 옵션을 사용하려면 먼저 개인 차량을 설정하세요.");
                         }
 
                     }
@@ -224,7 +224,7 @@ namespace vMenuClient.menus
                         else
                         {
                             item.Checked = !_checked;
-                            Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                            Notify.Error("현재 이 차량을 제어할 수 없습니다. 다른 사람이 차량을 운전 중인가요? 다른 플레이어가 차량을 제어하고 있지 않은지 확인한 뒤 다시 시도하세요.");
                         }
                     }
                 }
@@ -252,14 +252,14 @@ namespace vMenuClient.menus
                                         veh.AttachBlip();
                                     }
                                     veh.AttachedBlip.Sprite = BlipSprite.PersonalVehicleCar;
-                                    veh.AttachedBlip.Name = "Personal Vehicle";
+                                    veh.AttachedBlip.Name = "개인 차량";
                                 }
                                 var name = GetLabelText(veh.DisplayName);
                                 if (string.IsNullOrEmpty(name) || name.ToLower() == "null")
                                 {
                                     name = veh.DisplayName;
                                 }
-                                item.Label = $"Current Vehicle: {name}";
+                                item.Label = $"현재 차량: {name}";
                             }
                             else
                             {
@@ -288,7 +288,7 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            Notify.Info("There are no other players in your vehicle that need to be kicked out.");
+                            Notify.Info("내리게 할 다른 플레이어가 현재 차량에 없습니다.");
                         }
                     }
                     else
@@ -297,7 +297,7 @@ namespace vMenuClient.menus
                         {
                             if (!NetworkRequestControlOfEntity(CurrentPersonalVehicle.Handle))
                             {
-                                Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                                Notify.Error("현재 이 차량을 제어할 수 없습니다. 다른 사람이 차량을 운전 중인가요? 다른 플레이어가 차량을 제어하고 있지 않은지 확인한 뒤 다시 시도하세요.");
                                 return;
                             }
                         }
@@ -330,25 +330,25 @@ namespace vMenuClient.menus
                 }
                 else
                 {
-                    Notify.Error("You have not yet selected a personal vehicle, or your vehicle has been deleted. Set a personal vehicle before you can use these options.");
+                    Notify.Error("아직 개인 차량을 선택하지 않았거나, 차량이 삭제되었습니다. 이 옵션을 사용하려면 먼저 개인 차량을 설정하세요.");
                 }
             };
 
             #region Doors submenu 
-            var openAll = new MenuItem("Open All Doors", "Open all vehicle doors.");
-            var closeAll = new MenuItem("Close All Doors", "Close all vehicle doors.");
-            var LF = new MenuItem("Left Front Door", "Open/close the left front door.");
-            var RF = new MenuItem("Right Front Door", "Open/close the right front door.");
-            var LR = new MenuItem("Left Rear Door", "Open/close the left rear door.");
-            var RR = new MenuItem("Right Rear Door", "Open/close the right rear door.");
-            var HD = new MenuItem("Hood", "Open/close the hood.");
-            var TR = new MenuItem("Trunk", "Open/close the trunk.");
-            var E1 = new MenuItem("Extra 1", "Open/close the extra door (#1). Note this door is not present on most vehicles.");
-            var E2 = new MenuItem("Extra 2", "Open/close the extra door (#2). Note this door is not present on most vehicles.");
-            var BB = new MenuItem("Bomb Bay", "Open/close the bomb bay. Only available on some planes.");
-            var doors = new List<string>() { "Front Left", "Front Right", "Rear Left", "Rear Right", "Hood", "Trunk", "Extra 1", "Extra 2", "Bomb Bay" };
-            var removeDoorList = new MenuListItem("Remove Door", doors, 0, "Remove a specific vehicle door completely.");
-            var deleteDoors = new MenuCheckboxItem("Delete Removed Doors", "When enabled, doors that you remove using the list above will be deleted from the world. If disabled, then the doors will just fall on the ground.", false);
+            var openAll = new MenuItem("모든 문 열기", "차량의 모든 문을 엽니다.");
+            var closeAll = new MenuItem("모든 문 닫기", "차량의 모든 문을 닫습니다.");
+            var LF = new MenuItem("왼쪽 앞문", "왼쪽 앞문을 열거나 닫습니다.");
+            var RF = new MenuItem("오른쪽 앞문", "오른쪽 앞문을 열거나 닫습니다.");
+            var LR = new MenuItem("왼쪽 뒷문", "왼쪽 뒷문을 열거나 닫습니다.");
+            var RR = new MenuItem("오른쪽 뒷문", "오른쪽 뒷문을 열거나 닫습니다.");
+            var HD = new MenuItem("보닛", "보닛을 열거나 닫습니다.");
+            var TR = new MenuItem("트렁크", "트렁크를 열거나 닫습니다.");
+            var E1 = new MenuItem("추가 문 1", "추가 문(#1)을 열거나 닫습니다. 대부분의 차량에는 이 문이 없습니다.");
+            var E2 = new MenuItem("추가 문 2", "추가 문(#2)을 열거나 닫습니다. 대부분의 차량에는 이 문이 없습니다.");
+            var BB = new MenuItem("폭탄창", "폭탄창을 열거나 닫습니다. 일부 비행기에서만 사용할 수 있습니다.");
+            var doors = new List<string>() { "앞쪽 왼쪽", "앞쪽 오른쪽", "뒤쪽 왼쪽", "뒤쪽 오른쪽", "보닛", "트렁크", "추가 문 1", "추가 문 2", "폭탄창" };
+            var removeDoorList = new MenuListItem("문 제거", doors, 0, "특정 차량 문을 완전히 제거합니다.");
+            var deleteDoors = new MenuCheckboxItem("제거한 문 삭제", "활성화하면 위 목록에서 제거한 문이 월드에서 완전히 삭제됩니다. 비활성화하면 문은 바닥에 떨어지기만 합니다.", false);
 
             VehicleDoorsMenu.AddMenuItem(LF);
             VehicleDoorsMenu.AddMenuItem(RF);
@@ -373,7 +373,7 @@ namespace vMenuClient.menus
                     {
                         if (!NetworkRequestControlOfEntity(CurrentPersonalVehicle.Handle))
                         {
-                            Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                            Notify.Error("현재 이 차량을 제어할 수 없습니다. 다른 사람이 차량을 운전 중인가요? 다른 플레이어가 차량을 제어하고 있지 않은지 확인한 뒤 다시 시도하세요.");
                             return;
                         }
                     }
@@ -395,7 +395,7 @@ namespace vMenuClient.menus
                     {
                         if (!NetworkRequestControlOfEntity(CurrentPersonalVehicle.Handle))
                         {
-                            Notify.Error("You currently can't control this vehicle. Is someone else currently driving your car? Please try again after making sure other players are not controlling your vehicle.");
+                            Notify.Error("현재 이 차량을 제어할 수 없습니다. 다른 사람이 차량을 운전 중인가요? 다른 플레이어가 차량을 제어하고 있지 않은지 확인한 뒤 다시 시도하세요.");
                             return;
                         }
                     }
@@ -444,7 +444,7 @@ namespace vMenuClient.menus
                     }
                     else
                     {
-                        Notify.Error("You have not yet selected a personal vehicle, or your vehicle has been deleted. Set a personal vehicle before you can use these options.");
+                        Notify.Error("아직 개인 차량을 선택하지 않았거나, 차량이 삭제되었습니다. 이 옵션을 사용하려면 먼저 개인 차량을 설정하세요.");
                     }
                 }
             };

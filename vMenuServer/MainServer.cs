@@ -38,21 +38,21 @@ namespace vMenuServer
                 var prefix = "[vMenu] ";
                 if (level == LogLevel.error)
                 {
-                    prefix = "^1[vMenu] [ERROR]^7 ";
+                    prefix = "^1[vMenu] [오류]^7 ";
                 }
                 else if (level == LogLevel.info)
                 {
-                    prefix = "^5[vMenu] [INFO]^7 ";
+                    prefix = "^5[vMenu] [정보]^7 ";
                 }
                 else if (level == LogLevel.success)
                 {
-                    prefix = "^2[vMenu] [SUCCESS]^7 ";
+                    prefix = "^2[vMenu] [성공]^7 ";
                 }
                 else if (level == LogLevel.warning)
                 {
-                    prefix = "^3[vMenu] [WARNING]^7 ";
+                    prefix = "^3[vMenu] [경고]^7 ";
                 }
-                Debug.WriteLine($"{prefix}[DEBUG LOG] {data.ToString()}");
+                Debug.WriteLine($"{prefix}[디버그 로그] {data.ToString()}");
             }
         }
     }
@@ -232,7 +232,7 @@ namespace vMenuServer
                 }
                 catch (JsonReaderException ex)
                 {
-                    Debug.WriteLine($"\n\n^1[vMenu] [ERROR] ^7Your addons.json file contains a problem! Error details: {ex.Message}\n\n");
+                    Debug.WriteLine($"\n\n^1[vMenu] [오류] ^7addons.json 파일에 문제가 있습니다! 오류 상세: {ex.Message}\n\n");
                 }
 
                 // check extras file for errors
@@ -244,13 +244,13 @@ namespace vMenuServer
                 }
                 catch (JsonReaderException ex)
                 {
-                    Debug.WriteLine($"\n\n^1[vMenu] [ERROR] ^7Your extras.json file contains a problem! Error details: {ex.Message}\n\n");
+                    Debug.WriteLine($"\n\n^1[vMenu] [오류] ^7extras.json 파일에 문제가 있습니다! 오류 상세: {ex.Message}\n\n");
                 }
 
                 // check if permissions are setup (correctly)
                 if (!GetSettingsBool(Setting.vmenu_use_permissions))
                 {
-                    Debug.WriteLine("^3[vMenu] [WARNING] vMenu is set up to ignore permissions!\nIf you did this on purpose then you can ignore this warning.\nIf you did not set this on purpose, then you must have made a mistake while setting up vMenu.\nPlease read the vMenu documentation (^5https://docs.vespura.com/vmenu^3).\nMost likely you are not executing the permissions.cfg (correctly).^7");
+                    Debug.WriteLine("^3[vMenu] [경고] vMenu가 권한을 무시하도록 설정되어 있습니다!\n의도적으로 이렇게 설정한 경우 이 경고는 무시하셔도 됩니다.\n의도한 설정이 아니라면 vMenu 설정 과정에서 실수가 있었을 가능성이 높습니다.\nvMenu 문서를 확인하세요 (^5https://docs.vespura.com/vmenu^3).\n대부분의 경우 permissions.cfg가 실행되지 않았거나 올바르게 적용되지 않은 상태입니다.^7");
                 }
 
                 Tick += PlayersFirstTick;
@@ -284,11 +284,11 @@ namespace vMenuServer
                         DebugMode = !DebugMode;
                         if (source < 1)
                         {
-                            Debug.WriteLine($"Debug mode is now set to: {DebugMode}.");
+                            Debug.WriteLine($"디버그 모드가 다음 값으로 설정되었습니다: {DebugMode}.");
                         }
                         else
                         {
-                            Players[source].TriggerEvent("chatMessage", $"vMenu Debug mode is now set to: {DebugMode}.");
+                            Players[source].TriggerEvent("chatMessage", $"vMenu 디버그 모드가 다음 값으로 설정되었습니다: {DebugMode}.");
                         }
                         return;
                     }
@@ -302,11 +302,11 @@ namespace vMenuServer
                             if (banRecord != null)
                             {
                                 BanManager.RemoveBan(banRecord);
-                                Debug.WriteLine("Player has been successfully unbanned.");
+                                Debug.WriteLine("플레이어의 차단이 성공적으로 해제되었습니다.");
                             }
                             else
                             {
-                                Debug.WriteLine($"Could not find a banned player with the provided uuid '{uuid}'.");
+                                Debug.WriteLine($"입력한 uuid '{uuid}'에 해당하는 차단된 플레이어를 찾을 수 없습니다.");
                             }
                         }
                         else
@@ -319,7 +319,7 @@ namespace vMenuServer
                     {
                         if (args.Count < 2 || string.IsNullOrEmpty(args[1].ToString()))
                         {
-                            Debug.WriteLine("[vMenu] Invalid command syntax. Use 'vmenuserver weather <weatherType>' instead.");
+                            Debug.WriteLine("[vMenu] 잘못된 명령어 형식입니다. 대신 'vmenuserver weather <weatherType>' 를 사용하세요.");
                         }
                         else
                         {
@@ -327,7 +327,7 @@ namespace vMenuServer
                             if (WeatherTypes.Contains(wtype))
                             {
                                 TriggerEvent("vMenu:UpdateServerWeather", wtype, DynamicWeatherEnabled, ManualSnowEnabled);
-                                Debug.WriteLine($"[vMenu] Weather is now set to: {wtype}");
+                                Debug.WriteLine($"[vMenu] 날씨가 다음으로 설정되었습니다: {wtype}");
                             }
                             else if (wtype.ToLower() == "dynamic")
                             {
@@ -336,27 +336,27 @@ namespace vMenuServer
                                     if ((args[2].ToString().ToLower() ?? $"{DynamicWeatherEnabled}") == "true")
                                     {
                                         TriggerEvent("vMenu:UpdateServerWeather", CurrentWeather, true, ManualSnowEnabled);
-                                        Debug.WriteLine("[vMenu] Dynamic weather is now turned on.");
+                                        Debug.WriteLine("[vMenu] 동적 날씨가 활성화되었습니다.");
                                     }
                                     else if ((args[2].ToString().ToLower() ?? $"{DynamicWeatherEnabled}") == "false")
                                     {
                                         TriggerEvent("vMenu:UpdateServerWeather", CurrentWeather, false, ManualSnowEnabled);
-                                        Debug.WriteLine("[vMenu] Dynamic weather is now turned off.");
+                                        Debug.WriteLine("[vMenu] 동적 날씨가 비활성화되었습니다.");
                                     }
                                     else
                                     {
-                                        Debug.WriteLine("[vMenu] Invalid command usage. Correct syntax: vmenuserver weather dynamic <true|false>");
+                                        Debug.WriteLine("[vMenu] 잘못된 명령어 사용입니다. 올바른 형식: vmenuserver weather dynamic <true|false>");
                                     }
                                 }
                                 else
                                 {
-                                    Debug.WriteLine("[vMenu] Invalid command usage. Correct syntax: vmenuserver weather dynamic <true|false>");
+                                    Debug.WriteLine("[vMenu] 잘못된 명령어 사용입니다. 올바른 형식: vmenuserver weather dynamic <true|false>");
                                 }
 
                             }
                             else
                             {
-                                Debug.WriteLine("[vMenu] This weather type is not valid!");
+                                Debug.WriteLine("[vMenu] 유효하지 않은 날씨 유형입니다!");
                             }
                         }
                     }
@@ -367,11 +367,11 @@ namespace vMenuServer
                             if (args[1].ToString().ToLower() == "freeze")
                             {
                                 TriggerEvent("vMenu:UpdateServerTime", CurrentHours, CurrentMinutes, !FreezeTime);
-                                Debug.WriteLine($"Time is now {(FreezeTime ? "frozen" : "not frozen")}.");
+                                Debug.WriteLine($"시간 상태: {(FreezeTime ? "고정됨" : "고정 해제됨")}.");
                             }
                             else
                             {
-                                Debug.WriteLine("Invalid syntax. Use: ^5vmenuserver time <freeze|<hour> <minute>>^7 instead.");
+                                Debug.WriteLine("잘못된 형식입니다. 대신 ^5vmenuserver time <freeze|<hour> <minute>>^7 를 사용하세요.");
                             }
                         }
                         else if (args.Count > 2)
@@ -385,31 +385,31 @@ namespace vMenuServer
                                         if (minute is >= 0 and < 60)
                                         {
                                             TriggerEvent("vMenu:UpdateServerTime", hour, minute, FreezeTime);
-                                            Debug.WriteLine($"Time is now {(hour < 10 ? ("0" + hour.ToString()) : hour.ToString())}:{(minute < 10 ? ("0" + minute.ToString()) : minute.ToString())}.");
+                                            Debug.WriteLine($"현재 시간이 {(hour < 10 ? ("0" + hour.ToString()) : hour.ToString())}:{(minute < 10 ? ("0" + minute.ToString()) : minute.ToString())} 로 설정되었습니다.");
                                         }
                                         else
                                         {
-                                            Debug.WriteLine("Invalid minute provided. Value must be between 0 and 59.");
+                                            Debug.WriteLine("잘못된 분(minute) 값입니다. 0~59 사이여야 합니다.");
                                         }
                                     }
                                     else
                                     {
-                                        Debug.WriteLine("Invalid hour provided. Value must be between 0 and 23.");
+                                        Debug.WriteLine("잘못된 시(hour) 값입니다. 0~23 사이여야 합니다.");
                                     }
                                 }
                                 else
                                 {
-                                    Debug.WriteLine("Invalid syntax. Use: ^5vmenuserver time <freeze|<hour> <minute>>^7 instead.");
+                                    Debug.WriteLine("잘못된 형식입니다. 대신 ^5vmenuserver time <freeze|<hour> <minute>>^7 를 사용하세요.");
                                 }
                             }
                             else
                             {
-                                Debug.WriteLine("Invalid syntax. Use: ^5vmenuserver time <freeze|<hour> <minute>>^7 instead.");
+                                Debug.WriteLine("잘못된 형식입니다. 대신 ^5vmenuserver time <freeze|<hour> <minute>>^7 를 사용하세요.");
                             }
                         }
                         else
                         {
-                            Debug.WriteLine("Invalid syntax. Use: ^5vmenuserver time <freeze|<hour> <minute>>^7 instead.");
+                            Debug.WriteLine("잘못된 형식입니다. 대신 ^5vmenuserver time <freeze|<hour> <minute>>^7 를 사용하세요.");
                         }
                     }
                     else if (args[0].ToString().ToLower() == "ban" && source < 1)  // only do this via server console (server id < 1)
@@ -429,7 +429,7 @@ namespace vMenuServer
                                 }
                                 else
                                 {
-                                    Debug.WriteLine("[vMenu] Could not find this player, make sure they are online.");
+                                    Debug.WriteLine("[vMenu] 해당 플레이어를 찾을 수 없습니다. 현재 접속 중인지 확인하세요.");
                                     return;
                                 }
                             }
@@ -441,12 +441,12 @@ namespace vMenuServer
                                 }
                                 else
                                 {
-                                    Debug.WriteLine("[vMenu] Could not find this player, make sure they are online.");
+                                    Debug.WriteLine("[vMenu] 해당 플레이어를 찾을 수 없습니다. 현재 접속 중인지 확인하세요.");
                                     return;
                                 }
                             }
 
-                            var reason = "Banned by staff for:";
+                            var reason = "관리자에 의해 차단됨. 사유:";
                             args.GetRange(3, args.Count - 3).ForEach(arg => reason += " " + arg);
 
                             if (p != null)
@@ -461,60 +461,60 @@ namespace vMenuServer
                                 );
 
                                 BanManager.AddBan(ban);
-                                BanManager.BanLog($"[vMenu] Player {p.Name}^7 has been banned by Server Console for [{reason}].");
+                                BanManager.BanLog($"[vMenu] 플레이어 {p.Name}^7 님이 서버 콘솔에 의해 차단되었습니다. 사유: [{reason}].");
                                 TriggerEvent("vMenu:BanSuccessful", JsonConvert.SerializeObject(ban).ToString());
                                 var timeRemaining = BanManager.GetRemainingTimeMessage(ban.bannedUntil.Subtract(DateTime.Now));
-                                p.Drop($"You are banned from this server. Ban time remaining: {timeRemaining}. Banned by: {ban.bannedBy}. Ban reason: {ban.banReason}. Additional information: {vMenuShared.ConfigManager.GetSettingsString(vMenuShared.ConfigManager.Setting.vmenu_default_ban_message_information)}.");
+                                p.Drop($"이 서버에서 차단되었습니다. 남은 차단 시간: {timeRemaining}. 차단자: {ban.bannedBy}. 차단 사유: {ban.banReason}. 추가 정보: {vMenuShared.ConfigManager.GetSettingsString(vMenuShared.ConfigManager.Setting.vmenu_default_ban_message_information)}.");
                             }
                             else
                             {
-                                Debug.WriteLine("[vMenu] Player not found, could not ban player.");
+                                Debug.WriteLine("[vMenu] 플레이어를 찾을 수 없어 차단할 수 없습니다.");
                             }
                         }
                         else
                         {
-                            Debug.WriteLine("[vMenu] Not enough arguments, syntax: ^5vmenuserver ban <id|name> <server id|username> <reason>^7.");
+                            Debug.WriteLine("[vMenu] 인수가 부족합니다. 형식: ^5vmenuserver ban <id|name> <server id|username> <reason>^7.");
                         }
                     }
                     else if (args[0].ToString().ToLower() == "help")
                     {
-                        Debug.WriteLine("Available commands:");
-                        Debug.WriteLine("(server console only): vmenuserver ban <id|name> <server id|username> <reason> (player must be online!)");
-                        Debug.WriteLine("(server console only): vmenuserver unban <uuid>");
-                        Debug.WriteLine("vmenuserver weather <new weather type | dynamic <true | false>>");
+                        Debug.WriteLine("사용 가능한 명령어:");
+                        Debug.WriteLine("(서버 콘솔 전용): vmenuserver ban <id|name> <server id|username> <reason> (플레이어는 접속 중이어야 함!)");
+                        Debug.WriteLine("(서버 콘솔 전용): vmenuserver unban <uuid>");
+                        Debug.WriteLine("vmenuserver weather <새 날씨 유형 | dynamic <true | false>>");
                         Debug.WriteLine("vmenuserver time <freeze|<hour> <minute>>");
-                        Debug.WriteLine("vmenuserver migrate (This copies all banned players in the bans.json file to the new ban system in vMenu v3.3.0, you only need to do this once)");
+                        Debug.WriteLine("vmenuserver migrate (bans.json 파일의 모든 차단 플레이어를 vMenu v3.3.0의 새 차단 시스템으로 복사합니다. 이 작업은 한 번만 하면 됩니다)");
                     }
                     else if (args[0].ToString().ToLower() == "migrate" && source < 1)
                     {
                         var file = LoadResourceFile(GetCurrentResourceName(), "bans.json");
                         if (string.IsNullOrEmpty(file) || file == "[]")
                         {
-                            Debug.WriteLine("&1[vMenu] [ERROR]^7 No bans.json file found or it's empty.");
+                            Debug.WriteLine("&1[vMenu] [오류]^7 bans.json 파일을 찾을 수 없거나 비어 있습니다.");
                             return;
                         }
-                        Debug.WriteLine("^5[vMenu] [INFO]^7 Importing all ban records from the bans.json file into the new storage system. ^3This may take some time...^7");
+                        Debug.WriteLine("^5[vMenu] [정보]^7 bans.json 파일의 모든 차단 기록을 새 저장 시스템으로 가져오는 중입니다. ^3시간이 조금 걸릴 수 있습니다...^7");
                         var bans = JsonConvert.DeserializeObject<List<BanManager.BanRecord>>(file);
                         bans.ForEach((br) =>
                         {
                             var record = new BanManager.BanRecord(br.playerName, br.identifiers, br.bannedUntil, br.banReason, br.bannedBy, Guid.NewGuid());
                             BanManager.AddBan(record);
                         });
-                        Debug.WriteLine("^2[vMenu] [SUCCESS]^7 All ban records have been imported. You now no longer need the bans.json file.");
+                        Debug.WriteLine("^2[vMenu] [성공]^7 모든 차단 기록을 가져왔습니다. 이제 bans.json 파일은 더 이상 필요하지 않습니다.");
                     }
                     else
                     {
-                        Debug.WriteLine($"vMenu is currently running version: {Version}. Try ^5vmenuserver help^7 for info.");
+                        Debug.WriteLine($"현재 실행 중인 vMenu 버전: {Version}. 정보는 ^5vmenuserver help^7 를 확인하세요.");
                     }
                 }
                 else
                 {
-                    Debug.WriteLine($"vMenu is currently running version: {Version}. Try ^5vmenuserver help^7 for info.");
+                    Debug.WriteLine($"현재 실행 중인 vMenu 버전: {Version}. 정보는 ^5vmenuserver help^7 를 확인하세요.");
                 }
             }
             else
             {
-                Debug.WriteLine($"vMenu is currently running version: {Version}. Try ^5vmenuserver help^7 for info.");
+                Debug.WriteLine($"현재 실행 중인 vMenu 버전: {Version}. 정보는 ^5vmenuserver help^7 를 확인하세요.");
             }
         }
         #endregion
@@ -564,7 +564,7 @@ namespace vMenuServer
 
                 TaskLeaveVehicle(pedHandle, vehicleHandle, warpOutFlag);
 
-                player.TriggerEvent("vMenu:Notify", "The owner of the vehicle has kicked you out.");
+                player.TriggerEvent("vMenu:Notify", "차량 소유자가 당신을 차량에서 내리게 했습니다.");
             }
         }
         #endregion
@@ -829,7 +829,7 @@ namespace vMenuServer
         /// <param name="target"></param>
         /// <param name="kickReason"></param>
         [EventHandler("vMenu:KickPlayer")]
-        internal void KickPlayer([FromSource] Player source, int target, string kickReason = "You have been kicked from the server.")
+        internal void KickPlayer([FromSource] Player source, int target, string kickReason = "서버에서 강제 퇴장되었습니다.")
         {
             if (!PermissionsManager.IsAllowed(PermissionsManager.Permission.OPKick, source) && !PermissionsManager.IsAllowed(PermissionsManager.Permission.OPAll, source))
             {
@@ -841,19 +841,19 @@ namespace vMenuServer
 
             if (targetPlayer is null)
             {
-                source.TriggerEvent("vMenu:Notify", "Failed to kick target, because the target could not be found. Did they already leave?");
+                source.TriggerEvent("vMenu:Notify", "대상을 강제 퇴장시키지 못했습니다. 대상을 찾을 수 없습니다. 이미 나갔을 수 있습니다.");
                 return;
             }
 
             if (PermissionsManager.IsAllowed(PermissionsManager.Permission.DontKickMe, targetPlayer))
             {
-                source.TriggerEvent("vMenu:Notify", "Sorry, this player can ~r~not ~w~be kicked.");
+                source.TriggerEvent("vMenu:Notify", "죄송합니다. 이 플레이어는 ~r~강제 퇴장시킬 수 없습니다~w~.");
                 return;
             }
 
-            KickLog($"Player: {source.Name} has kicked: {targetPlayer.Name} for: {kickReason}.");
+            KickLog($"플레이어: {source.Name} 님이 {targetPlayer.Name} 님을 다음 사유로 강제 퇴장시켰습니다: {kickReason}.");
 
-            source.TriggerEvent("vMenu:Notify", $"The target player (<C>{targetPlayer.Name}</C>) has been kicked.");
+            source.TriggerEvent("vMenu:Notify", $"대상 플레이어 (<C>{targetPlayer.Name}</C>)가 강제 퇴장되었습니다.");
 
             targetPlayer.Drop(kickReason);
         }
@@ -951,7 +951,7 @@ namespace vMenuServer
 
                 if (timeout < GetGameTimer())
                 {
-                    source.TriggerEvent("vMenu:Notify", "Failed to teleport player.");
+                    source.TriggerEvent("vMenu:Notify", "플레이어를 텔레포트하지 못했습니다.");
                     break;
                 }
 
@@ -961,7 +961,7 @@ namespace vMenuServer
 
             if (!seatFound)
             {
-                source.TriggerEvent("vMenu:Notify", "No free seats in your vehicle for summoned player.");
+                source.TriggerEvent("vMenu:Notify", "소환한 플레이어가 탑승할 빈 좌석이 내 차량에 없습니다.");
             }
         }
 
@@ -978,7 +978,7 @@ namespace vMenuServer
 
             if (sourcePmsDisabled)
             {
-                source.TriggerEvent("vMenu:Notify", "You can't send a private message if you have private messages disabled yourself. Enable them in the Misc Settings menu and try again.");
+                source.TriggerEvent("vMenu:Notify", "본인의 개인 메시지 기능이 비활성화되어 있으면 개인 메시지를 보낼 수 없습니다. Misc 설정 메뉴에서 해당 기능을 활성화한 뒤 다시 시도하세요.");
                 return;
             }
 
@@ -986,7 +986,7 @@ namespace vMenuServer
 
             if (targetPlayer is null)
             {
-                source.TriggerEvent("vMenu:Notify", "Failed to send message because the target could not be found. Did they disconnect?");
+                source.TriggerEvent("vMenu:Notify", "메시지를 보내지 못했습니다. 대상을 찾을 수 없습니다. 접속이 끊어졌을 수 있습니다.");
                 return;
             }
 
@@ -994,7 +994,7 @@ namespace vMenuServer
 
             if (targetPmsDisabled)
             {
-                source.TriggerEvent("vMenu:Notify", $"Sorry, your private message to <C>{source.Name}</C>~s~ could not be delivered because they have private messages disabled.");
+                source.TriggerEvent("vMenu:Notify", $"죄송합니다. <C>{source.Name}</C>~s~ 님에게 보낸 개인 메시지는 상대방이 개인 메시지를 비활성화해 두어 전달되지 않았습니다.");
                 return;
             }
 
@@ -1009,7 +1009,7 @@ namespace vMenuServer
 
                 Player player = GetPlayerFromServerId(playerHandle);
 
-                player?.TriggerEvent("vMenu:Notify", $"[vMenu Staff Log] <C>{source.Name}</C>~s~ sent a PM to <C>{targetPlayer.Name}</C>~s~: {message}");
+                player?.TriggerEvent("vMenu:Notify", $"[vMenu 관리자 로그] <C>{source.Name}</C>~s~ 님이 <C>{targetPlayer.Name}</C>~s~ 님에게 개인 메시지를 보냈습니다: {message}");
             }
         }
         #endregion
@@ -1032,7 +1032,7 @@ namespace vMenuServer
                     (date.Hour < 10 ? "0" : "") + date.Hour + ":" +
                     (date.Minute < 10 ? "0" : "") + date.Minute + ":" +
                     (date.Second < 10 ? "0" : "") + date.Second;
-                var outputFile = file + $"[\t{formattedDate}\t] [KICK ACTION] {kickLogMesage}\n";
+                var outputFile = file + $"[\t{formattedDate}\t] [강제 퇴장] {kickLogMesage}\n";
                 SaveResourceFile(GetCurrentResourceName(), "vmenu.log", outputFile, -1);
                 Debug.WriteLine("^3[vMenu] [KICK]^7 " + kickLogMesage + "\n");
             }
@@ -1058,20 +1058,20 @@ namespace vMenuServer
             }
             catch
             {
-                Log("Teleport location could not be deserialized, location was not saved.", LogLevel.error);
+                Log("텔레포트 위치를 역직렬화할 수 없어 저장하지 못했습니다.", LogLevel.error);
                 return;
             }
 
             if (GetTeleportLocationsData().Exists(loc => loc.name == teleportLocation.name))
             {
-                Log("A teleport location with this name already exists, location was not saved.", LogLevel.error);
+                Log("같은 이름의 텔레포트 위치가 이미 존재하여 저장하지 못했습니다.", LogLevel.error);
                 return;
             }
             var locs = GetLocations();
             locs.teleports.Add(teleportLocation);
             if (!SaveResourceFile(GetCurrentResourceName(), "config/locations.json", JsonConvert.SerializeObject(locs, Formatting.Indented), -1))
             {
-                Log("Could not save locations.json file, reason unknown.", LogLevel.error);
+                Log("locations.json 파일을 저장하지 못했습니다. 원인을 알 수 없습니다.", LogLevel.error);
             }
             TriggerClientEvent("vMenu:UpdateTeleportLocations", JsonConvert.SerializeObject(locs.teleports));
         }
@@ -1179,7 +1179,7 @@ namespace vMenuServer
             joinedPlayers.Remove(sourcePlayer.Handle);
 
             string sourcePlayerName = sourcePlayer.Name;
-            
+
             foreach (Player notifPlayer in GetJoinQuitNotifPlayers())
             {
                 notifPlayer.TriggerEvent("vMenu:PlayerJoinQuit", sourcePlayerName, reason);

@@ -18,10 +18,10 @@ namespace vMenuClient.menus
         // Variables
         private Menu classMenu;
         private Menu savedVehicleTypeMenu;
-        private readonly Menu vehicleCategoryMenu = new("Categories", "Manage Saved Vehicles");
-        private readonly Menu savedVehiclesCategoryMenu = new("Category", "I get updated at runtime!");
-        private readonly Menu selectedVehicleMenu = new("Manage Vehicle", "Manage this saved vehicle.");
-        private readonly Menu unavailableVehiclesMenu = new("Missing Vehicles", "Unavailable Saved Vehicles");
+        private readonly Menu vehicleCategoryMenu = new("카테고리", "저장된 차량 관리");
+        private readonly Menu savedVehiclesCategoryMenu = new("카테고리", "실행 중 자동으로 갱신됩니다!");
+        private readonly Menu selectedVehicleMenu = new("차량 관리", "이 저장된 차량을 관리합니다.");
+        private readonly Menu unavailableVehiclesMenu = new("누락된 차량", "사용할 수 없는 저장 차량");
         private Dictionary<string, VehicleInfo> savedVehicles = new();
         private readonly List<Menu> subMenus = new();
         private KeyValuePair<string, VehicleInfo> currentlySelectedVehicle = new();
@@ -30,23 +30,23 @@ namespace vMenuClient.menus
         private SavedVehicleCategory currentCategory;
 
         // Need to be editable from other functions
-        private readonly MenuListItem setCategoryBtn = new("Set Vehicle Category", new List<string> { }, 0, "Sets this Vehicle's category. Select to save.");
+        private readonly MenuListItem setCategoryBtn = new("차량 카테고리 설정", new List<string> { }, 0, "이 차량의 카테고리를 설정합니다. 선택하면 저장됩니다.");
 
         /// <summary>
         /// Creates the menu.
         /// </summary>
         private void CreateClassMenu()
         {
-            var menuTitle = "Saved Vehicles";
+            var menuTitle = "저장된 차량";
             #region Create menus and submenus
             // Create the menu.
-            classMenu = new Menu(menuTitle, "Manage Saved Vehicles");
+            classMenu = new Menu(menuTitle, "저장된 차량 관리");
 
             for (var i = 0; i < 23; i++)
             {
-                var categoryMenu = new Menu("Saved Vehicles", GetLabelText($"VEH_CLASS_{i}"));
+                var categoryMenu = new Menu("저장된 차량", GetLabelText($"VEH_CLASS_{i}"));
 
-                var vehClassButton = new MenuItem(GetLabelText($"VEH_CLASS_{i}"), $"All saved vehicles from the {GetLabelText($"VEH_CLASS_{i}")} category.");
+                var vehClassButton = new MenuItem(GetLabelText($"VEH_CLASS_{i}"), $"{GetLabelText($"VEH_CLASS_{i}")} 카테고리의 저장된 차량 전체입니다.");
                 subMenus.Add(categoryMenu);
                 MenuController.AddSubmenu(classMenu, categoryMenu);
                 classMenu.AddMenuItem(vehClassButton);
@@ -64,7 +64,7 @@ namespace vMenuClient.menus
                 };
             }
 
-            var unavailableModels = new MenuItem("Unavailable Saved Vehicles", "These vehicles are currently unavailable because the models are not present in the game. These vehicles are most likely not being streamed from the server.")
+            var unavailableModels = new MenuItem("사용할 수 없는 저장 차량", "이 차량들은 현재 게임에 모델이 존재하지 않아 사용할 수 없습니다. 서버에서 스트리밍되지 않는 차량일 가능성이 높습니다.")
             {
                 Label = "→→→"
             };
@@ -84,7 +84,7 @@ namespace vMenuClient.menus
                 // Create new category
                 if (item.ItemData is not SavedVehicleCategory)
                 {
-                    var name = await GetUserInput(windowTitle: "Enter a category name.", maxInputLength: 30);
+                    var name = await GetUserInput(windowTitle: "카테고리 이름을 입력하세요.", maxInputLength: 30);
                     if (string.IsNullOrEmpty(name) || name.ToLower() == "uncategorized" || name.ToLower() == "create new")
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -92,7 +92,7 @@ namespace vMenuClient.menus
                     }
                     else
                     {
-                        var description = await GetUserInput(windowTitle: "Enter a category description (optional).", maxInputLength: 120);
+                        var description = await GetUserInput(windowTitle: "카테고리 설명을 입력하세요. (선택 사항)", maxInputLength: 120);
                         var newCategory = new SavedVehicleCategory
                         {
                             Name = name,
@@ -101,7 +101,7 @@ namespace vMenuClient.menus
 
                         if (StorageManager.SaveJsonData("saved_veh_category_" + name, JsonConvert.SerializeObject(newCategory), false))
                         {
-                            Notify.Success($"Your category (~g~<C>{name}</C>~s~) has been saved.");
+                            Notify.Success($"카테고리(~g~<C>{name}</C>~s~)가 저장되었습니다.");
                             Log($"Saved Category {name}.");
                             MenuController.CloseAllMenus();
                             UpdateSavedVehicleCategoriesMenu();
@@ -111,7 +111,7 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            Notify.Error($"Saving failed, most likely because this name (~y~<C>{name}</C>~s~) is already in use.");
+                            Notify.Error($"저장에 실패했습니다. 이 이름(~y~<C>{name}</C>~s~)은 이미 사용 중일 가능성이 높습니다.");
                             return;
                         }
                     }
@@ -125,7 +125,7 @@ namespace vMenuClient.menus
                 bool isUncategorized = currentCategory.Name == "Uncategorized";
 
                 savedVehiclesCategoryMenu.MenuTitle = currentCategory.Name;
-                savedVehiclesCategoryMenu.MenuSubtitle = $"~s~Category: ~y~{currentCategory.Name}";
+                savedVehiclesCategoryMenu.MenuSubtitle = $"~s~카테고리: ~y~{currentCategory.Name}";
                 savedVehiclesCategoryMenu.ClearMenuItems();
 
                 var iconNames = Enum.GetNames(typeof(MenuItem.Icon)).ToList();
@@ -153,25 +153,25 @@ namespace vMenuClient.menus
                     return iconNames[newIndex];
                 }
 
-                var renameBtn = new MenuItem("Rename Category", "Rename this category.")
+                var renameBtn = new MenuItem("카테고리 이름 변경", "이 카테고리의 이름을 변경합니다.")
                 {
                     Enabled = !isUncategorized
                 };
-                var descriptionBtn = new MenuItem("Change Category Description", "Change this category's description.")
+                var descriptionBtn = new MenuItem("카테고리 설명 변경", "이 카테고리의 설명을 변경합니다.")
                 {
                     Enabled = !isUncategorized
                 };
-                var iconBtn = new MenuDynamicListItem("Change Category Icon", iconNames[(int)currentCategory.Icon], new MenuDynamicListItem.ChangeItemCallback(ChangeCallback), "Change this category's icon. Select to save.")
+                var iconBtn = new MenuDynamicListItem("카테고리 아이콘 변경", iconNames[(int)currentCategory.Icon], new MenuDynamicListItem.ChangeItemCallback(ChangeCallback), "이 카테고리의 아이콘을 변경합니다. 선택하면 저장됩니다.")
                 {
                     Enabled = !isUncategorized,
                     RightIcon = currentCategory.Icon
                 };
-                var deleteBtn = new MenuItem("Delete Category", "Delete this category. This can not be undone!")
+                var deleteBtn = new MenuItem("카테고리 삭제", "이 카테고리를 삭제합니다. 이 작업은 되돌릴 수 없습니다!")
                 {
                     RightIcon = MenuItem.Icon.WARNING,
                     Enabled = !isUncategorized
                 };
-                var deleteCharsBtn = new MenuCheckboxItem("Delete All Vehicles", "If checked, when \"Delete Category\" is pressed, all the saved vehicles in this category will be deleted as well. If not checked, saved vehicles will be moved to \"Uncategorized\".")
+                var deleteCharsBtn = new MenuCheckboxItem("모든 차량 삭제", "체크된 상태에서 \"카테고리 삭제\"를 누르면 이 카테고리의 저장 차량도 모두 삭제됩니다. 체크하지 않으면 저장 차량은 \"미분류\"로 이동합니다.")
                 {
                     Enabled = !isUncategorized
                 };
@@ -182,13 +182,13 @@ namespace vMenuClient.menus
                 savedVehiclesCategoryMenu.AddMenuItem(deleteBtn);
                 savedVehiclesCategoryMenu.AddMenuItem(deleteCharsBtn);
 
-                var spacer = GetSpacerMenuItem("↓ Vehicles ↓");
+                var spacer = GetSpacerMenuItem("↓ 차량 ↓");
                 savedVehiclesCategoryMenu.AddMenuItem(spacer);
 
                 if (savedVehicles.Count > 0)
                 {
-                    List<MenuItem> spawnableVehicles = [];   
-                    List<MenuItem> unspawnableVehicles = [];   
+                    List<MenuItem> spawnableVehicles = [];
+                    List<MenuItem> unspawnableVehicles = [];
 
                     foreach (var kvp in savedVehicles)
                     {
@@ -212,12 +212,12 @@ namespace vMenuClient.menus
 
                         string buttonName = name.Substring(4);
                         bool canUse = IsModelInCdimage(vehicle.model);
-                        string buttonDescription = "Manage this saved vehicle.";
+                        string buttonDescription = "이 저장된 차량을 관리합니다.";
 
                         if (!canUse)
                         {
                             buttonName = $"~italic~{buttonName}~italic~";
-                            buttonDescription += "\n\n~r~NOTE~w~~s~: This model could not be found, and so cannot be spawned.";
+                            buttonDescription += "\n\n~r~참고~w~~s~: 이 모델을 찾을 수 없어 스폰할 수 없습니다.";
                         }
 
                         var btn = new MenuItem(buttonName, buttonDescription)
@@ -251,7 +251,7 @@ namespace vMenuClient.menus
                 {
                     // Rename Category
                     case 0:
-                        var name = await GetUserInput(windowTitle: "Enter a new category name", defaultText: currentCategory.Name, maxInputLength: 30);
+                        var name = await GetUserInput(windowTitle: "새 카테고리 이름을 입력하세요", defaultText: currentCategory.Name, maxInputLength: 30);
 
                         if (string.IsNullOrEmpty(name) || name.ToLower() == "uncategorized" || name.ToLower() == "create new")
                         {
@@ -308,39 +308,39 @@ namespace vMenuClient.menus
                                 }
                             }
 
-                            Notify.Success($"Your category has been renamed to ~g~<C>{name}</C>~s~. {updatedCount}/{totalCount} vehicles updated.");
+                            Notify.Success($"카테고리 이름이 ~g~<C>{name}</C>~s~(으)로 변경되었습니다. 차량 {updatedCount}/{totalCount}개가 갱신되었습니다.");
                             MenuController.CloseAllMenus();
                             UpdateSavedVehicleCategoriesMenu();
                             vehicleCategoryMenu.OpenMenu();
                         }
                         else
                         {
-                            Notify.Error("Something went wrong while renaming your category, your old category will NOT be deleted because of this.");
+                            Notify.Error("카테고리 이름을 변경하는 중 문제가 발생했습니다. 기존 카테고리는 삭제되지 않습니다.");
                         }
                         break;
 
                     // Change Category Description
                     case 1:
-                        var description = await GetUserInput(windowTitle: "Enter a new category description", defaultText: currentCategory.Description, maxInputLength: 120);
+                        var description = await GetUserInput(windowTitle: "새 카테고리 설명을 입력하세요", defaultText: currentCategory.Description, maxInputLength: 120);
 
                         currentCategory.Description = description;
 
                         if (StorageManager.SaveJsonData("saved_veh_category_" + currentCategory.Name, JsonConvert.SerializeObject(currentCategory), true))
                         {
-                            Notify.Success($"Your category description has been changed.");
+                            Notify.Success("카테고리 설명이 변경되었습니다.");
                             MenuController.CloseAllMenus();
                             UpdateSavedVehicleCategoriesMenu();
                             vehicleCategoryMenu.OpenMenu();
                         }
                         else
                         {
-                            Notify.Error("Something went wrong while changing your category description.");
+                            Notify.Error("카테고리 설명을 변경하는 중 문제가 발생했습니다.");
                         }
                         break;
 
                     // Delete Category
                     case 3:
-                        if (item.Label == "Are you sure?")
+                        if (item.Label == "정말 삭제할까요?")
                         {
                             bool deleteVehicles = (sender.GetMenuItems().ElementAt(4) as MenuCheckboxItem).Checked;
 
@@ -392,14 +392,14 @@ namespace vMenuClient.menus
                                 }
                             }
 
-                            Notify.Success($"Your saved category has been deleted. {updatedCount}/{totalCount} vehicles {(deleteVehicles ? "deleted" : "updated")}.");
+                            Notify.Success($"저장된 카테고리가 삭제되었습니다. 차량 {updatedCount}/{totalCount}개가 {(deleteVehicles ? "삭제" : "갱신")}되었습니다.");
                             MenuController.CloseAllMenus();
                             UpdateSavedVehicleCategoriesMenu();
                             vehicleCategoryMenu.OpenMenu();
                         }
                         else
                         {
-                            item.Label = "Are you sure?";
+                            item.Label = "정말 삭제할까요?";
                         }
                         break;
 
@@ -434,19 +434,19 @@ namespace vMenuClient.menus
 
                 if (StorageManager.SaveJsonData("saved_veh_category_" + currentCategory.Name, JsonConvert.SerializeObject(currentCategory), true))
                 {
-                    Notify.Success($"Your category icon been changed to ~g~<C>{iconNames[iconIndex]}</C>~s~.");
+                    Notify.Success($"카테고리 아이콘이 ~g~<C>{iconNames[iconIndex]}</C>~s~(으)로 변경되었습니다.");
                     UpdateSavedVehicleCategoriesMenu();
                 }
                 else
                 {
-                    Notify.Error("Something went wrong while changing your category icon.");
+                    Notify.Error("카테고리 아이콘을 변경하는 중 문제가 발생했습니다.");
                 }
             };
 
-            var spawnVehicle = new MenuItem("Spawn Vehicle");
-            var renameVehicle = new MenuItem("Rename Vehicle", "Rename your saved vehicle.");
-            var replaceVehicle = new MenuItem("~r~Replace Vehicle", "Your saved vehicle will be replaced with the vehicle you are currently sitting in. ~r~Warning: this can NOT be undone!");
-            var deleteVehicle = new MenuItem("~r~Delete Vehicle", "~r~This will delete your saved vehicle. Warning: this can NOT be undone!");
+            var spawnVehicle = new MenuItem("차량 스폰");
+            var renameVehicle = new MenuItem("차량 이름 변경", "저장된 차량의 이름을 변경합니다.");
+            var replaceVehicle = new MenuItem("~r~차량 교체", "저장된 차량이 현재 탑승 중인 차량으로 교체됩니다. ~r~경고: 이 작업은 되돌릴 수 없습니다!");
+            var deleteVehicle = new MenuItem("~r~차량 삭제", "~r~이 작업은 저장된 차량을 삭제합니다. 경고: 이 작업은 되돌릴 수 없습니다!");
             selectedVehicleMenu.AddMenuItem(spawnVehicle);
             selectedVehicleMenu.AddMenuItem(renameVehicle);
             selectedVehicleMenu.AddMenuItem(setCategoryBtn);
@@ -458,7 +458,7 @@ namespace vMenuClient.menus
                 bool vehicleModelExists = IsModelInCdimage(currentlySelectedVehicle.Value.model);
 
                 spawnVehicle.Enabled = vehicleModelExists;
-                spawnVehicle.Description = vehicleModelExists ? "Spawn this saved vehicle." : "This model could not be found in the game files. Most likely because this is an addon vehicle and it's currently not streamed by the server.";
+                spawnVehicle.Description = vehicleModelExists ? "이 저장된 차량을 스폰합니다." : "이 모델은 게임 파일에서 찾을 수 없습니다. 애드온 차량이며 현재 서버에서 스트리밍되지 않는 것 같습니다.";
 
                 spawnVehicle.Label = "(" + GetDisplayNameFromVehicleModel(currentlySelectedVehicle.Value.model).ToLower() + ")";
             };
@@ -487,7 +487,7 @@ namespace vMenuClient.menus
                 }
                 else if (item == renameVehicle)
                 {
-                    var newName = await GetUserInput(windowTitle: "Enter a new name for this vehicle.", maxInputLength: 30);
+                    var newName = await GetUserInput(windowTitle: "이 차량의 새 이름을 입력하세요.", maxInputLength: 30);
                     if (string.IsNullOrEmpty(newName))
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -501,14 +501,14 @@ namespace vMenuClient.menus
                             {
                                 await BaseScript.Delay(0);
                             }
-                            Notify.Success("Your vehicle has successfully been renamed.");
+                            Notify.Success("차량 이름이 성공적으로 변경되었습니다.");
                             UpdateMenuAvailableCategories();
                             selectedVehicleMenu.GoBack();
                             currentlySelectedVehicle = new KeyValuePair<string, VehicleInfo>(); // clear the old info
                         }
                         else
                         {
-                            Notify.Error("This name is already in use or something unknown failed. Contact the server owner if you believe something is wrong.");
+                            Notify.Error("이 이름은 이미 사용 중이거나 알 수 없는 이유로 실패했습니다. 문제가 있다고 생각되면 서버 관리자에게 문의하세요.");
                         }
                     }
                 }
@@ -519,8 +519,8 @@ namespace vMenuClient.menus
                         if (replaceButtonPressedCount == 0)
                         {
                             replaceButtonPressedCount = 1;
-                            item.Label = "Press again to confirm.";
-                            Notify.Alert("Are you sure you want to replace this vehicle? Press the button again to confirm.");
+                            item.Label = "한 번 더 눌러 확인";
+                            Notify.Alert("정말 이 차량으로 교체하시겠습니까? 확인하려면 버튼을 한 번 더 누르세요.");
                         }
                         else
                         {
@@ -528,12 +528,12 @@ namespace vMenuClient.menus
                             item.Label = "";
                             SaveVehicle(currentlySelectedVehicle.Key.Substring(4), currentlySelectedVehicle.Value.Category);
                             selectedVehicleMenu.CloseMenu();
-                            Notify.Success("Your saved vehicle has been replaced with your current vehicle.");
+                            Notify.Success("저장된 차량이 현재 차량으로 교체되었습니다.");
                         }
                     }
                     else
                     {
-                        Notify.Error("You need to be in a vehicle before you can replace your old vehicle.");
+                        Notify.Error("기존 차량을 교체하려면 먼저 차량에 탑승해야 합니다.");
                     }
                 }
                 else if (item == deleteVehicle)
@@ -541,8 +541,8 @@ namespace vMenuClient.menus
                     if (deleteButtonPressedCount == 0)
                     {
                         deleteButtonPressedCount = 1;
-                        item.Label = "Press again to confirm.";
-                        Notify.Alert("Are you sure you want to delete this vehicle? Press the button again to confirm.");
+                        item.Label = "한 번 더 눌러 확인";
+                        Notify.Alert("정말 이 차량을 삭제하시겠습니까? 확인하려면 버튼을 한 번 더 누르세요.");
                     }
                     else
                     {
@@ -551,7 +551,7 @@ namespace vMenuClient.menus
                         DeleteResourceKvp(currentlySelectedVehicle.Key);
                         UpdateMenuAvailableCategories();
                         selectedVehicleMenu.GoBack();
-                        Notify.Success("Your saved vehicle has been deleted.");
+                        Notify.Success("저장된 차량이 삭제되었습니다.");
                     }
                 }
                 if (item != deleteVehicle) // if any other button is pressed, restore the delete vehicle button pressed count.
@@ -576,7 +576,7 @@ namespace vMenuClient.menus
 
                 if (name == "Create New")
                 {
-                    var newName = await GetUserInput(windowTitle: "Enter a category name.", maxInputLength: 30);
+                    var newName = await GetUserInput(windowTitle: "카테고리 이름을 입력하세요.", maxInputLength: 30);
                     if (string.IsNullOrEmpty(newName) || newName.ToLower() == "uncategorized" || newName.ToLower() == "create new")
                     {
                         Notify.Error(CommonErrors.InvalidInput);
@@ -584,7 +584,7 @@ namespace vMenuClient.menus
                     }
                     else
                     {
-                        var description = await GetUserInput(windowTitle: "Enter a category description (optional).", maxInputLength: 120);
+                        var description = await GetUserInput(windowTitle: "카테고리 설명을 입력하세요. (선택 사항)", maxInputLength: 120);
                         var newCategory = new SavedVehicleCategory
                         {
                             Name = newName,
@@ -593,7 +593,7 @@ namespace vMenuClient.menus
 
                         if (StorageManager.SaveJsonData("saved_veh_category_" + newName, JsonConvert.SerializeObject(newCategory), false))
                         {
-                            Notify.Success($"Your category (~g~<C>{newName}</C>~s~) has been saved.");
+                            Notify.Success($"카테고리(~g~<C>{newName}</C>~s~)가 저장되었습니다.");
                             Log($"Saved Category {newName}.");
                             MenuController.CloseAllMenus();
                             UpdateSavedVehicleCategoriesMenu();
@@ -604,7 +604,7 @@ namespace vMenuClient.menus
                         }
                         else
                         {
-                            Notify.Error($"Saving failed, most likely because this name (~y~<C>{newName}</C>~s~) is already in use.");
+                            Notify.Error($"저장에 실패했습니다. 이 이름(~y~<C>{newName}</C>~s~)은 이미 사용 중일 가능성이 높습니다.");
                             return;
                         }
                     }
@@ -616,11 +616,11 @@ namespace vMenuClient.menus
 
                 if (StorageManager.SaveVehicleInfo(currentlySelectedVehicle.Key, vehicle, true))
                 {
-                    Notify.Success("Your vehicle was saved successfully.");
+                    Notify.Success("차량이 성공적으로 저장되었습니다.");
                 }
                 else
                 {
-                    Notify.Error("Your vehicle could not be saved. Reason unknown. :(");
+                    Notify.Error("차량을 저장할 수 없습니다. 원인을 알 수 없습니다. :(");
                 }
 
                 MenuController.CloseAllMenus();
@@ -628,7 +628,7 @@ namespace vMenuClient.menus
                 vehicleCategoryMenu.OpenMenu();
             };
 
-            unavailableVehiclesMenu.InstructionalButtons.Add(Control.FrontendDelete, "Delete Vehicle!");
+            unavailableVehiclesMenu.InstructionalButtons.Add(Control.FrontendDelete, "차량 삭제!");
 
             unavailableVehiclesMenu.ButtonPressHandlers.Add(new Menu.ButtonPressHandler(Control.FrontendDelete, Menu.ControlPressCheckType.JUST_RELEASED, new Action<Menu, Control>((m, c) =>
             {
@@ -640,7 +640,7 @@ namespace vMenuClient.menus
                         var item = m.GetMenuItems().Find(i => i.Index == index);
                         if (item != null && item.ItemData is KeyValuePair<string, VehicleInfo> sd)
                         {
-                            if (item.Label == "~r~Are you sure?")
+                            if (item.Label == "~r~정말 삭제할까요?")
                             {
                                 Log("Unavailable saved vehicle deleted, data: " + JsonConvert.SerializeObject(sd));
                                 DeleteResourceKvp(sd.Key);
@@ -649,22 +649,22 @@ namespace vMenuClient.menus
                             }
                             else
                             {
-                                item.Label = "~r~Are you sure?";
+                                item.Label = "~r~정말 삭제할까요?";
                             }
                         }
                         else
                         {
-                            Notify.Error("Somehow this vehicle could not be found.");
+                            Notify.Error("어떤 이유에서인지 이 차량을 찾을 수 없습니다.");
                         }
                     }
                     else
                     {
-                        Notify.Error("You somehow managed to trigger deletion of a menu item that doesn't exist, how...?");
+                        Notify.Error("존재하지 않는 메뉴 항목의 삭제를 어떻게 눌렀는지 모르겠네요...?");
                     }
                 }
                 else
                 {
-                    Notify.Error("There are currrently no unavailable vehicles to delete!");
+                    Notify.Error("현재 삭제할 수 있는 사용 불가 차량이 없습니다!");
                 }
             }), true));
 
@@ -686,17 +686,17 @@ namespace vMenuClient.menus
 
         private void CreateTypeMenu()
         {
-            savedVehicleTypeMenu = new("Saved Vehicles", "Select from class or custom category");
+            savedVehicleTypeMenu = new("저장된 차량", "클래스 또는 사용자 카테고리에서 선택");
 
-            var saveVehicle = new MenuItem("Save Current Vehicle", "Save the vehicle you are currently sitting in.")
+            var saveVehicle = new MenuItem("현재 차량 저장", "현재 탑승 중인 차량을 저장합니다.")
             {
                 LeftIcon = MenuItem.Icon.CAR
             };
-            var classButton = new MenuItem("Vehicle Class", "Selected a saved vehicle by its class.")
+            var classButton = new MenuItem("차량 클래스", "클래스로 저장된 차량을 선택합니다.")
             {
                 Label = "→→→"
             };
-            var categoryButton = new MenuItem("Vehicle Category", "Selected a saved vehicle by its custom category.")
+            var categoryButton = new MenuItem("차량 카테고리", "사용자 지정 카테고리로 저장된 차량을 선택합니다.")
             {
                 Label = "→→→"
             };
@@ -715,7 +715,7 @@ namespace vMenuClient.menus
                     }
                     else
                     {
-                        Notify.Error("You are currently not in any vehicle. Please enter a vehicle before trying to save it.");
+                        Notify.Error("현재 탑승 중인 차량이 없습니다. 저장하려면 먼저 차량에 탑승하세요.");
                     }
                 }
                 else if (item == classButton)
@@ -772,14 +772,14 @@ namespace vMenuClient.menus
                     GetClassMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.NONE;
                     GetClassMenu().GetMenuItems()[i].Label = "→→→";
                     GetClassMenu().GetMenuItems()[i].Enabled = true;
-                    GetClassMenu().GetMenuItems()[i].Description = $"All saved vehicles from the {GetClassMenu().GetMenuItems()[i].Text} category.";
+                    GetClassMenu().GetMenuItems()[i].Description = $"{GetClassMenu().GetMenuItems()[i].Text} 카테고리의 저장된 차량 전체입니다.";
                 }
                 else
                 {
                     GetClassMenu().GetMenuItems()[i].Label = "";
                     GetClassMenu().GetMenuItems()[i].RightIcon = MenuItem.Icon.LOCK;
                     GetClassMenu().GetMenuItems()[i].Enabled = false;
-                    GetClassMenu().GetMenuItems()[i].Description = $"You do not have any saved vehicles that belong to the {GetClassMenu().GetMenuItems()[i].Text} category.";
+                    GetClassMenu().GetMenuItems()[i].Description = $"{GetClassMenu().GetMenuItems()[i].Text} 카테고리에 속한 저장 차량이 없습니다.";
                 }
             }
 
@@ -815,7 +815,7 @@ namespace vMenuClient.menus
                     var vclass = GetVehicleClassFromName(sv.Value.model);
                     var menu = subMenus[vclass];
 
-                    var savedVehicleBtn = new MenuItem(sv.Key.Substring(4), $"Manage this saved vehicle.")
+                    var savedVehicleBtn = new MenuItem(sv.Key.Substring(4), $"이 저장된 차량을 관리합니다.")
                     {
                         Label = $"({sv.Value.name}) →→→",
                         ItemData = sv
@@ -824,7 +824,7 @@ namespace vMenuClient.menus
                 }
                 else
                 {
-                    var missingVehItem = new MenuItem(sv.Key.Substring(4), "This model could not be found in the game files. Most likely because this is an addon vehicle and it's currently not streamed by the server.")
+                    var missingVehItem = new MenuItem(sv.Key.Substring(4), "이 모델은 게임 파일에서 찾을 수 없습니다. 애드온 차량이며 현재 서버에서 스트리밍되지 않는 것 같습니다.")
                     {
                         Label = "(" + sv.Value.name + ")",
                         Enabled = false,
@@ -855,21 +855,21 @@ namespace vMenuClient.menus
 
             vehicleCategoryMenu.ClearMenuItems();
 
-            var createCategoryBtn = new MenuItem("Create Category", "Create a new vehicle category.")
+            var createCategoryBtn = new MenuItem("카테고리 생성", "새 차량 카테고리를 생성합니다.")
             {
                 Label = "→→→"
             };
             vehicleCategoryMenu.AddMenuItem(createCategoryBtn);
 
-            var spacer = GetSpacerMenuItem("↓ Vehicle Categories ↓");
+            var spacer = GetSpacerMenuItem("↓ 차량 카테고리 ↓");
             vehicleCategoryMenu.AddMenuItem(spacer);
 
             var uncategorized = new SavedVehicleCategory
             {
                 Name = "Uncategorized",
-                Description = "All saved vehicles that have not been assigned to a category."
+                Description = "카테고리에 지정되지 않은 모든 저장 차량입니다."
             };
-            var uncategorizedBtn = new MenuItem(uncategorized.Name, uncategorized.Description)
+            var uncategorizedBtn = new MenuItem("미분류", uncategorized.Description)
             {
                 Label = "→→→",
                 ItemData = uncategorized

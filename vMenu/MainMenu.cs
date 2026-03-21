@@ -105,7 +105,7 @@ namespace vMenuClient
                         if (!kvp.StartsWith("settings_") && !kvp.StartsWith("vmenu") && !kvp.StartsWith("veh_") && !kvp.StartsWith("ped_") && !kvp.StartsWith("mp_ped_"))
                         {
                             DeleteResourceKvp(kvp);
-                            Debug.WriteLine($"[vMenu] [cleanup id: 1] Removed unused (old) KVP: {kvp}.");
+                            Debug.WriteLine($"[vMenu] [정리 ID: 1] 사용되지 않는(오래된) KVP 제거됨: {kvp}.");
                         }
                     }
 #pragma warning restore CS8793 // The given expression always matches the provided pattern.
@@ -114,11 +114,11 @@ namespace vMenuClient
                         if (kvp.StartsWith("mp_char"))
                         {
                             DeleteResourceKvp(kvp);
-                            Debug.WriteLine($"[vMenu] [cleanup id: 2] Removed unused (old) KVP: {kvp}.");
+                            Debug.WriteLine($"[vMenu] [정리 ID: 2] 사용되지 않는(오래된) KVP 제거됨: {kvp}.");
                         }
                     }
                 }
-                Debug.WriteLine("[vMenu] Cleanup of old unused KVP items completed.");
+                Debug.WriteLine("[vMenu] 오래된 미사용 KVP 항목 정리가 완료되었습니다.");
             }
             #endregion
             #region keymapping
@@ -137,7 +137,7 @@ namespace vMenuClient
                         else
                         {
                             NoClipEnabled = false;
-                            Notify.Error("This vehicle does not exist (somehow) or you need to be the driver of this vehicle to enable noclip!");
+                            Notify.Error("이 차량은 존재하지 않거나, 노클립을 활성화하려면 운전석에 탑승해야 합니다!");
                         }
                     }
                     else
@@ -165,9 +165,9 @@ namespace vMenuClient
                 MenuToggleKey = "M";
             }
             MenuController.MenuToggleKey = (Control)(-1); // disables the menu toggle key
-            RegisterKeyMapping($"vMenu:{KeyMappingID}:NoClip", "vMenu NoClip Toggle Button", "keyboard", NoClipKey);
-            RegisterKeyMapping($"vMenu:{KeyMappingID}:MenuToggle", "vMenu Toggle Button", "keyboard", MenuToggleKey);
-            RegisterKeyMapping($"vMenu:{KeyMappingID}:MenuToggle", "vMenu Toggle Button Controller", "pad_digitalbuttonany", "start_index");
+            RegisterKeyMapping($"vMenu:{KeyMappingID}:NoClip", "vMenu 노클립 전환 버튼", "keyboard", NoClipKey);
+            RegisterKeyMapping($"vMenu:{KeyMappingID}:MenuToggle", "vMenu 열기/닫기 버튼", "keyboard", MenuToggleKey);
+            RegisterKeyMapping($"vMenu:{KeyMappingID}:MenuToggle", "vMenu 열기/닫기 버튼 컨트롤러", "pad_digitalbuttonany", "start_index");
             #endregion
             if (EnableExperimentalFeatures)
             {
@@ -203,28 +203,28 @@ namespace vMenuClient
                         if (args[0].ToString().ToLower() == "debug")
                         {
                             DebugMode = !DebugMode;
-                            Notify.Custom($"Debug mode is now set to: {DebugMode}.");
+                            Notify.Custom($"디버그 모드가 현재 다음과 같이 설정되었습니다: {DebugMode}.");
                             // Set discord rich precense once, allowing it to be overruled by other resources once those load.
                             if (DebugMode)
                             {
-                                SetRichPresence($"Debugging vMenu {Version}!");
+                                SetRichPresence($"vMenu {Version} 디버깅 중!");
                             }
                             else
                             {
-                                SetRichPresence($"Enjoying FiveM!");
+                                SetRichPresence($"FiveM을 즐기는 중!");
                             }
                         }
                         else if (args[0].ToString().ToLower() == "gc")
                         {
                             GC.Collect();
-                            Debug.Write("Cleared memory.\n");
+                            Debug.Write("메모리를 정리했습니다.\n");
                         }
                         else if (args[0].ToString().ToLower() == "dump")
                         {
-                            Notify.Info("A full config dump will be made to the console. Check the log file. This can cause lag!");
+                            Notify.Info("전체 설정 덤프가 콘솔에 출력됩니다. 로그 파일을 확인하세요. 이 작업은 랙을 유발할 수 있습니다!");
                             Debug.WriteLine("\n\n\n########################### vMenu ###########################");
-                            Debug.WriteLine($"Running vMenu Version: {Version}, Experimental features: {EnableExperimentalFeatures}, Debug mode: {DebugMode}.");
-                            Debug.WriteLine("\nDumping a list of all KVPs:");
+                            Debug.WriteLine($"실행 중인 vMenu 버전: {Version}, 실험 기능: {EnableExperimentalFeatures}, 디버그 모드: {DebugMode}.");
+                            Debug.WriteLine("\n모든 KVP 목록을 덤프합니다:");
                             var handle = StartFindKvp("");
                             var names = new List<string>();
                             while (true)
@@ -234,10 +234,6 @@ namespace vMenuClient
                                 {
                                     break;
                                 }
-                                //if (!k.StartsWith("settings_") && !k.StartsWith("vmenu") && !k.StartsWith("veh_") && !k.StartsWith("ped_") && !k.StartsWith("mp_ped_"))
-                                //{
-                                //    DeleteResourceKvp(k);
-                                //}
                                 names.Add(k);
                             }
                             EndFindKvp(handle);
@@ -292,23 +288,23 @@ namespace vMenuClient
                             }
                             Debug.WriteLine(@JsonConvert.SerializeObject(kvps, Formatting.None) + "\n");
 
-                            Debug.WriteLine("\n\nDumping a list of allowed permissions:");
+                            Debug.WriteLine("\n\n허용된 권한 목록을 덤프합니다:");
                             Debug.WriteLine(@JsonConvert.SerializeObject(Permissions, Formatting.None));
 
-                            Debug.WriteLine("\n\nDumping vmenu server configuration settings:");
+                            Debug.WriteLine("\n\nvMenu 서버 설정 목록을 덤프합니다:");
                             var settings = new Dictionary<string, string>();
                             foreach (var a in Enum.GetValues(typeof(Setting)))
                             {
                                 settings.Add(a.ToString(), GetSettingsString((Setting)a));
                             }
                             Debug.WriteLine(@JsonConvert.SerializeObject(settings, Formatting.None));
-                            Debug.WriteLine("\nEnd of vMenu dump!");
+                            Debug.WriteLine("\nvMenu 덤프 종료!");
                             Debug.WriteLine("\n########################### vMenu ###########################");
                         }
                     }
                     else
                     {
-                        Notify.Custom($"vMenu is currently running version: {Version}.");
+                        Notify.Custom($"현재 실행 중인 vMenu 버전: {Version}.");
                     }
                 }
             }), false);
@@ -318,7 +314,7 @@ namespace vMenuClient
                 MenuController.MainMenu = null;
                 MenuController.DontOpenAnyMenu = true;
                 MenuController.DisableMenuButtons = true;
-                throw new Exception("\n[vMenu] INSTALLATION ERROR!\nThe name of the resource is not valid. Please change the folder name from '" + GetCurrentResourceName() + "' to 'vMenu' (case sensitive)!\n");
+                throw new Exception("\n[vMenu] 설치 오류!\n리소스 이름이 올바르지 않습니다. 폴더 이름을 '" + GetCurrentResourceName() + "'에서 'vMenu'(대소문자 구분)로 변경하세요!\n");
             }
             else
             {
@@ -362,7 +358,7 @@ namespace vMenuClient
             }
             else
             {
-                Debug.WriteLine($"[vMenu] Warning: Received player coordinates for unknown RPC ID: {rpcId}");
+                Debug.WriteLine($"[vMenu] 경고: 알 수 없는 RPC ID의 플레이어 좌표를 받았습니다: {rpcId}");
             }
         }
 
@@ -475,15 +471,15 @@ namespace vMenuClient
                 return;
             }
             // Create the main menu.
-            Menu = new Menu(Game.Player.Name, "Main Menu");
-            PlayerSubmenu = new Menu(Game.Player.Name, "Player Related Options");
-            VehicleSubmenu = new Menu(Game.Player.Name, "Vehicle Related Options");
-            WorldSubmenu = new Menu(Game.Player.Name, "World Options");
+            Menu = new Menu(Game.Player.Name, "꿀벌서버 VMENU");
+            PlayerSubmenu = new Menu(Game.Player.Name, "플레이어 메뉴");
+            VehicleSubmenu = new Menu(Game.Player.Name, "차량 메뉴");
+            WorldSubmenu = new Menu(Game.Player.Name, "월드 관련 메뉴");
 
             // Add the main menu to the menu pool.
             MenuController.AddMenu(Menu);
             MenuController.MainMenu = Menu;
-            
+
             MenuController.AddSubmenu(Menu, PlayerSubmenu);
             MenuController.AddSubmenu(Menu, VehicleSubmenu);
             MenuController.AddSubmenu(Menu, WorldSubmenu);
@@ -539,7 +535,7 @@ namespace vMenuClient
         {
             if (ClientFullyDisabled)
             {
-                await Delay(5000);
+                await Delay(10000);
                 return;
             }
             // If the setup (permissions) is done, and it's not the first tick, then do this:
@@ -583,32 +579,8 @@ namespace vMenuClient
                 if (Game.IsDisabledControlJustReleased(0, Control.PhoneCancel) && MpPedCustomization.DisableBackButton)
                 {
                     await Delay(0);
-                    Notify.Alert("You must save your ped first before exiting, or click the ~r~Exit Without Saving~s~ button.");
+                    Notify.Alert("종료하기 전에 먼저 페드를 저장해야 함. 원치 않은 경우 저장하지 않고 종료");
                 }
-
-                //if (Game.CurrentInputMode == InputMode.MouseAndKeyboard)
-                //{
-                //    if (Game.IsControlJustPressed(0, (Control)NoClipKey) && IsAllowed(Permission.NoClip) && UpdateOnscreenKeyboard() != 0)
-                //    {
-                //        if (Game.PlayerPed.IsInVehicle())
-                //        {
-                //            var veh = GetVehicle();
-                //            if (veh != null && veh.Exists() && veh.Driver == Game.PlayerPed)
-                //            {
-                //                NoClipEnabled = !NoClipEnabled;
-                //            }
-                //            else
-                //            {
-                //                NoClipEnabled = false;
-                //                Notify.Error("This vehicle does not exist (somehow) or you need to be the driver of this vehicle to enable noclip!");
-                //            }
-                //        }
-                //        else
-                //        {
-                //            NoClipEnabled = !NoClipEnabled;
-                //        }
-                //    }
-                //}
 
                 #endregion
 
@@ -644,7 +616,7 @@ namespace vMenuClient
             {
                 OnlinePlayersMenu = new OnlinePlayers();
                 var menu = OnlinePlayersMenu.GetMenu();
-                var button = new MenuItem("Online Players", "All currently connected players.")
+                var button = new MenuItem("접속 중인 플레이어", "현재 접속 중인 유저 목록을 볼 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -664,7 +636,7 @@ namespace vMenuClient
             {
                 BannedPlayersMenu = new BannedPlayers();
                 var menu = BannedPlayersMenu.GetMenu();
-                var button = new MenuItem("Banned Players", "View and manage all banned players in this menu.")
+                var button = new MenuItem("밴 목록", "이 메뉴에서 차단된 플레이어 목록을 확인하고 관리할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -679,7 +651,7 @@ namespace vMenuClient
                 };
             }
 
-            var playerSubmenuBtn = new MenuItem("Player Related Options", "Open this submenu for player related subcategories.") { Label = "→→→" };
+            var playerSubmenuBtn = new MenuItem("플레이어 관련 옵션", "플레이어 관련 하위 메뉴를 엽니다.") { Label = "→→→" };
             Menu.AddMenuItem(playerSubmenuBtn);
 
             // Add the player options menu.
@@ -687,21 +659,21 @@ namespace vMenuClient
             {
                 PlayerOptionsMenu = new PlayerOptions();
                 var menu = PlayerOptionsMenu.GetMenu();
-                var button = new MenuItem("Player Options", "Common player options can be accessed here.")
+                var button = new MenuItem("플레이어 옵션", "자주 사용하는 플레이어 옵션을 여기서 사용할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
                 AddMenu(PlayerSubmenu, menu, button);
             }
 
-            var vehicleSubmenuBtn = new MenuItem("Vehicle Related Options", "Open this submenu for vehicle related subcategories.") { Label = "→→→" };
+            var vehicleSubmenuBtn = new MenuItem("차량 관련 옵션", "차량 관련 하위 메뉴를 엽니다.") { Label = "→→→" };
             Menu.AddMenuItem(vehicleSubmenuBtn);
             // Add the vehicle options Menu.
             if (IsAllowed(Permission.VOMenu))
             {
                 VehicleOptionsMenu = new VehicleOptions();
                 var menu = VehicleOptionsMenu.GetMenu();
-                var button = new MenuItem("Vehicle Options", "Here you can change common vehicle options, as well as tune & style your vehicle.")
+                var button = new MenuItem("차량 옵션", "여기에서 일반 차량 옵션을 변경하고, 차량 튜닝 및 스타일 설정을 할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -713,7 +685,7 @@ namespace vMenuClient
             {
                 VehicleSpawnerMenu = new VehicleSpawner();
                 var menu = VehicleSpawnerMenu.GetMenu();
-                var button = new MenuItem("Vehicle Spawner", "Spawn a vehicle by name or choose one from a specific category.")
+                var button = new MenuItem("차량 스포너", "차량 이름으로 스폰하거나 특정 카테고리에서 차량을 선택할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -725,7 +697,7 @@ namespace vMenuClient
             {
                 SavedVehiclesMenu = new SavedVehicles();
                 var menu = SavedVehiclesMenu.GetTypeMenu();
-                var button = new MenuItem("Saved Vehicles", "Save new vehicles, or spawn or delete already saved vehicles.")
+                var button = new MenuItem("저장된 차량", "새 차량을 저장하거나, 이미 저장된 차량을 스폰 또는 삭제할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -737,7 +709,7 @@ namespace vMenuClient
             {
                 PersonalVehicleMenu = new PersonalVehicle();
                 var menu = PersonalVehicleMenu.GetMenu();
-                var button = new MenuItem("Personal Vehicle", "Set a vehicle as your personal vehicle, and control some things about that vehicle when you're not inside.")
+                var button = new MenuItem("개인 차량", "차량을 개인 차량으로 지정하고, 탑승하지 않은 상태에서도 일부 기능을 제어할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -749,7 +721,7 @@ namespace vMenuClient
             {
                 PlayerAppearanceMenu = new PlayerAppearance();
                 var menu = PlayerAppearanceMenu.GetMenu();
-                var button = new MenuItem("Player Appearance", "Choose a ped model, customize it and save & load your customized characters.")
+                var button = new MenuItem("플레이어 외형", "페드 모델을 선택하고 커스터마이즈한 뒤, 커스터마이즈한 캐릭터를 저장하거나 불러올 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -757,23 +729,22 @@ namespace vMenuClient
 
                 MpPedCustomizationMenu = new MpPedCustomization();
                 var menu2 = MpPedCustomizationMenu.GetMenu();
-                var button2 = new MenuItem("MP Ped Customization", "Create, edit, save and load multiplayer peds. ~r~Note, you can only save peds created in this submenu. vMenu can NOT detect peds created outside of this submenu. Simply due to GTA limitations.")
+                var button2 = new MenuItem("MP 페드 커스터마이징", "멀티플레이어 페드를 생성, 수정, 저장, 불러오기 할 수 있습니다. ~r~참고: 이 하위 메뉴에서 만든 페드만 저장할 수 있습니다. GTA의 제한으로 인해 vMenu는 이 메뉴 밖에서 생성된 페드는 감지할 수 없습니다.")
                 {
                     Label = "→→→"
                 };
                 AddMenu(PlayerSubmenu, menu2, button2);
             }
 
-            var worldSubmenuBtn = new MenuItem("World Related Options", "Open this submenu for world related subcategories.") { Label = "→→→" };
+            var worldSubmenuBtn = new MenuItem("월드 관련 옵션", "월드 관련 하위 메뉴를 엽니다.") { Label = "→→→" };
             Menu.AddMenuItem(worldSubmenuBtn);
 
             // Add the time options menu.
-            // check for 'not true' to make sure that it _ONLY_ gets disabled if the owner _REALLY_ wants it disabled, not if they accidentally spelled "false" wrong or whatever.
             if (IsAllowed(Permission.TOMenu) && GetSettingsBool(Setting.vmenu_enable_time_sync))
             {
                 TimeOptionsMenu = new TimeOptions();
                 var menu = TimeOptionsMenu.GetMenu();
-                var button = new MenuItem("Time Options", "Change the time, and edit other time related options.")
+                var button = new MenuItem("시간 옵션", "시간을 변경하고 기타 시간 관련 옵션을 수정합니다.")
                 {
                     Label = "→→→"
                 };
@@ -781,12 +752,11 @@ namespace vMenuClient
             }
 
             // Add the weather options menu.
-            // check for 'not true' to make sure that it _ONLY_ gets disabled if the owner _REALLY_ wants it disabled, not if they accidentally spelled "false" wrong or whatever.
             if (IsAllowed(Permission.WOMenu) && GetSettingsBool(Setting.vmenu_enable_weather_sync))
             {
                 WeatherOptionsMenu = new WeatherOptions();
                 var menu = WeatherOptionsMenu.GetMenu();
-                var button = new MenuItem("Weather Options", "Change all weather related options here.")
+                var button = new MenuItem("날씨 옵션", "여기에서 모든 날씨 관련 옵션을 변경할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -798,7 +768,7 @@ namespace vMenuClient
             {
                 WeaponOptionsMenu = new WeaponOptions();
                 var menu = WeaponOptionsMenu.GetMenu();
-                var button = new MenuItem("Weapon Options", "Add/remove weapons, modify weapons and set ammo options.")
+                var button = new MenuItem("무기 옵션", "무기를 추가/제거하고, 무기를 수정하거나 탄약 옵션을 설정할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -810,7 +780,7 @@ namespace vMenuClient
             {
                 WeaponLoadoutsMenu = new WeaponLoadouts();
                 var menu = WeaponLoadoutsMenu.GetMenu();
-                var button = new MenuItem("Weapon Loadouts", "Mange, and spawn saved weapon loadouts.")
+                var button = new MenuItem("무기 로드아웃", "저장된 무기 로드아웃을 관리하고 불러올 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -819,7 +789,7 @@ namespace vMenuClient
 
             if (IsAllowed(Permission.NoClip))
             {
-                var toggleNoclip = new MenuItem("Toggle NoClip", "Toggle NoClip on or off.");
+                var toggleNoclip = new MenuItem("노클립 전환", "노클립 기능을 켜거나 끕니다.");
                 PlayerSubmenu.AddMenuItem(toggleNoclip);
                 PlayerSubmenu.OnItemSelect += (sender, item, index) =>
                 {
@@ -835,7 +805,7 @@ namespace vMenuClient
             {
                 VoiceChatSettingsMenu = new VoiceChat();
                 var menu = VoiceChatSettingsMenu.GetMenu();
-                var button = new MenuItem("Voice Chat Settings", "Change Voice Chat options here.")
+                var button = new MenuItem("보이스 채팅 설정", "여기에서 보이스 채팅 옵션을 변경할 수 있습니다.")
                 {
                     Label = "→→→"
                 };
@@ -845,7 +815,7 @@ namespace vMenuClient
             {
                 RecordingMenu = new Recording();
                 var menu = RecordingMenu.GetMenu();
-                var button = new MenuItem("Recording Options", "In-game recording options.")
+                var button = new MenuItem("녹화 옵션", "인게임 녹화 옵션입니다.")
                 {
                     Label = "→→→"
                 };
@@ -856,7 +826,7 @@ namespace vMenuClient
             {
                 MiscSettingsMenu = new MiscSettings();
                 var menu = MiscSettingsMenu.GetMenu();
-                var button = new MenuItem("Misc Settings", "Miscellaneous vMenu options/settings can be configured here. You can also save your settings in this menu.")
+                var button = new MenuItem("기타 설정", "각종 vMenu 옵션/설정을 여기에서 변경할 수 있습니다. 이 메뉴에서 설정 저장도 가능합니다.")
                 {
                     Label = "→→→"
                 };
@@ -866,7 +836,7 @@ namespace vMenuClient
             // Add About Menu.
             AboutMenu = new About();
             var sub = AboutMenu.GetMenu();
-            var btn = new MenuItem("About vMenu", "Information about vMenu.")
+            var btn = new MenuItem("vMenu 정보", "vMenu에 대한 정보입니다.")
             {
                 Label = "→→→"
             };
@@ -877,7 +847,7 @@ namespace vMenuClient
 
             if (!GetSettingsBool(Setting.vmenu_use_permissions))
             {
-                Notify.Alert("vMenu is set up to ignore permissions, default permissions will be used.");
+                Notify.Alert("vMenu가 권한을 무시하도록 설정되어 있습니다. 기본 권한이 사용됩니다.");
             }
 
             if (PlayerSubmenu.Size > 0)

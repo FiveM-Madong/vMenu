@@ -23,7 +23,7 @@ namespace vMenuClient.menus
         // Menu variable, will be defined in CreateMenu()
         private Menu menu;
 
-        readonly Menu playerMenu = new("Online Players", "Player:");
+        readonly Menu playerMenu = new("접속중인 유저", "유저 이름:");
         IPlayer currentPlayer = new NativePlayer(Game.Player);
 
 
@@ -35,22 +35,23 @@ namespace vMenuClient.menus
             // Create the menu.
             menu = new Menu(Game.Player.Name, "Online Players")
             {
-                CounterPreText = "Players: "
+                CounterPreText = "해당 유저 이름: "
             };
 
             MenuController.AddSubmenu(menu, playerMenu);
 
-            var sendMessage = new MenuItem("Send Private Message", "Sends a private message to this player. ~r~Note: staff may be able to see all PM's.");
-            var teleport = new MenuItem("Teleport To Player", "Teleport to this player.");
-            var teleportVeh = new MenuItem("Teleport Into Player Vehicle", "Teleport into the vehicle of the player.");
-            var summon = new MenuItem("Summon Player", "Teleport the player to you.");
-            var toggleGPS = new MenuItem("Toggle GPS", "Enables or disables the GPS route on your radar to this player.");
-            var spectate = new MenuItem("Spectate Player", "Spectate this player. Click this button again to stop spectating.");
-            var printIdentifiers = new MenuItem("Print Identifiers", "This will print the player's identifiers to the client console (F8). And also save it to the CitizenFX.log file.");
-            var kill = new MenuItem("~r~Kill Player", "Kill this player, note they will receive a notification saying that you killed them. It will also be logged in the Staff Actions log.");
-            var kick = new MenuItem("~r~Kick Player", "Kick the player from the server.");
-            var ban = new MenuItem("~r~Ban Player Permanently", "Ban this player permanently from the server. Are you sure you want to do this? You can specify the ban reason after clicking this button.");
-            var tempban = new MenuItem("~r~Ban Player Temporarily", "Give this player a tempban of up to 30 days (max). You can specify duration and ban reason after clicking this button.");
+            var sendMessage = new MenuItem("개인 메세지 보내기", "이 플레이어에게 개인 메세지를 보냅니다. ~r~참고: 관리자(스태프)는 모든 개인 메세지를 확인할 수 있습니다.");
+            var teleport = new MenuItem("유저에게 텔레포트", "이 플레이어가 있는 위치로 이동합니다.");
+            var teleportVeh = new MenuItem("유저차량에 텔레포트", "이 플레이어가 타고 있는 차량으로 이동합니다.");
+            var summon = new MenuItem("나에게 텔레포트", "이 플레이어를 내 위치로 이동시킵니다.");
+            var toggleGPS = new MenuItem("실시간 유저추적", "이 플레이어까지의 GPS 경로 표시를 레이더에 켜거나 끕니다.");
+            var spectate = new MenuItem("해당 유저 관전하기", "이 플레이어를 관전합니다. 다시 클릭하면 관전을 중지합니다.");
+            var printIdentifiers = new MenuItem("해당 유저 조사하기", "이 플레이어의 식별자 정보를 클라이언트 콘솔(F8)에 출력하고, CitizenFX.log 파일에도 저장합니다.");
+            var kill = new MenuItem("~r~유저 죽이기", "이 플레이어를 사망시킵니다. 해당 플레이어에게는 당신이 죽였다는 알림이 표시되며, 관리자 작업 로그에도 기록됩니다.");
+            var kick = new MenuItem("~r~강제 퇴장", "이 플레이어를 서버에서 강제 퇴장시킵니다.");
+            var ban = new MenuItem("~r~영구 정지", "이 플레이어를 서버에서 영구적으로 차단합니다. 정말 진행하시겠습니까? 차단사유 입력가능");
+            var tempban = new MenuItem("~r~일시 정지", "이 플레이어를 최대 30일까지 일시 차단합니다. 버튼을 누른 뒤 차단 기간과 사유를 입력할 수 있습니다.");
+
 
             if (IsAllowed(Permission.OPSendMessage))
             {
@@ -114,26 +115,26 @@ namespace vMenuClient.menus
                 {
                     if (currentPlayer.Handle == Game.Player.Handle)
                     {
-                        Notify.Error("You cannot message yourself!");
+                        Notify.Error("자기자신에겐 보낼 수 없습니다!");
                         return;
                     }
 
                     if (MainMenu.MiscSettingsMenu != null && !MainMenu.MiscSettingsMenu.MiscDisablePrivateMessages)
                     {
-                        var message = await GetUserInput($"Private Message To {currentPlayer.Name}", 200);
+                        var message = await GetUserInput($"{currentPlayer.Name}에게 개인 메세지 보내기", 200);
                         if (string.IsNullOrEmpty(message))
                         {
                             Notify.Error(CommonErrors.InvalidInput);
                         }
                         else
                         {
-                            TriggerServerEvent("vMenu:SendMessageToPlayer", currentPlayer.ServerId, message);
+                            TriggerServerEvent("메세지를 보냈습니다.", currentPlayer.ServerId, message);
                             PrivateMessage(currentPlayer.ServerId.ToString(), message, true);
                         }
                     }
                     else
                     {
-                        Notify.Error("You can't send a private message if you have private messages disabled yourself. Enable them in the Misc Settings menu and try again.");
+                        Notify.Error("본인의 개인 메세지 기능이 비활성화되어 있으면 개인 메세지를 보낼 수 없습니다. Misc 설정 메뉴에서 해당 기능을 활성화한 뒤 다시 시도하세요.");
                     }
 
                 }
@@ -146,7 +147,7 @@ namespace vMenuClient.menus
                     }
                     else
                     {
-                        Notify.Error("You can not teleport to yourself!");
+                        Notify.Error("자기자신에게 텔레포트는 할 수 없습니다.");
                     }
                 }
                 // summon button
@@ -158,7 +159,7 @@ namespace vMenuClient.menus
                     }
                     else
                     {
-                        Notify.Error("You can't summon yourself.");
+                        Notify.Error("자기자신에게 텔레포트는 할 수 없습니다.");
                     }
                 }
                 // spectating
@@ -206,7 +207,7 @@ namespace vMenuClient.menus
                                 var oldBlip = GetBlipFromEntity(playerPed);
                                 SetBlipRoute(oldBlip, false);
                                 RemoveBlip(ref oldBlip);
-                                Notify.Custom($"~g~GPS route to ~s~<C>{GetSafePlayerName(currentPlayer.Name)}</C>~g~ is now disabled.");
+                                Notify.Custom($"~g~<C>{GetSafePlayerName(currentPlayer.Name)}</C>~s~ 플레이어에 대한 GPS 경로 안내가 비활성화되었습니다.");
                             }
                         }
                         PlayersWaypointList.Clear();
@@ -242,7 +243,7 @@ namespace vMenuClient.menus
                             SetBlipRoute(blip, true);
 
                             PlayersWaypointList.Add(currentPlayer.ServerId);
-                            Notify.Custom($"~g~GPS route to ~s~<C>{GetSafePlayerName(currentPlayer.Name)}</C>~g~ is now active, press the ~s~Toggle GPS Route~g~ button again to disable the route.");
+                            Notify.Custom($"~g~<C>{GetSafePlayerName(currentPlayer.Name)}</C>~s~ 플레이어에 대한 GPS 경로 안내가 활성화되었습니다. 경로 안내를 끄려면 ~s~GPS 경로 전환~g~ 버튼을 다시 누르세요.");
                         }
                         else
                         {
@@ -330,7 +331,7 @@ namespace vMenuClient.menus
 
                 foreach (var p in MainMenu.PlayersList.OrderBy(a => a.Name))
                 {
-                    var pItem = new MenuItem($"{GetSafePlayerName(p.Name)}", $"Click to view the options for this player. Server ID: {p.ServerId}. Local ID: {p.Handle}.")
+                    var pItem = new MenuItem($"{GetSafePlayerName(p.Name)}", $"이 플레이어의 옵션을 보려면 클릭하세요 Server ID: {p.ServerId}. Local ID: {p.Handle}.")
                     {
                         Label = $"Server #{p.ServerId} →→→"
                     };

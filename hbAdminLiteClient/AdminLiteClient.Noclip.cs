@@ -174,7 +174,7 @@ namespace hbAdminLiteClient
 
             BeginScaleformMovieMethod(noclipScaleform, "SET_DATA_SLOT");
             ScaleformMovieMethodAddParamInt(6);
-            PushScaleformMovieMethodParameterString("F10");
+            PushScaleformMovieMethodParameterString("M");
             PushScaleformMovieMethodParameterString("Toggle NoClip");
             EndScaleformMovieMethod();
 

@@ -66,7 +66,7 @@ add_ace group.admin "hb_adminlite.OnlinePlayers" allow
 
 ## 단축키
 
-- `F10`: 관리자 메뉴 열기/닫기
+- `M`: 관리자 메뉴 열기/닫기
 - `F2`: 노클립 토글
 - 방향키: 메뉴 이동
 - `Enter`: 선택
@@ -76,6 +76,7 @@ add_ace group.admin "hb_adminlite.OnlinePlayers" allow
 노클립 기본 키는 convar로 바꿀 수 있습니다.
 
 ```cfg
+setr hb_adminlite_menu_key "M"
 setr hb_adminlite_noclip_key "F2"
 ```
 

@@ -80,7 +80,7 @@ namespace hbAdminLiteClient
             CurrentModelName = modelName;
             headingOffset = 0f;
             Active = true;
-            AdminLiteClient.ShowFeed("엔티티 배치를 시작했습니다. 위치를 맞춘 뒤 F10에서 확정/복제/취소하세요.");
+            AdminLiteClient.ShowFeed("엔티티 배치를 시작했습니다. 위치를 맞춘 뒤 M에서 확정/복제/취소하세요.");
         }
 
         public static async void FinishPlacement(bool duplicate = false)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HB Admin Lite</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="coordinateOverlay" class="coordinate-overlay hidden">
+    <div class="coordinate-title">현재 좌표</div>
+    <div id="coordinateText" class="coordinate-text"></div>
+  </div>
+  <div id="app" class="app hidden">
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <div class="title">HB ADMIN LITE</div>
+          <div class="subtitle">카테고리를 선택한 뒤 방향키와 Enter로 옵션을 실행합니다.</div>
+        </div>
+      </div>
+      <div id="content" class="content"></div>
+    </div>
+  </div>
+  <div id="inputModal" class="input-modal hidden">
+    <div class="input-modal-card">
+      <div id="inputModalTitle" class="input-modal-title">모델명 입력</div>
+      <div id="inputModalDescription" class="input-modal-description">스폰할 모델명을 입력하세요.</div>
+      <input id="inputModalField" class="input-modal-field" type="text" maxlength="64" autocomplete="off" />
+      <div class="input-modal-actions">
+        <button id="inputModalConfirm" class="input-modal-button" type="button">확인</button>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

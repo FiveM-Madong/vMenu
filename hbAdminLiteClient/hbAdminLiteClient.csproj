@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <DebugType>embedded</DebugType>
+    <Configurations>Release;Debug</Configurations>
+    <AssemblyName>hbAdminLiteClient.net</AssemblyName>
+    <TargetName>$(AssemblyName)</TargetName>
+    <OutputPath>..\resource\hb_adminlite\</OutputPath>
+    <DefineConstants>CLIENT;WORLD_SYNC_CLIENT</DefineConstants>
+    <LangVersion>12.0</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="PedCatalogData.Generated.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config\vehicle_catalog.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <PackageReference Include="CitizenFX.Core.Client" Version="1.0.10188">
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>
+

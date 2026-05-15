@@ -1,0 +1,31 @@
+﻿# Build outputs
+bin/
+obj/
+build/
+*.dll
+*.pdb
+*.mdb
+*.cache
+*.log
+
+# FiveM generated/runtime outputs
+resource/hb_adminlite/*.dll
+resource/hb_adminlite/*.pdb
+resource/hb_adminlite/bin/
+resource/hb_adminlite/obj/
+
+# IDE/user files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local backups / archives
+*_backup*/
+*.zip

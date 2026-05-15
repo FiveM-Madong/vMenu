@@ -170,7 +170,7 @@ namespace hbAdminLiteClient
             }), false);
 
             RegisterCommand("-hbadmin", new Action<int, List<object>, string>((_, _, _) => { }), false);
-            RegisterKeyMapping("+hbadmin", "HB Admin Lite Toggle", "keyboard", GetConvar("hb_adminlite_menu_key", "M"));
+            RegisterKeyMapping("+hbadmin", "Menu", "keyboard", GetConvar("hb_adminlite_menu_key", "M"));
 
             RegisterCommand("+hbadminnoclip", new Action<int, List<object>, string>((_, _, _) =>
             {
@@ -183,7 +183,7 @@ namespace hbAdminLiteClient
             }), false);
 
             RegisterCommand("-hbadminnoclip", new Action<int, List<object>, string>((_, _, _) => { }), false);
-            RegisterKeyMapping("+hbadminnoclip", "HB Admin Lite NoClip", "keyboard", GetConvar("hb_adminlite_noclip_key", "F2"));
+            RegisterKeyMapping("+hbadminnoclip", "NoClip", "keyboard", GetConvar("hb_adminlite_noclip_key", "F2"));
 
             RegisterNuiCallbackType("close");
             RegisterNuiCallbackType("ready");
